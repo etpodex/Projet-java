@@ -22,8 +22,8 @@ public class VueControleur {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Calcul de la largeur et de la hauteur de l'écran
-        int modifScreenWidth = screenSize.width *2/ 3;
-        int modifScreenHeight = screenSize.height *2/ 3;
+        int modifScreenWidth = screenSize.width *2/3;
+        int modifScreenHeight = screenSize.height *2/3;
 
         // Création de la JFrame
         frame = new JFrame();

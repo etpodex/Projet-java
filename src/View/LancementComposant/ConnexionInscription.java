@@ -29,10 +29,6 @@ public class ConnexionInscription extends JPanel {
         gbc.gridy = 1;
         add(bouton_inscription, gbc);
 
-        //60% de la page pour les boutons
-        int panel_height = (int) (frame_height*0.6);
-        setPreferredSize(new Dimension(frame_width,panel_height));
-
-
+        setPreferredSize(new Dimension(frame_width,frame_height));
     }
 }
