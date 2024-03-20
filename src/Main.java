@@ -1,6 +1,5 @@
-/**BIBLIOTHEQUE**/
-import Controller.*;
 import javax.swing.*;
+import Controller.VueControleur;
 
 public class Main {
     public static void main(String[] args) {

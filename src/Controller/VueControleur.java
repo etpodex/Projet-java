@@ -10,10 +10,13 @@ public class VueControleur {
     /**ATTRIBUTS**/
     //attribut frame principale
     private JFrame frame;
+    private LancementVue vue_Lancement;
+
 
     /**CONSTRUCTEUR**/
     public VueControleur() {
         initialiserFrame();
+        afficherVueLancement();
     }
 
     /**METHODE**/
@@ -31,11 +34,11 @@ public class VueControleur {
         frame.setSize(modif_screen_width, modif_screen_height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
+    }
 
-        //appel des pannels
-        LancementVue.remplirFrame(frame, modif_screen_width, modif_screen_height);
-
-        //rendre visible la frame
+    private void afficherVueLancement(){
+        LancementVue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
+        // Autres configurations de la JFrame
         frame.setVisible(true);
     }
 
