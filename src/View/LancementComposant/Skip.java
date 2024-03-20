@@ -5,20 +5,21 @@ import java.awt.*;
 
 public class Skip extends JPanel {
 
-    public Skip(int frameWidth, int frameHeight) {
+    public Skip(int frame_width, int frame_height) {
         setLayout(new GridBagLayout());
 
-        // Création du bouton "Skip"
-        JButton boutonSkip = new JButton("Skip");
+        //Bouton Inscription
+        JButton bouton_skip = new JButton ("Skip");
 
-        // GridBagConstraints pour positionner le bouton à droite
+        //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(5, 5, 5, 5); // Marge
-        gbc.anchor = GridBagConstraints.EAST; // Ancrage à l'est pour placer le composant à droite
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.EAST;
         gbc.weightx = 1.0; // Poids pour occuper l'espace disponible dans la colonne
 
-        add(boutonSkip, gbc); // Ajout du bouton avec les contraintes
+        add(bouton_skip, gbc);
     }
 }

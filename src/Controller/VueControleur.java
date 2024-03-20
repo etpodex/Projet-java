@@ -1,27 +1,29 @@
 package Controller;
 
-import View.LancementVue;
+/**BIBLIOTHEQUE**/
+import View.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class VueControleur {
 
-    // Attribut pour la frame principale
+    /**ATTRIBUTS**/
+    //attribut frame principale
     private JFrame frame;
 
-    // Constructeur
+    /**CONSTRUCTEUR**/
     public VueControleur() {
         initialiserFrame();
     }
 
-    // Méthode pour initialiser la frame
+    /**METHODE**/
     private void initialiserFrame() {
         // Obtention de la taille de l'écran
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Calcul de la largeur et de la hauteur de l'écran
-        int modifScreenWidth = screenSize.width * 2 / 3;
-        int modifScreenHeight = screenSize.height * 2 / 3;
+        int modifScreenWidth = screenSize.width *2/3;
+        int modifScreenHeight = screenSize.height *2/3;
 
         // Création de la JFrame
         frame = new JFrame();
@@ -30,10 +32,10 @@ public class VueControleur {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
 
-        // Appel des pannels
+        //appel des pannels
         LancementVue.remplirFrame(frame, modifScreenWidth, modifScreenHeight);
 
-        // Rendre visible la frame
+        //rendre visible la frame
         frame.setVisible(true);
     }
 

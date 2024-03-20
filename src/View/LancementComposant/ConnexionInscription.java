@@ -1,31 +1,34 @@
 package View.LancementComposant;
 
+/**BIBLIOTHEQUE**/
 import javax.swing.*;
 import java.awt.*;
 
 public class ConnexionInscription extends JPanel {
 
-    public ConnexionInscription(int frameWidth, int frameHeight) {
-        // Utilisation GridBagLayout pour positionner les composants
+    /**CONSTRUCTEUR**/
+    public ConnexionInscription(int frame_width, int frame_height) {
+        //Utilisation GridBagLayout pour positionner les composants
         setLayout(new GridBagLayout());
 
-        // Bouton connexion
-        JButton boutonConnexion = new JButton("Connexion");
+        //Bouton connexion
+        JButton bouton_connexion = new JButton("Connexion");
 
-        // Bouton Inscription
-        JButton boutonInscription = new JButton("Inscription");
+        //Bouton Inscription
+        JButton bouton_inscription = new JButton ("Inscription");
 
-        // GridBagConstraints pour positionner les composants
+        //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(5, 5, 5, 5); // Marge entre les composants
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        add(boutonConnexion, gbc);
+        add(bouton_connexion, gbc);
 
         gbc.gridy = 1;
-        add(boutonInscription, gbc);
+        add(bouton_inscription, gbc);
 
-        setPreferredSize(new Dimension(frameWidth, frameHeight));
+        setPreferredSize(new Dimension(frame_width,frame_height));
     }
 }
