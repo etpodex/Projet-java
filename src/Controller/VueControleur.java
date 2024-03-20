@@ -2,6 +2,7 @@ package Controller;
 
 /**BIBLIOTHEQUE**/
 import View.*;
+import View.LancementComposant.ConnexionInscription;
 import View.LancementComposant.Skip;
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +16,15 @@ public class VueControleur {
     private JFrame frame;
     private LancementVue vue_Lancement;
     private Skip skip_composant;
+    private ConnexionInscription connexion_inscription_composant;
 
 
     /**CONSTRUCTEUR**/
     public VueControleur() {
         initialiserFrame();
         afficherVueLancement();
-        this.skip_composant = LancementVue.getSkipComponent(); // Obtenez le composant Skip ici
-        skipConfigurerActions();
+        initialiserComposants();
+        configurerActions();
     }
 
     /**METHODE**/
@@ -48,14 +50,37 @@ public class VueControleur {
         frame.setVisible(true);
     }
 
-    private void skipConfigurerActions() {
-        // Ajouter un ActionListener pour le bouton "Skip" dans la classe Skip
+    private void initialiserComposants() {
+        // Récupérer les composants Skip, Connexion et Inscription depuis LancementVue
+        skip_composant = LancementVue.getSkipComponent();
+        connexion_inscription_composant = LancementVue.getConnexionInscriptionComponent();
+    }
+
+    private void configurerActions() {
+        // Ajouter un ActionListener pour le bouton "Skip"
         skip_composant.getSkipBouton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Code à exécuter lors du clic sur le bouton "Skip"
                 System.out.println("Le bouton \"Skip\" a été cliqué!");
-                // Ajoutez ici le code pour effectuer l'action souhaitée
+                // Ajouter ici le code pour effectuer l'action souhaitée pour Skip
+            }
+        });
+
+        // Ajouter un ActionListener pour le bouton "Connexion"
+        connexion_inscription_composant.getConnexionBouton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Le bouton \"Connexion\" a été cliqué!");
+                // Ajouter ici le code pour effectuer l'action souhaitée pour Connexion
+            }
+        });
+
+        // Ajouter un ActionListener pour le bouton "Inscription"
+        connexion_inscription_composant.getInscriptionBouton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Le bouton \"Inscription\" a été cliqué!");
+                // Ajouter ici le code pour effectuer l'action souhaitée pour Inscription
             }
         });
     }

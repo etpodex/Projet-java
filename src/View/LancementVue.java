@@ -9,6 +9,7 @@ public class LancementVue {
 
     //Bouton
     private static Skip skip_panel;
+    private static ConnexionInscription connexion_inscription_panel;
 
     public static void remplirPanel(JFrame frame, int frame_width, int frame_height) {
         JPanel grand_panneau = new JPanel();
@@ -20,7 +21,7 @@ public class LancementVue {
 
         // Création des panels avec leurs tailles calculées
         Logo logo_panel = new Logo(frame_width, logo_panel_height);
-        ConnexionInscription connexion_inscription_panel = new ConnexionInscription(frame_width, connexion_inscription_panel_height);
+        connexion_inscription_panel = new ConnexionInscription(frame_width, connexion_inscription_panel_height);
         skip_panel = new Skip(frame_width, skip_panel_height);
 
         // Ajout des panels au grand panneau avec BoxLayout pour les disposer verticalement
@@ -36,6 +37,11 @@ public class LancementVue {
     public static Skip getSkipComponent() {
         // Implémentez cette méthode pour retourner le composant Skip après son initialisation
         return skip_panel; // Supposons que skip_panel est un attribut de LancementVue
+    }
+
+    // Méthode pour obtenir le composant ConnexionInscription
+    public static ConnexionInscription getConnexionInscriptionComponent() {
+        return connexion_inscription_panel;
     }
 
 }
