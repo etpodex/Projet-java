@@ -20,14 +20,13 @@ public class DatabaseHelper {
     public void getClientInfo(int clientId) {
         String query = "SELECT * FROM Clients WHERE id = ?";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, clientId);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // Affichez ou utilisez les informations du client comme vous le souhaitez
                 System.out.println("ID: " + rs.getInt("id"));
                 System.out.println("Email: " + rs.getString("email"));
                 System.out.println("Age: " + rs.getInt("age"));
@@ -40,11 +39,12 @@ public class DatabaseHelper {
         }
     }
 
+
     // Méthode pour ajouter un nouveau client
     public void addClient(int id, String email, String password, int age, int nvAvantage, String nom, String prenom) {
         String query = "INSERT INTO Clients (id, email, password, age, nvAvantage, nom, prenom) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, id);
@@ -66,7 +66,7 @@ public class DatabaseHelper {
     public void deleteClient(int clientId) {
         String query = "DELETE FROM Clients WHERE id = ?";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, clientId);
