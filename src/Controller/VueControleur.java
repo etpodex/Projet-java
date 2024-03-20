@@ -39,13 +39,4 @@ public class VueControleur {
         frame.setVisible(true);
     }
 
-    // Méthode pour récupérer la largeur de la JFrame
-    public int getFrameWidth() {
-        return frame.getWidth();
-    }
-
-    // Méthode pour récupérer la hauteur de la JFrame
-    public int getFrameHeight() {
-        return frame.getHeight();
-    }
 }
