@@ -1,4 +1,13 @@
 package View.LancementComposant;
 
-public class ConnexionInscription {
+import javax.swing.*;
+import java.awt.*;
+
+public class ConnexionInscription extends JPanel {
+    public ConnexionInscription(int frameWidth, int frameHeight) {
+        JLabel label = new JLabel("Connexion/Inscription Panel");
+        label.setPreferredSize(new Dimension(frameWidth, frameHeight / 3)); // Définir une taille préférée pour le JLabel
+        add(label);
+        // Ajoutez ici d'autres composants pour la connexion/inscription
+    }
 }
