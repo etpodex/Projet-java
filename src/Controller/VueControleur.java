@@ -1,25 +1,31 @@
 package Controller;
 
+/**BIBLIOTHEQUE**/
 import View.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class VueControleur {
+
+    /**ATTRIBUTS**/
+    //attribut frame principale
     private JFrame frame;
 
+    /**CONSTRUCTEUR**/
     public VueControleur() {
         initialiserFrame();
     }
 
+    /**METHODE**/
     private void initialiserFrame() {
         // Obtention de la taille de l'écran
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Calcul de la moitié de la largeur et de la hauteur de l'écran
+        // Calcul de la largeur et de la hauteur de l'écran
         int modifScreenWidth = screenSize.width *2/ 3;
         int modifScreenHeight = screenSize.height *2/ 3;
 
-        // Création de la JFrame en utilisant la moitié de la taille de l'écran
+        // Création de la JFrame
         frame = new JFrame();
         frame.setTitle("Cinamax");
         frame.setSize(modifScreenWidth, modifScreenHeight);
@@ -29,6 +35,7 @@ public class VueControleur {
         //appel des pannels
         LancementVue.remplirFrame(frame, modifScreenWidth, modifScreenHeight);
 
+        //rendre visible la frame
         frame.setVisible(true);
     }
 

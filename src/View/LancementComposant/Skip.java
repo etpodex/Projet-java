@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Skip extends JPanel {
+    /**CONSTRUCTEUR**/
     public Skip(int frameWidth, int frameHeight) {
         JLabel label = new JLabel("Skip Panel");
         label.setPreferredSize(new Dimension(frameWidth, frameHeight / 3)); // Définir une taille préférée pour le JLabel

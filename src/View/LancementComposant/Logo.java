@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Logo extends JPanel {
+    /**CONSTRUCTEUR**/
     public Logo(int frameWidth, int frameHeight) {
         JLabel label = new JLabel("Logo Panel");
         label.setPreferredSize(new Dimension(frameWidth, frameHeight / 3)); // Définir une taille préférée pour le JLabel

@@ -1,11 +1,13 @@
 package View;
 
+/**BIBLIOTHEQUE**/
 import View.LancementComposant.*;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class LancementVue {
+
+    /**METHODE**/
     public static void remplirFrame(JFrame frame, int frameWidth, int frameHeight) {
         // Ajouter les composants nécessaires
         frame.setLayout(new GridLayout(3, 1)); // Layout pour afficher les composants verticalement
