@@ -1,6 +1,8 @@
 package View;
 
-import View.LancementComposant.*;
+import View.LancementComposant.ConnexionInscription;
+import View.LancementComposant.Logo;
+import View.LancementComposant.Skip;
 import javax.swing.*;
 import java.awt.*;
 
