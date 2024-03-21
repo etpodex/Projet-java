@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GestionClient implements GestionBDD {
     // Implémentation des méthodes de GestionUtilisateur pour les clients
     @Override
@@ -43,7 +44,13 @@ public class GestionClient implements GestionBDD {
     }
 
     @Override
-    public List<String> ajouter(String email, String password, String nom, String prenom, int age, int nvAvantage) {
+    public List<String> ajouter(String... details){
+        String email = details[0];
+        String password = details[1];
+        String nom = details[2];
+        String prenom = details[3];
+        int age = Integer.parseInt(details[4]);
+        int nvAvantage = Integer.parseInt(details[5]);
         if (outildatabase.emailExists(email)) {
             List<String> response = new ArrayList<>();
             response.add("Échec de l'inscription : l'email existe déjà.");
@@ -113,6 +120,12 @@ public class GestionClient implements GestionBDD {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<String> rechercher(String critere) {
+        // Rechercher des films dans la base de données
+        return null;
     }
     /*
     public void retirer(String email) {

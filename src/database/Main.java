@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         GestionClient client = new GestionClient();
+        GestionFilm Film = new GestionFilm();
 
         // Pour récupérer les infos d'un client
         //4dbHelper.getClientInfo(1); // Remplacez 1 par l'ID du client souhaité
@@ -69,7 +70,7 @@ public class Main {
                     int status = scanner.nextInt();
                     scanner.nextLine(); // Consomme la ligne de fin après le nombre
 
-                    response = client.ajouter(emailRegister, passwordRegister, firstName, lastName, age, status);
+                    response = client.ajouter(emailRegister, passwordRegister, firstName, lastName, String.valueOf(age), String.valueOf(status));
 
                     response.forEach(System.out::println);
                     break;

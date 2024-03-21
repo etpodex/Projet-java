@@ -1,4 +1,4 @@
-package database;
+/*package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +38,13 @@ public class GestionEmploye implements GestionBDD {
     }
 
     @Override
-    public List<String> ajouter(String email, String password, String nom, String prenom, int age, int nvAvantage) {
+    public List<String> ajouter(String... details) {
+        String email = details[0];
+        String password = details[1];
+        String nom = details[2];
+        String prenom = details[3];
+        int age = Integer.parseInt(details[4]);
+        int nvAvantage = Integer.parseInt(details[5]);
         if (outildatabase.emailExists(email)) {
             List<String> response = new ArrayList<>();
             response.add("Échec de l'inscription : l'email existe déjà.");
@@ -74,7 +80,7 @@ public class GestionEmploye implements GestionBDD {
     public void retirer(String email) {
         // Ici, implémenter la logique pour retirer un employé de la base de données
         // Partie de la méthode retirerUtilisateur() de GestionnairedeCompte spécifique aux employés
-    }*/
+    }*//*
 
     public void modifier(String email, String champ, String nouvelleValeur) {
         String query = "UPDATE Employes SET " + champ + " = ? WHERE email = ?";
@@ -115,4 +121,4 @@ public class GestionEmploye implements GestionBDD {
             e.printStackTrace();
         }
     }
-}
+}*/
