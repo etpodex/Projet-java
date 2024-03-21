@@ -95,7 +95,27 @@ public class MasterVue {
 
         principale_vue.remplirPanelBarrePrincipal(frame, frame.getWidth(), frame.getHeight());
 
-        frame.getContentPane().add(principale_vue.getPanneauPrincipale());
+        frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
+    }
+
+    public void clicsPrincipaleVue(String bouton) {
+        if (bouton.equals("LesFilms")) {
+            //réinitialiser la frame
+            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+            frame.getContentPane().repaint(); // Redessiner la JFrame
+
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Calendrier")) {
+
+            //réinitialiser la frame
+            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+            frame.getContentPane().repaint(); // Redessiner la JFrame
+
+            afficherPrincipaleVue();
+        }
     }
 }
