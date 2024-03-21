@@ -1,7 +1,9 @@
 package View.LancementComposant;
 
+import View.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Skip extends JPanel {
@@ -10,11 +12,21 @@ public class Skip extends JPanel {
     private JButton bouton_skip;
 
     /**CONSTRUCTEUR**/
-    public Skip(int frame_width, int frame_height) {
+    public Skip(LancementVue lancement_vue) {
+        //couleur pour voir
+        setBackground(new Color(186, 230, 187));
+
         setLayout(new GridBagLayout());
 
-        //Bouton Inscription
+        //Bouton skip
         bouton_skip = new JButton ("Skip");
+        bouton_skip.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Le bouton \"Skip\" a été cliqué!");
+                lancement_vue.clicSkip();
+            }
+        });
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -26,18 +38,6 @@ public class Skip extends JPanel {
         gbc.weightx = 1.0; // Poids pour occuper l'espace disponible dans la colonne
 
         add(bouton_skip, gbc);
-    }
-
-    /**METHODE**/
-
-    //-->pour le moment cette methode est inutile
-    public void addSkipBoutonListener(ActionListener listener){
-        bouton_skip.addActionListener(listener);
-    }
-
-    // Méthode pour obtenir le bouton "Skip"
-    public JButton getSkipBouton() {
-        return bouton_skip;
     }
 
 }

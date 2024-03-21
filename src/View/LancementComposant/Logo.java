@@ -6,6 +6,9 @@ import java.awt.*;
 public class Logo extends JPanel {
     /**CONSTRUCTEUR**/
     public Logo(int frame_width, int frame_height) {
+        //couleur pour voir
+        setBackground(new Color(186, 230, 187));
+
         JLabel label = new JLabel("CINAMAX");
         label.setHorizontalAlignment(SwingConstants.CENTER); // Centrer le texte horizontalement dans le JLabel
         label.setVerticalAlignment(SwingConstants.CENTER); // Centrer le texte verticalement dans le JLabel

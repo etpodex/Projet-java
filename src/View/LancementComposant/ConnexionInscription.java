@@ -1,8 +1,11 @@
 package View.LancementComposant;
 
 /**BIBLIOTHEQUE**/
+import View.LancementVue;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ConnexionInscription extends JPanel {
@@ -11,15 +14,29 @@ public class ConnexionInscription extends JPanel {
     private JButton bouton_inscription;
 
     /**CONSTRUCTEUR**/
-    public ConnexionInscription(int frame_width, int frame_height) {
+    public ConnexionInscription(int frame_width, int frame_height, LancementVue lancement_vue) {
         //Utilisation GridBagLayout pour positionner les composants
         setLayout(new GridBagLayout());
 
         //Bouton connexion
         bouton_connexion = new JButton("Connexion");
+        bouton_connexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Le bouton \"Connexion\" a été cliqué!");
+                lancement_vue.clicConnexion();
+            }
+        });
 
         //Bouton Inscription
         bouton_inscription = new JButton ("Inscription");
+        bouton_inscription.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Le bouton \"Inscription\" a été cliqué!");
+                lancement_vue.clicInscription();
+            }
+        });
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -51,11 +68,6 @@ public class ConnexionInscription extends JPanel {
     }
 
     // POUR BOUTON INSCRIPTION
-
-    //-->pour le moment cette methode est inutile
-    public void addInscriptionBoutonListener(ActionListener listener){
-        bouton_inscription.addActionListener(listener);
-    }
 
     // Méthode pour obtenir le bouton "Skip"
     public JButton getInscriptionBouton() {

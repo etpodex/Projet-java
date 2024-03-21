@@ -8,27 +8,28 @@ public class Connexion extends JPanel {
         setLayout(new BorderLayout());
 
         // Création du panneau pour le formulaire de connexion
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(2, 1, 0, 10)); // GridLayout avec 2 lignes, espacement vertical de 10 pixels entre les lignes
-        formPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Ajoute une marge autour du panneau
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(0, 0, 10, 0); // Espacement entre les champs
 
         // Panel pour la paire d'étiquette-champ de saisie de l'e-mail
-        JPanel emailPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Centrer les éléments horizontalement
         JLabel emailLabel = new JLabel("Mail :");
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        formPanel.add(emailLabel, gbc);
+        gbc.gridy++;
         JTextField emailField = new JTextField(20);
-        emailPanel.add(emailLabel);
-        emailPanel.add(emailField);
+        formPanel.add(emailField, gbc);
 
         // Panel pour la paire d'étiquette-champ de saisie du mot de passe
-        JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Centrer les éléments horizontalement
         JLabel passwordLabel = new JLabel("Mot de passe :");
+        gbc.gridy++;
+        formPanel.add(passwordLabel, gbc);
+        gbc.gridy++;
         JPasswordField passwordField = new JPasswordField(20);
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(passwordField);
-
-        // Ajout des panels au formulaire
-        formPanel.add(emailPanel);
-        formPanel.add(passwordPanel);
+        formPanel.add(passwordField, gbc);
 
         // Ajoute le panneau du formulaire au centre du panneau principal
         add(formPanel, BorderLayout.CENTER);
