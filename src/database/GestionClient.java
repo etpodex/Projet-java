@@ -96,6 +96,25 @@ public class GestionClient implements GestionBDD {
             e.printStackTrace();
         }
     }
+    public void retirer(String clientemail) {
+        String query = "DELETE FROM Clients WHERE email = ?";
+
+        try (Connection conn = Databaseconnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, clientemail);
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Le client avec l'email " + clientemail + " a été supprimé avec succès.");
+            } else {
+                System.out.println("Aucun client trouvé avec l'email " + clientemail + ".");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
     public void retirer(String email) {
 
         // Premièrement, essayons de supprimer de la table Clients
@@ -128,5 +147,5 @@ public class GestionClient implements GestionBDD {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
