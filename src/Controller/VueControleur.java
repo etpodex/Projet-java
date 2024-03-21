@@ -52,8 +52,8 @@ public class VueControleur {
 
     private void initialiserComposants() {
         // Récupérer les composants Skip, Connexion et Inscription depuis LancementVue
-        skip_composant = LancementVue.getSkipComponent();
-        connexion_inscription_composant = LancementVue.getConnexionInscriptionComponent();
+        skip_composant = LancementVue.getSkipComponsant();
+        connexion_inscription_composant = LancementVue.getConnexionInscriptionComposant();
     }
 
     private void configurerActions() {

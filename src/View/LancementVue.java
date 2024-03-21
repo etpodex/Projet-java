@@ -34,13 +34,13 @@ public class LancementVue {
         frame.getContentPane().add(grand_panneau);
     }
 
-    public static Skip getSkipComponent() {
+    public static Skip getSkipComponsant() {
         // Implémentez cette méthode pour retourner le composant Skip après son initialisation
         return skip_panel; // Supposons que skip_panel est un attribut de LancementVue
     }
 
     // Méthode pour obtenir le composant ConnexionInscription
-    public static ConnexionInscription getConnexionInscriptionComponent() {
+    public static ConnexionInscription getConnexionInscriptionComposant() {
         return connexion_inscription_panel;
     }
 
