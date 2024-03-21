@@ -44,6 +44,7 @@ public class VueControleur {
         frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
     }
 
+    //LancementVue
     private void afficherVueLancement(){
         LancementVue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
         // Autres configurations de la JFrame
@@ -72,6 +73,16 @@ public class VueControleur {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Le bouton \"Connexion\" a été cliqué!");
                 // Ajouter ici le code pour effectuer l'action souhaitée pour Connexion
+
+                //réinitialiser la frame
+                frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+                //frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+                //frame.getContentPane().repaint(); // Redessiner la JFrame
+
+
+                //CI Vue
+                CIVue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
+                frame.setVisible(true);
             }
         });
 
@@ -81,8 +92,15 @@ public class VueControleur {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Le bouton \"Inscription\" a été cliqué!");
                 // Ajouter ici le code pour effectuer l'action souhaitée pour Inscription
+
+                //CI Vue
+                CIVue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(),2);
             }
         });
     }
+
+
+
+
 
 }
