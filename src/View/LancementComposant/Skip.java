@@ -13,6 +13,8 @@ public class Skip extends JPanel {
 
     /**CONSTRUCTEUR**/
     public Skip(LancementVue lancement_vue) {
+        //couleur pour voir
+        setBackground(new Color(186, 230, 187));
 
         setLayout(new GridBagLayout());
 

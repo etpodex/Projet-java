@@ -60,16 +60,27 @@ public class MasterVue {
 
             //CI Vue
             ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
-
         } else if (bouton.equals("Inscription")) {
+            //réinitialiser la frame
+            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+            frame.getContentPane().repaint(); // Redessiner la JFrame
 
+            //CI Vue
+            ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
         }
     }
 
     public void clicsCIView(String bouton) {
         if (bouton.equals("Retour")) {
+            //réinitialiser la frame
+            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+            frame.getContentPane().repaint(); // Redessiner la JFrame
 
-        } else if (bouton.equals("Valider")) {
+            afficherVueLancement();
+        }
+        else if (bouton.equals("Valider")) {
 
             //réinitialiser la frame
             frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
@@ -77,7 +88,6 @@ public class MasterVue {
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
             afficherVueLancement();
-
         }
     }
 
