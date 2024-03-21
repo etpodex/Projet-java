@@ -1,4 +1,4 @@
-package database;
+/*package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +38,13 @@ public class GestionEmploye implements GestionBDD {
     }
 
     @Override
-    public List<String> ajouter(String email, String password, String nom, String prenom, int age, int nvAvantage) {
+    public List<String> ajouter(String... details) {
+        String email = details[0];
+        String password = details[1];
+        String nom = details[2];
+        String prenom = details[3];
+        int age = Integer.parseInt(details[4]);
+        int nvAvantage = Integer.parseInt(details[5]);
         if (outildatabase.emailExists(email)) {
             List<String> response = new ArrayList<>();
             response.add("Échec de l'inscription : l'email existe déjà.");
@@ -74,7 +80,7 @@ public class GestionEmploye implements GestionBDD {
     public void retirer(String email) {
         // Ici, implémenter la logique pour retirer un employé de la base de données
         // Partie de la méthode retirerUtilisateur() de GestionnairedeCompte spécifique aux employés
-    }*/
+    }*//*
 
     public void modifier(String email, String champ, String nouvelleValeur) {
         String query = "UPDATE Employes SET " + champ + " = ? WHERE email = ?";
@@ -97,37 +103,22 @@ public class GestionEmploye implements GestionBDD {
             e.printStackTrace();
         }
     }
-    public void retirer(String email) {
-
-        // Premièrement, essayons de supprimer de la table Clients
-        String queryClients = "DELETE FROM Clients WHERE email = ?";
-        // Ensuite, de la table Employe
-        String queryEmploye = "DELETE FROM Employes WHERE email = ?";
+    public void retirer(String employeemail) {
+        String query = "DELETE FROM Employes WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmtClients = conn.prepareStatement(queryClients);
-             PreparedStatement pstmtEmploye = conn.prepareStatement(queryEmploye)) {
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmtClients.setString(1, email);//defini le ? dans la requete sql
-            pstmtEmploye.setString(1, email);//defini le ? dans la requete sql
+            pstmt.setString(1, employeemail);
 
-            // Exécute la commande SQL et donne le nb de ligne affecté
-            int affectedRowsClients = pstmtClients.executeUpdate();
-
-            if (affectedRowsClients > 0) {
-                System.out.println("Le client avec l'email " + email + " a été supprimé avec succès.");
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Le client avec l'email " + employeemail + " a été supprimé avec succès.");
             } else {
-                // Si aucun client n'est supprimé, vérifiez les employés
-                int affectedRowsEmploye = pstmtEmploye.executeUpdate();
-
-                if (affectedRowsEmploye > 0) {
-                    System.out.println("L'employé avec l'email " + email + " a été supprimé avec succès.");
-                } else {
-                    System.out.println("Aucune personne trouvée avec l'email " + email + ".");
-                }
+                System.out.println("Aucun client trouvé avec l'email " + employeemail + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-}
+}*/
