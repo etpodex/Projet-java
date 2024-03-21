@@ -5,38 +5,44 @@ import java.awt.*;
 
 public class Inscription extends JPanel {
 
-    public Inscription(int panel_width, int panel_height) {
-        setPreferredSize(new Dimension(panel_width, panel_height));
+    private static final int FIELD_WIDTH = 20;
+
+    public Inscription(int panelWidth, int panelHeight) {
+        setPreferredSize(new Dimension(panelWidth, panelHeight));
         setBackground(Color.WHITE); // Couleur de fond du panneau
 
         // Création des étiquettes et des champs de texte pour chaque champ du formulaire
-        JLabel nomLabel = new JLabel("Nom:");
-        JTextField nomField = new JTextField(20); // 20 caractères de large
+        JLabel[] labels = {
+                new JLabel("Nom:"),
+                new JLabel("Prénom:"),
+                new JLabel("Âge:"),
+                new JLabel("E-mail:"),
+                new JLabel("Mot de passe:")
+        };
 
-        JLabel prenomLabel = new JLabel("Prénom:");
-        JTextField prenomField = new JTextField(20);
+        JTextField[] textFields = {
+                new JTextField(FIELD_WIDTH),
+                new JTextField(FIELD_WIDTH),
+                new JTextField(3), // 3 caractères de large pour l'âge
+                new JTextField(FIELD_WIDTH),
+                new JPasswordField(FIELD_WIDTH) // Champs de mot de passe
+        };
 
-        JLabel ageLabel = new JLabel("Âge:");
-        JTextField ageField = new JTextField(3); // 3 caractères de large pour l'âge
+        // Mise en page des composants avec une disposition de grille améliorée
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Espacement entre les composants
 
-        JLabel mailLabel = new JLabel("E-mail:");
-        JTextField mailField = new JTextField(20);
+        // Ajout des étiquettes et des champs de texte à la grille
+        for (int i = 0; i < labels.length; i++) {
+            gbc.gridx = 0; // Colonne des étiquettes
+            gbc.gridy = i; // Ligne actuelle
+            gbc.anchor = GridBagConstraints.LINE_END; // Alignement à droite
+            add(labels[i], gbc);
 
-        JLabel passwordLabel = new JLabel("Mot de passe:");
-        JPasswordField passwordField = new JPasswordField(20); // Champs de mot de passe
-
-        // Mise en page des composants
-        setLayout(new GridLayout(6, 2, 5, 5)); // 6 lignes, 2 colonnes, espacement de 5 pixels
-        add(nomLabel);
-        add(nomField);
-        add(prenomLabel);
-        add(prenomField);
-        add(ageLabel);
-        add(ageField);
-        add(mailLabel);
-        add(mailField);
-        add(passwordLabel);
-        add(passwordField);
+            gbc.gridx = 1; // Colonne des champs de texte
+            gbc.anchor = GridBagConstraints.LINE_START; // Alignement à gauche
+            add(textFields[i], gbc);
+        }
     }
 }
-
