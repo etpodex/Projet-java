@@ -27,7 +27,7 @@ public class CIVue {
         //création des panels
         Header header_panel = new Header(frame_width, header_panel_height);
         Connexion connexion_panel = new Connexion(frame_width, mid_panel_height);
-        //Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
+        Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
         Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
 
         if(choix == 1){
@@ -41,7 +41,7 @@ public class CIVue {
         else if(choix == 2){
             CIPanel.setLayout(new BoxLayout(CIPanel, BoxLayout.Y_AXIS));
             CIPanel.add(header_panel);
-            //CIPanel.add(inscription_panel);
+            CIPanel.add(inscription_panel);
             CIPanel.add(footer_panel);
 
             frame.getContentPane().add(CIPanel);
