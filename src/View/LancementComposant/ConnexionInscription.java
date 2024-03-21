@@ -3,8 +3,12 @@ package View.LancementComposant;
 /**BIBLIOTHEQUE**/
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ConnexionInscription extends JPanel {
+    /**ATTRIBUT**/
+    private JButton bouton_connexion;
+    private JButton bouton_inscription;
 
     /**CONSTRUCTEUR**/
     public ConnexionInscription(int frame_width, int frame_height) {
@@ -12,10 +16,10 @@ public class ConnexionInscription extends JPanel {
         setLayout(new GridBagLayout());
 
         //Bouton connexion
-        JButton bouton_connexion = new JButton("Connexion");
+        bouton_connexion = new JButton("Connexion");
 
         //Bouton Inscription
-        JButton bouton_inscription = new JButton ("Inscription");
+        bouton_inscription = new JButton ("Inscription");
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -30,5 +34,31 @@ public class ConnexionInscription extends JPanel {
         add(bouton_inscription, gbc);
 
         setPreferredSize(new Dimension(frame_width,frame_height));
+    }
+
+    /**METHODE**/
+
+    // POUR BOUTON CONNEXION
+
+    //-->pour le moment cette methode est inutile
+    public void addConnexionBoutonListener(ActionListener listener){
+        bouton_connexion.addActionListener(listener);
+    }
+
+    // Méthode pour obtenir le bouton "Skip"
+    public JButton getConnexionBouton() {
+        return bouton_connexion;
+    }
+
+    // POUR BOUTON INSCRIPTION
+
+    //-->pour le moment cette methode est inutile
+    public void addInscriptionBoutonListener(ActionListener listener){
+        bouton_inscription.addActionListener(listener);
+    }
+
+    // Méthode pour obtenir le bouton "Skip"
+    public JButton getInscriptionBouton() {
+        return bouton_inscription;
     }
 }
