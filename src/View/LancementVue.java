@@ -10,8 +10,13 @@ public class LancementVue {
     //Bouton
     private static Skip skip_panel;
     private static ConnexionInscription connexion_inscription_panel;
+    private MasterVue master_vue;
 
-    public static void remplirPanel(JFrame frame, int frame_width, int frame_height) {
+    public LancementVue(MasterVue master_vue){
+        this.master_vue = master_vue;
+    }
+
+    public void remplirPanel(JFrame frame, int frame_width, int frame_height) {
         JPanel grand_panneau = new JPanel();
 
         // Calcul des dimensions pour chaque composant
@@ -21,8 +26,8 @@ public class LancementVue {
 
         // Création des panels avec leurs tailles calculées
         Logo logo_panel = new Logo(frame_width, logo_panel_height);
-        connexion_inscription_panel = new ConnexionInscription(frame_width, connexion_inscription_panel_height);
-        skip_panel = new Skip(frame_width, skip_panel_height);
+        connexion_inscription_panel = new ConnexionInscription(frame_width, connexion_inscription_panel_height, this);
+        skip_panel = new Skip(this);
 
         // Ajout des panels au grand panneau avec BoxLayout pour les disposer verticalement
         grand_panneau.setLayout(new BoxLayout(grand_panneau, BoxLayout.Y_AXIS));
@@ -34,14 +39,20 @@ public class LancementVue {
         frame.getContentPane().add(grand_panneau);
     }
 
-    public static Skip getSkipComponsant() {
-        // Implémentez cette méthode pour retourner le composant Skip après son initialisation
-        return skip_panel; // Supposons que skip_panel est un attribut de LancementVue
-    }
-
     // Méthode pour obtenir le composant ConnexionInscription
     public static ConnexionInscription getConnexionInscriptionComposant() {
         return connexion_inscription_panel;
     }
 
+    public void clicSkip(){
+        master_vue.clicsLancement("Skip");
+    }
+
+    public void clicConnexion() {
+        master_vue.clicsLancement("Connexion");
+    }
+
+    public void clicInscription() {
+        master_vue.clicsLancement("Inscription");
+    }
 }
