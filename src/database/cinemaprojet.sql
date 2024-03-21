@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 19 mars 2024 à 15:18
+-- Généré le : jeu. 21 mars 2024 à 10:58
 -- Version du serveur : 8.0.32
 -- Version de PHP : 8.0.26
 
@@ -29,35 +29,36 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
-  `id` int DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `age` int DEFAULT NULL,
-  `nvAvantage` int DEFAULT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `prenom` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                         `id` int DEFAULT NULL,
+                                         `email` varchar(255) DEFAULT NULL,
+    `password` varchar(255) DEFAULT NULL,
+    `age` int DEFAULT NULL,
+    `nvAvantage` int DEFAULT NULL,
+    `nom` varchar(255) DEFAULT NULL,
+    `prenom` varchar(255) DEFAULT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
 INSERT INTO `clients` (`id`, `email`, `password`, `age`, `nvAvantage`, `nom`, `prenom`) VALUES
-(2, 'coco@example.com', 'motdepasse', 20, 0, 'Doee', 'eJohn'),
-(3, 'coco@lklk.com', 'motdepasse', 20, 0, 'Doee', 'eJohn');
+                                                                                            (NULL, 't', 't', 4, 1, 't', 't'),
+                                                                                            (NULL, 'y', 'y', 1, 1, 'y', 'y'),
+                                                                                            (NULL, 'q', 'q', 6, 1, 'qq', 'q');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `employe`
+-- Structure de la table `employes`
 --
 
-DROP TABLE IF EXISTS `employe`;
-CREATE TABLE IF NOT EXISTS `employe` (
-  `id` int DEFAULT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `prenom` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL
+DROP TABLE IF EXISTS `employes`;
+CREATE TABLE IF NOT EXISTS `employes` (
+                                          `nom` int NOT NULL,
+                                          `prenom` int NOT NULL,
+                                          `email` int NOT NULL,
+                                          `password` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -68,11 +69,11 @@ CREATE TABLE IF NOT EXISTS `employe` (
 
 DROP TABLE IF EXISTS `films`;
 CREATE TABLE IF NOT EXISTS `films` (
-  `id` int DEFAULT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `Synopsis` text,
-  `note` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                       `id` int DEFAULT NULL,
+                                       `nom` varchar(255) DEFAULT NULL,
+    `Synopsis` text,
+    `note` float DEFAULT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -82,10 +83,10 @@ CREATE TABLE IF NOT EXISTS `films` (
 
 DROP TABLE IF EXISTS `sceance`;
 CREATE TABLE IF NOT EXISTS `sceance` (
-  `id` int DEFAULT NULL,
-  `id_film` int DEFAULT NULL,
-  `horaire` datetime DEFAULT NULL,
-  `id_salle` int DEFAULT NULL
+                                         `id` int DEFAULT NULL,
+                                         `id_film` int DEFAULT NULL,
+                                         `horaire` datetime DEFAULT NULL,
+                                         `id_salle` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
