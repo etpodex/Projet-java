@@ -79,7 +79,7 @@ public class Main {
                 case 4:
                     System.out.print("Entrez votre email: ");
                     String maildelete = scanner.nextLine();
-                    outildatabase.retirer(maildelete);
+                    client.retirer(maildelete);
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
