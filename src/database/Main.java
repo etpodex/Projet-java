@@ -10,15 +10,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        DatabaseHelper dbHelper = new DatabaseHelper();
+        GestionClient client = new GestionClient();
 
         // Pour récupérer les infos d'un client
-        dbHelper.getClientInfo(1); // Remplacez 1 par l'ID du client souhaité
+        //4dbHelper.getClientInfo(1); // Remplacez 1 par l'ID du client souhaité
 
         // Pour ajouter un nouveau client
-        dbHelper.addClient(1, "coco@example.com", "motdepasse", 20, 0, "Doee", "eJohn");
+        //dbHelper.addClient(1, "coco@example.com", "motdepasse", 20, 0, "Doee", "eJohn");
         //dbHelper.deleteClient(1);
-        GestionnairedeCompte manager = new GestionnairedeCompte();
+        //GestionnairedeCompte manager = new GestionnairedeCompte();
 
         // Essayez de vous connecter avec un email et mot de passe
 
@@ -39,12 +39,17 @@ public class Main {
                     String emailLogin = scanner.nextLine();
                     System.out.print("Entrez votre mot de passe: ");
                     String passwordLogin = scanner.nextLine();
-                    List<String> userInfo = manager.login(emailLogin, passwordLogin);
+                    List<String> userInfo = client.connecter(emailLogin, passwordLogin);
                     List<String> response;
 
                     if (userInfo != null) {
                         System.out.println("Utilisateur connecté avec succès :");
-                        userInfo.forEach(System.out::println);
+                        //userInfo.forEach(System.out::println);
+                        String ageInfo = userInfo.get(4); // Obtenez l'information d'âge
+                        System.out.println(ageInfo); // Imprimez uniquement les chiffres
+
+                        System.out.println("L'âge de l'utilisateur est : " + ageInfo.replaceAll("[^0-9]", "")); // Imprimez uniquement les chiffres
+
                     } else {
                         System.out.println("Email ou mot de passe incorrect.");
                     }
@@ -64,13 +69,17 @@ public class Main {
                     int status = scanner.nextInt();
                     scanner.nextLine(); // Consomme la ligne de fin après le nombre
 
-                    response = manager.register(emailRegister, passwordRegister, firstName, lastName, age, status);
+                    response = client.ajouter(emailRegister, passwordRegister, firstName, lastName, age, status);
 
                     response.forEach(System.out::println);
                     break;
                 case 3:
                     running = false;
                     break;
+                case 4:
+                    System.out.print("Entrez votre email: ");
+                    String maildelete = scanner.nextLine();
+                    outildatabase.retirer(maildelete);
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }

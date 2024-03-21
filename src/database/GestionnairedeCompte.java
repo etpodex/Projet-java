@@ -36,7 +36,7 @@ public class GestionnairedeCompte {
         // Retourner null si l'utilisateur n'existe pas
         return null;
     }
-    public List<String> register(String email, String password, String nom, String prenom, int age, int nvAvantage) {
+    public List<String> inscriptionclient(String email, String password, String nom, String prenom, int age, int nvAvantage) {
         // Vérifiez d'abord si l'email existe déjà
         if (emailExists(email)) {
             List<String> response = new ArrayList<>();
@@ -82,4 +82,37 @@ public class GestionnairedeCompte {
             return false;
         }
     }
+    public static void retirerUtilisateur(String email) {
+        // Premièrement, essayons de supprimer de la table Clients
+        String queryClients = "DELETE FROM Clients WHERE email = ?";
+        // Ensuite, de la table Employe
+        String queryEmploye = "DELETE FROM Employe WHERE email = ?";
+
+        try (Connection conn = Databaseconnection.getConnection();
+             PreparedStatement pstmtClients = conn.prepareStatement(queryClients);
+             PreparedStatement pstmtEmploye = conn.prepareStatement(queryEmploye)) {
+
+            pstmtClients.setString(1, email);//defini le ? dans la requete sql
+            pstmtEmploye.setString(1, email);//defini le ? dans la requete sql
+
+            // Exécute la commande SQL et donne le nb de ligne affecté
+            int affectedRowsClients = pstmtClients.executeUpdate();
+
+            if (affectedRowsClients > 0) {
+                System.out.println("Le client avec l'email " + email + " a été supprimé avec succès.");
+            } else {
+                // Si aucun client n'est supprimé, vérifiez les employés
+                int affectedRowsEmploye = pstmtEmploye.executeUpdate();
+
+                if (affectedRowsEmploye > 0) {
+                    System.out.println("L'employé avec l'email " + email + " a été supprimé avec succès.");
+                } else {
+                    System.out.println("Aucune personne trouvée avec l'email " + email + ".");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

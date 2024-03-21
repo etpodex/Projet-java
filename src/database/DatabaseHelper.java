@@ -7,14 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseHelper {
-    private static final String URL = "jdbc:mysql://localhost:3306/cinemaprojet"; // Remplacez avec votre URL de DB
-    private static final String USER = "root"; // Remplacez avec votre utilisateur de DB
-    private static final String PASSWORD = "ethaN1945!"; // Remplacez avec votre mot de passe de DB
-
-    // Charger le driver JDBC et établir une connexion
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
 
     // Méthode pour récupérer les informations d'un client par ID
     public void getClientInfo(int clientId) {
@@ -63,23 +55,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-    public void deleteClient(int clientId) {
-        String query = "DELETE FROM Clients WHERE id = ?";
 
-        try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, clientId);
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                System.out.println("Le client avec l'ID " + clientId + " a été supprimé avec succès.");
-            } else {
-                System.out.println("Aucun client trouvé avec l'ID " + clientId + ".");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
