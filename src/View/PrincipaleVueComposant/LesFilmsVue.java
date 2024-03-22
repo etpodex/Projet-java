@@ -33,11 +33,15 @@ public class LesFilmsVue extends JPanel {
         ImageIcon icon = new ImageIcon(resizedImg);
         JLabel imageLabel = new JLabel(icon);
 
-        // Création du conteneur pour le titre et la description
+        // Création du bouton "Réserver"
+        JButton reserveButton = new JButton("Réserver");
+
+        // Création du conteneur pour le titre, l'image et la description
         JPanel textPanel = new JPanel();
-        textPanel.setLayout(new GridLayout(2, 1));
+        textPanel.setLayout(new GridLayout(3, 1));
         textPanel.add(titleLabel);
         textPanel.add(descriptionLabel);
+        textPanel.add(reserveButton);
 
         // Ajout des éléments au panneau principal
         setLayout(new FlowLayout(FlowLayout.LEFT));
