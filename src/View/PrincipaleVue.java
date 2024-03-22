@@ -1,9 +1,6 @@
 package View;
 
-import View.PrincipaleVueComposant.AccueilVue;
-import View.PrincipaleVueComposant.BarreNavigation;
-import View.PrincipaleVueComposant.CalendrierVue;
-import View.PrincipaleVueComposant.LesFilmsVue;
+import View.PrincipaleVueComposant.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +13,7 @@ public class PrincipaleVue extends JPanel{
     private CalendrierVue calendrier_vue;
     private LesFilmsVue les_films_vue;
     private AccueilVue accueil_vue;
+    private MonCompteVue mon_compte_vue;
     private JFrame frame;
 
     public PrincipaleVue(MasterVue master_vue){
@@ -34,6 +32,7 @@ public class PrincipaleVue extends JPanel{
         calendrier_vue = new CalendrierVue((int) (panneau_principal_width), frame_height);
         les_films_vue = new LesFilmsVue((int) (panneau_principal_width), frame_height);
         accueil_vue = new AccueilVue((int) panneau_principal_width, frame_height);
+        mon_compte_vue = new MonCompteVue((int) (panneau_principal_width), frame_height);
 
         panneau_principal.setPreferredSize(new Dimension((int) (panneau_principal_width), frame_height));
 
@@ -59,6 +58,9 @@ public class PrincipaleVue extends JPanel{
         } else if (bouton_barre.equals("Accueil")){
             master_vue.clicsPrincipaleVue("Accueil");
             panneau_principal.add(accueil_vue, BorderLayout.CENTER);
+        } else if (bouton_barre.equals("MonCompte")){
+            master_vue.clicsPrincipaleVue("MonCompte");
+            panneau_principal.add(mon_compte_vue, BorderLayout.CENTER);
         }
 
 
