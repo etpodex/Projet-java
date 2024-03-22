@@ -41,7 +41,7 @@ public class PrincipaleVue extends JPanel{
         add(panneau_principal, BorderLayout.EAST);
     }
 
-    public void clicsBarreNavigation(String bouton_barre){
+    public void clicsBarreNavigation(String bouton_barre) {
         // Supprime tout contenu précédent
         panneau_principal.removeAll();
 
@@ -49,10 +49,10 @@ public class PrincipaleVue extends JPanel{
         layout.setVgap(0);
 
         panneau_principal.setLayout(layout);
-        if (bouton_barre.equals("LesFilms")){
+        if (bouton_barre.equals("LesFilms")) {
             master_vue.clicsPrincipaleVue("LesFilms");
             panneau_principal.add(les_films_vue, BorderLayout.CENTER);
-        } else if (bouton_barre.equals("Calendrier")){
+        } else if (bouton_barre.equals("Calendrier")) {
             master_vue.clicsPrincipaleVue("Calendrier");
             panneau_principal.add(calendrier, BorderLayout.CENTER);
         }
@@ -63,5 +63,5 @@ public class PrincipaleVue extends JPanel{
         // Redessine le panneau
         panneau_principal.repaint();
 
-
+    }
 }
