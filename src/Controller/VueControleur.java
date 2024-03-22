@@ -20,6 +20,7 @@ public class VueControleur {
     public VueControleur() {
         master_vue = new MasterVue();
         master_vue.afficherVueLancement();
+
     }
 
     /**METHODE**/
