@@ -1,11 +1,21 @@
 package View.CIComposant;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.text.ParseException;
 
 public class Inscription extends JPanel {
 
     private static final int FIELD_WIDTH = 20;
+
+    private JTextField nomField;
+    private JTextField prenomField;
+    private JFormattedTextField ageField;
+    private JTextField mailField;
+    private JPasswordField passwordField;
+
+    private JComboBox<Integer> ageComboBox;
 
     public Inscription(int panelWidth, int panelHeight) {
         setPreferredSize(new Dimension(panelWidth, panelHeight));
@@ -20,13 +30,19 @@ public class Inscription extends JPanel {
                 new JLabel("Mot de passe:")
         };
 
-        JTextField[] textFields = {
-                new JTextField(FIELD_WIDTH),
-                new JTextField(FIELD_WIDTH),
-                new JTextField(3), // 3 caractères de large pour l'âge
-                new JTextField(FIELD_WIDTH),
-                new JPasswordField(FIELD_WIDTH) // Champs de mot de passe
-        };
+        nomField = new JTextField(FIELD_WIDTH);
+        prenomField = new JTextField(FIELD_WIDTH);
+        mailField = new JTextField(FIELD_WIDTH);
+        passwordField = new JPasswordField(FIELD_WIDTH); // Champs de mot de passe
+
+        // Création d'un champ de texte pour l'âge avec un filtre pour n'accepter que les chiffres
+        try {
+            MaskFormatter ageFormatter = new MaskFormatter("##"); // Format pour deux chiffres
+            ageField = new JFormattedTextField(ageFormatter);
+            ageField.setColumns(3); // Taille du champ
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         // Mise en page des composants avec une disposition de grille améliorée
         setLayout(new GridBagLayout());
@@ -42,7 +58,42 @@ public class Inscription extends JPanel {
 
             gbc.gridx = 1; // Colonne des champs de texte
             gbc.anchor = GridBagConstraints.LINE_START; // Alignement à gauche
-            add(textFields[i], gbc);
+            if (i == 2) {
+                add(ageField, gbc); // Ajout du champ de texte pour l'âge
+            } else {
+                add(getFieldComponent(i), gbc);
+            }
         }
+    }
+
+    // Méthode pour obtenir le champ de texte correspondant à l'index
+    private JTextField getFieldComponent(int index) {
+        switch (index) {
+            case 0: return nomField;
+            case 1: return prenomField;
+            case 3: return mailField;
+            case 4: return passwordField;
+            default: return null;
+        }
+    }
+
+    // Méthode pour récupérer les données d'inscription
+    public String[] getInscriptionData() {
+        String nom = nomField.getText();
+        String prenom = prenomField.getText();
+        String age = ageField.getText(); // Récupération de l'âge depuis le champ de texte
+        String mail = mailField.getText();
+        String password = new String(passwordField.getPassword());
+
+        return new String[]{nom, prenom, age, mail, password};
+
+        //pour change convertir le string d'age en int plus tard
+        /**
+         * // Récupération de l'âge depuis le champ de texte
+         * String ageStr = ageField.getText();
+         *
+         * // Conversion de la chaîne de caractères en un entier
+         * int age = Integer.parseInt(ageStr);
+         */
     }
 }
