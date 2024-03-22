@@ -1,11 +1,10 @@
-package View.LancementComposant;
+package View.CIComposant;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Logo extends JPanel {
-    /**CONSTRUCTEUR**/
-    public Logo(int frame_width, int frame_height) {
+public class Header extends JPanel{
+    public Header(int frame_width, int frame_height){
         //couleur pour voir
         setBackground(new Color(186, 230, 187));
 
@@ -18,3 +17,4 @@ public class Logo extends JPanel {
         add(label);
     }
 }
+
