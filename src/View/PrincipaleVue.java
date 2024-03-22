@@ -16,7 +16,7 @@ public class PrincipaleVue extends JPanel{
     private JPanel panneau_contenu;             // Le panneau de contenu à droite
 
     // Instances des vues composant le panneau de contenu
-    private CalendrierVue calendrier_vue;       // La vue du calendrier
+    private MesBilletsVue mes_billets_vue;       // La vue du calendrier
     private LesFilmsVue les_films_vue;          // La vue des films
     private AccueilVue accueil_vue;             // La vue d'accueil
     private MonCompteVue mon_compte_vue;        // La vue de mon compte
@@ -34,7 +34,7 @@ public class PrincipaleVue extends JPanel{
 
         this.barre_navigation = new BarreNavigation(this);
 
-        this.calendrier_vue = new CalendrierVue(panneau_contenu_width, frame_height);
+        this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
         this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height);
         this.accueil_vue = new AccueilVue(panel_navigation_width, frame_height);
         this.mon_compte_vue = new MonCompteVue(panel_navigation_width, frame_height);
@@ -48,9 +48,8 @@ public class PrincipaleVue extends JPanel{
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_contenu, BorderLayout.EAST);
 
-        // Revalide la mise en page
+        // Revalide la mise en page + Redessine le panneau
         revalidate();
-        // Redessine le panneau
         repaint();
     }
 
@@ -65,9 +64,9 @@ public class PrincipaleVue extends JPanel{
         if (bouton_barre.equals("LesFilms")) {
             master_vue.clicsPrincipaleVue("LesFilms");
             panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
-        } else if (bouton_barre.equals("Calendrier")) {
-            master_vue.clicsPrincipaleVue("Calendrier");
-            panneau_contenu.add(calendrier_vue, BorderLayout.CENTER);
+        } else if (bouton_barre.equals("MesBillets")) {
+            master_vue.clicsPrincipaleVue("MesBillets");
+            panneau_contenu.add(mes_billets_vue, BorderLayout.CENTER);
         } else if (bouton_barre.equals("Accueil")){
             master_vue.clicsPrincipaleVue("Accueil");
             panneau_contenu.add(accueil_vue, BorderLayout.CENTER);
@@ -77,9 +76,8 @@ public class PrincipaleVue extends JPanel{
         }
 
 
-        // Revalide la mise en page
+        // Revalide la mise en page + Redessine le panneau
         panneau_contenu.revalidate();
-        // Redessine le panneau
         panneau_contenu.repaint();
 
     }

@@ -101,7 +101,7 @@ public class MasterVue {
         if (bouton.equals("LesFilms")) {
             afficherPrincipaleVue();
         }
-        else if (bouton.equals("Calendrier")) {
+        else if (bouton.equals("MesBillets")) {
             afficherPrincipaleVue();
         }
         else if (bouton.equals("Accueil")){

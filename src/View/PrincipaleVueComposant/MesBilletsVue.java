@@ -1,19 +1,16 @@
 package View.PrincipaleVueComposant;
 
-import View.PrincipaleVue;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class CalendrierVue extends JPanel {
+public class MesBilletsVue extends JPanel {
 
-    public CalendrierVue(int barre_navigation_panel_width, int frame_height){
+    public MesBilletsVue(int barre_navigation_panel_width, int frame_height){
         setBackground(new Color(255, 0, 0));
         setPreferredSize(new Dimension(barre_navigation_panel_width,frame_height));
 
-        // Revalide la mise en page
+        // Revalide la mise en page + Redessine le panneau
         revalidate();
-        // Redessine le panneau
         repaint();
     }
 
