@@ -1,47 +1,47 @@
 package View.PrincipaleVueComposant;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class LesFilmsVue extends JPanel {
-    private Image image;
 
-    public LesFilmsVue(int barre_navigation_panel_width, int frame_height){
+    public LesFilmsVue(int barre_navigation_panel_width, int frame_height) {
         setBackground(new Color(0, 210, 120));
-        setPreferredSize(new Dimension(barre_navigation_panel_width,frame_height));
+        setPreferredSize(new Dimension(barre_navigation_panel_width, frame_height));
 
-        // Charger l'image
+        // Création du titre
+        JLabel titleLabel = new JLabel("Le Lama c'est trop kwelos");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+        // Création de la description
+        JLabel descriptionLabel = new JLabel("Il était une fois un lama pas comme les autres... il était... très... MOCHE!");
+        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Chargement de l'image
+        BufferedImage img = null;
         try {
-            // Chemin vers l'image "lama.jpg"
-            String imagePath = "lama.jpg";
-            // Charger l'image depuis le fichier
-            image = ImageIO.read(new File(imagePath));
+            img = ImageIO.read(new File("lama.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+        // Redimensionnement de l'image
+        Image resizedImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(resizedImg);
+        JLabel imageLabel = new JLabel(icon);
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Dessiner l'image
-        if (image != null) {
-            // Dessiner l'image au centre du panneau
-            int x = (getWidth() - image.getWidth(this)) / 2;
-            int y = (getHeight() - image.getHeight(this)) / 2;
-            g.drawImage(image, x, y, this);
-        }
-        // Dessiner le titre
-        String title = "le lama c'est trop kwelos";
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        FontMetrics metrics = g.getFontMetrics();
-        int titleWidth = metrics.stringWidth(title);
-        int titleX = (getWidth() - titleWidth) / 2;
-        int titleY = 30; // Position en Y arbitraire
-        g.drawString(title, titleX, titleY);
+        // Création du conteneur pour le titre et la description
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new GridLayout(2, 1));
+        textPanel.add(titleLabel);
+        textPanel.add(descriptionLabel);
+
+        // Ajout des éléments au panneau principal
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+        add(imageLabel);
+        add(textPanel);
     }
 }

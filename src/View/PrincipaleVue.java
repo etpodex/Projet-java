@@ -46,7 +46,7 @@ public class PrincipaleVue extends JPanel{
 
         setLayout(new BorderLayout());
         add(barre_navigation, BorderLayout.WEST);
-        add(panneau_contenu, BorderLayout.EAST);
+        add(panneau_contenu, BorderLayout.CENTER);
 
         // Revalide la mise en page + Redessine le panneau
         revalidate();
