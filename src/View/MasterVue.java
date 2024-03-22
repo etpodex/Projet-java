@@ -87,7 +87,7 @@ public class MasterVue {
             frame.getContentPane().revalidate(); // Recalculer la disposition des composants
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            //
+            afficherVueLancement();
         }
     }
 
