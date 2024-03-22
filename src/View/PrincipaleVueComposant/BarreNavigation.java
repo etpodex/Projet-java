@@ -19,6 +19,7 @@ public class BarreNavigation extends JPanel {
         calendrier = new Calendrier(this);
         this.principale_vue = principale_vue;
 
+        System.out.println("barre navigation : " + barre_navigation_panel_width);
         setBackground(new Color(186, 230, 187));
         setPreferredSize(new Dimension(barre_navigation_panel_width,frame_height));
         les_films.setPreferredSize(new Dimension(barre_navigation_panel_width, 50));
