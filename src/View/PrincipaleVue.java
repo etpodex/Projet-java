@@ -45,6 +45,10 @@ public class PrincipaleVue extends JPanel{
         // Supprime tout contenu précédent
         panneau_principal.removeAll();
 
+        BorderLayout layout = new BorderLayout();
+        layout.setVgap(0);
+
+        panneau_principal.setLayout(layout);
         if (bouton_barre.equals("LesFilms")){
             master_vue.clicsPrincipaleVue("LesFilms");
             panneau_principal.add(les_films_vue, BorderLayout.CENTER);
@@ -53,11 +57,11 @@ public class PrincipaleVue extends JPanel{
             panneau_principal.add(calendrier, BorderLayout.CENTER);
         }
 
+
         // Revalide la mise en page
         panneau_principal.revalidate();
         // Redessine le panneau
         panneau_principal.repaint();
-    }
 
 
 }
