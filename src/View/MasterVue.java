@@ -107,5 +107,8 @@ public class MasterVue {
         else if (bouton.equals("Accueil")){
             afficherPrincipaleVue();
         }
+        else if (bouton.equals("Mon Compte")){
+            afficherPrincipaleVue();
+        }
     }
 }
