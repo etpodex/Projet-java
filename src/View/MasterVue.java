@@ -87,7 +87,7 @@ public class MasterVue {
             frame.getContentPane().revalidate(); // Recalculer la disposition des composants
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            afficherPrincipaleVue();
+            //
         }
     }
 
@@ -111,4 +111,14 @@ public class MasterVue {
             afficherPrincipaleVue();
         }
     }
+
+    // Méthode pour récupérer les données d'inscription à partir de CIVue
+    public String[] getInscriptionData() {
+        if (ci_vue != null) {
+            return ci_vue.getInscriptionData();
+        } else {
+            return null; // Retourne null si CIVue n'est pas initialisé
+        }
+    }
+
 }
