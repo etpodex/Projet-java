@@ -14,7 +14,7 @@ public class MasterVue {
         initialiserFrame();
         this.lancement_vue = new LancementVue(this);
         this.ci_vue = new CIVue(this);
-        this.principale_vue = new PrincipaleVue(this);
+        this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
     }
 
     private void initialiserFrame() {
@@ -92,8 +92,6 @@ public class MasterVue {
     }
 
     public void afficherPrincipaleVue(){
-
-        principale_vue.remplirPanelBarrePrincipal(frame, frame.getWidth(), frame.getHeight());
 
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
