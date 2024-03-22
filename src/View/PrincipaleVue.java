@@ -1,8 +1,7 @@
 package View;
 
+import View.PrincipaleVueComposant.AccueilVue;
 import View.PrincipaleVueComposant.BarreNavigation;
-import View.PrincipaleVueComposant.BarreNavigationComposant.Calendrier;
-import View.PrincipaleVueComposant.BarreNavigationComposant.LesFilms;
 import View.PrincipaleVueComposant.CalendrierVue;
 import View.PrincipaleVueComposant.LesFilmsVue;
 
@@ -14,8 +13,9 @@ public class PrincipaleVue extends JPanel{
     private JPanel panneau_principal;
     private JPanel barre_navigation;
     private MasterVue master_vue;
-    private CalendrierVue calendrier;
+    private CalendrierVue calendrier_vue;
     private LesFilmsVue les_films_vue;
+    private AccueilVue accueil_vue;
     private JFrame frame;
 
     public PrincipaleVue(MasterVue master_vue){
@@ -30,12 +30,13 @@ public class PrincipaleVue extends JPanel{
         int panneau_principal_width = (int) (frame_width*0.8);
 
         barre_navigation = new BarreNavigation(barre_navigation_panel_width, frame_height, this);
-        calendrier = new CalendrierVue((int) (panneau_principal_width), frame_height);
-        //System.out.println("taille calendrier : " + (frame_width - barre_navigation_panel_width));
+
+        calendrier_vue = new CalendrierVue((int) (panneau_principal_width), frame_height);
         les_films_vue = new LesFilmsVue((int) (panneau_principal_width), frame_height);
-        //System.out.println("taille les films : " + (frame_width - barre_navigation_panel_width));
+        accueil_vue = new AccueilVue((int) panneau_principal_width, frame_height);
+
         panneau_principal.setPreferredSize(new Dimension((int) (panneau_principal_width), frame_height));
-        //System.out.println("taille panneau principal : " + (frame_width - barre_navigation_panel_width));
+
         setLayout(new BorderLayout());
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_principal, BorderLayout.EAST);
@@ -50,7 +51,10 @@ public class PrincipaleVue extends JPanel{
             panneau_principal.add(les_films_vue, BorderLayout.CENTER);
         } else if (bouton_barre.equals("Calendrier")){
             master_vue.clicsPrincipaleVue("Calendrier");
-            panneau_principal.add(calendrier, BorderLayout.CENTER);
+            panneau_principal.add(calendrier_vue, BorderLayout.CENTER);
+        } else if (bouton_barre.equals("Accueil")){
+            master_vue.clicsPrincipaleVue("Accueil");
+            panneau_principal.add(accueil_vue, BorderLayout.CENTER);
         }
 
         // Revalide la mise en page

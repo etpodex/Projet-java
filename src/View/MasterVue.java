@@ -87,7 +87,7 @@ public class MasterVue {
             frame.getContentPane().revalidate(); // Recalculer la disposition des composants
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            afficherVueLancement();
+            afficherPrincipaleVue();
         }
     }
 
@@ -104,6 +104,9 @@ public class MasterVue {
             afficherPrincipaleVue();
         }
         else if (bouton.equals("Calendrier")) {
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Accueil")){
             afficherPrincipaleVue();
         }
     }
