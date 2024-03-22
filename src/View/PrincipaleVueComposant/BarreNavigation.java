@@ -43,6 +43,10 @@ public class BarreNavigation extends JPanel {
 
     public void clicCalendrier(){
         principale_vue.clicsBarreNavigation("Calendrier");
+
+        // Revalide la mise en page + redessine le panneau
+        principale_vue.revalidate();
+        principale_vue.repaint();
     }
 
     public void clicLesFilms(){
