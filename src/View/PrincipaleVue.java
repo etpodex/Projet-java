@@ -25,19 +25,22 @@ public class PrincipaleVue extends JPanel{
 
     public void remplirPanelBarrePrincipal(JFrame frame, int frame_width, int frame_height){
         this.frame = frame;
+
         int barre_navigation_panel_width = (int) (frame_width * 0.2);
+        int panneau_principal_width = (int) (frame_width*0.8);
+
         barre_navigation = new BarreNavigation(barre_navigation_panel_width, frame_height, this);
-        calendrier = new CalendrierVue((int) (frame_width - barre_navigation_panel_width), frame_height);
+        calendrier = new CalendrierVue((int) (panneau_principal_width), frame_height);
         //System.out.println("taille calendrier : " + (frame_width - barre_navigation_panel_width));
-        les_films_vue = new LesFilmsVue((int) (frame_width - barre_navigation_panel_width), frame_height);
+        les_films_vue = new LesFilmsVue((int) (panneau_principal_width), frame_height);
         //System.out.println("taille les films : " + (frame_width - barre_navigation_panel_width));
-        panneau_principal.setPreferredSize(new Dimension((int) (frame_width - barre_navigation_panel_width), frame_height));
+        panneau_principal.setPreferredSize(new Dimension((int) (panneau_principal_width), frame_height));
         //System.out.println("taille panneau principal : " + (frame_width - barre_navigation_panel_width));
         setLayout(new BorderLayout());
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_principal, BorderLayout.EAST);
     }
-    
+
     public void clicsBarreNavigation(String bouton_barre){
         // Supprime tout contenu précédent
         panneau_principal.removeAll();

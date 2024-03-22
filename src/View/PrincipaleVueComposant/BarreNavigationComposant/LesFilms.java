@@ -14,7 +14,7 @@ public class LesFilms extends JButton{
     public LesFilms (BarreNavigation barre_navigation){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         setFocusPainted(false);
         setText("Les Films");
 

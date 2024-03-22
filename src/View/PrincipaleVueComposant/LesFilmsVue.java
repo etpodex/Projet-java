@@ -8,5 +8,10 @@ public class LesFilmsVue extends JPanel {
         System.out.println("les films : " + barre_navigation_panel_width);
         setBackground(new Color(0, 210, 120));
         setPreferredSize(new Dimension(barre_navigation_panel_width,frame_height));
+
+        // Revalide la mise en page
+        revalidate();
+        // Redessine le panneau
+        repaint();
     }
 }
