@@ -7,21 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         GestionClient client = new GestionClient();
         GestionFilm Film = new GestionFilm();
 
-        // Pour récupérer les infos d'un client
-        //4dbHelper.getClientInfo(1); // Remplacez 1 par l'ID du client souhaité
-
-        // Pour ajouter un nouveau client
-        //dbHelper.addClient(1, "coco@example.com", "motdepasse", 20, 0, "Doee", "eJohn");
-        //dbHelper.deleteClient(1);
-        //GestionnairedeCompte manager = new GestionnairedeCompte();
-
-        // Essayez de vous connecter avec un email et mot de passe
 
         boolean running = true;
 
@@ -81,6 +73,11 @@ public class Main {
                     System.out.print("Entrez votre email: ");
                     String maildelete = scanner.nextLine();
                     client.retirer(maildelete);
+                case 5:
+                    System.out.print("Entrez votre email: ");
+                    String mail = scanner.nextLine();
+
+                    client.rechercher(mail);
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
