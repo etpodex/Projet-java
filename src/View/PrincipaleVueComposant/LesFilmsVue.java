@@ -36,16 +36,27 @@ public class LesFilmsVue extends JPanel {
         // Création du bouton "Réserver"
         JButton reserveButton = new JButton("Réserver");
 
-        // Création du conteneur pour le titre, l'image et la description
+        // Création du sous-panel pour regrouper les éléments
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(new Color(224, 224, 255)); // Bleu pastel
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Padding de 5 pixels
+
+        // Ajout des éléments au sous-panel
+        contentPanel.add(imageLabel, BorderLayout.WEST);
+
         JPanel textPanel = new JPanel();
-        textPanel.setLayout(new GridLayout(3, 1));
+        textPanel.setLayout(new GridLayout(2, 1));
+        textPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5)); // Marge supérieure ajustée
         textPanel.add(titleLabel);
         textPanel.add(descriptionLabel);
-        textPanel.add(reserveButton);
 
-        // Ajout des éléments au panneau principal
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-        add(imageLabel);
-        add(textPanel);
+        contentPanel.add(textPanel, BorderLayout.CENTER);
+
+        contentPanel.add(reserveButton, BorderLayout.SOUTH);
+
+        // Ajout du sous-panel au panneau principal
+        setLayout(new FlowLayout(FlowLayout.CENTER)); // Centrage horizontal
+        add(contentPanel);
     }
 }
