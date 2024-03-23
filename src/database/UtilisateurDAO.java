@@ -7,19 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
 import java.util.UUID;
 import java.util.Arrays;
 
 
-public class GestionClient implements GestionBDD {
+public class UtilisateurDAO implements IUtilisateurDAO {
     // Implémentation des méthodes de GestionUtilisateur pour les clients
     @Override
     public List<String> connecter(String email, String password) {
         List<String> userInfo = new ArrayList<>();
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Utilisateur WHERE email = ? AND password = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND password = ?")) {
 
             pstmt.setString(1, email);
             pstmt.setString(2, password);
@@ -55,7 +54,7 @@ public class GestionClient implements GestionBDD {
             return Arrays.asList("Échec de l'inscription : l'email existe déjà.");
         }
 
-        String query = "INSERT INTO Clients (uuid, email, password, nom, prenom, age, nvAvantage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utilisateur (uuid, email, password, nom, prenom, age, nvAvantage) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) { // Enlever Statement.RETURN_GENERATED_KEYS
 
@@ -81,7 +80,7 @@ public class GestionClient implements GestionBDD {
 
 
     public void modifier(String email, String champ, String nouvelleValeur) {
-        String query = "UPDATE Clients SET " + champ + " = ? WHERE email = ?";
+        String query = "UPDATE utilisateur SET " + champ + " = ? WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -101,19 +100,19 @@ public class GestionClient implements GestionBDD {
             e.printStackTrace();
         }
     }
-    public void retirer(String clientemail) {
-        String query = "DELETE FROM Clients WHERE email = ?";
+    public void retirer(String usermail) {
+        String query = "DELETE FROM utilisateur WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, clientemail);
+            pstmt.setString(1, usermail);
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("Le client avec l'email " + clientemail + " a été supprimé avec succès.");
+                System.out.println("Le client avec l'email " + usermail + " a été supprimé avec succès.");
             } else {
-                System.out.println("Aucun client trouvé avec l'email " + clientemail + ".");
+                System.out.println("Aucun client trouvé avec l'email " + usermail + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,14 +120,18 @@ public class GestionClient implements GestionBDD {
     }
 
     @Override
-    public List<String> rechercher(String critere) {
+    public List<String> rechercher(String... details) {
+        String critere = details[0];
+        int nivadmin = Integer.parseInt(details[1]);
         List<String> utilisateurs = new ArrayList<>();
-        String query = "SELECT uuid, email, nom, prenom, age, nvAvantage,password FROM Clients WHERE email LIKE ?";
+        String query = "SELECT uuid, email, nom, prenom, age, nvAvantage,password FROM utilisateur WHERE email LIKE ? and nvAvantage = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, "%" + critere + "%"); // Définir le critère de recherche pour l'email
+            pstmt.setString(1, "%" + critere + "%");
+            pstmt.setInt(2, nivadmin);
+            // Définir le critère de recherche pour l'email
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
