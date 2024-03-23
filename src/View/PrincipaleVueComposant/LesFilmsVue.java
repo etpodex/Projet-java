@@ -10,8 +10,8 @@ import java.net.URL;
 public class LesFilmsVue extends JPanel {
 
     private int nombre_film = 3;
-    private String[] titre_film = {"Pute", "PUTE", "PUTEUUUU"};
-    private String[] description_film = {"description1", "description2", "description3"};
+    private String[] titre_film = {"Lama", "Chien", "Fleur"};
+    private String[] description_film = {"Lamasticot", "CHIEN OUAF OUAF le chien et paf le chien aussi", "je suis une fleur, je suis une tres jolie fleur, je suis plus belle qu'une rose et sens meilleur qu'un lila, qui suis je ? je suis toi ? tu es une fleur. Tu es une tres jolie fleur, ..."};
     private String[] image_URL_film = {"https://www.fredzone.org/wp-content/uploads/2022/08/wakfu-photo-1180110-1536x864.png", "url_image2", "url_image3"};
     private JPanel[] filmPanels = new JPanel[nombre_film];
 
