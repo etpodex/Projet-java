@@ -1,6 +1,5 @@
 package View.PrincipaleVueComposant.AccueilVueComposant;
 
-import View.PrincipaleVueComposant.AccueilVueComposant.OffreComposant.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
