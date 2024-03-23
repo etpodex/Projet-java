@@ -110,6 +110,13 @@ public class MasterVue {
         else if (bouton.equals("Mon Compte")){
             afficherPrincipaleVue();
         }
+        else if (bouton.equals("Connexion")){
+            afficherVueLancement();
+        }
+
+        // Revalide la mise en page + redessine le panneau
+        principale_vue.revalidate();
+        principale_vue.repaint();
     }
 
     // Méthode pour récupérer les données d'inscription à partir de CIVue
@@ -122,3 +129,4 @@ public class MasterVue {
     }
 
 }
+
