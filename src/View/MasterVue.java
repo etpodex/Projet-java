@@ -87,7 +87,7 @@ public class MasterVue {
             frame.getContentPane().revalidate(); // Recalculer la disposition des composants
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            afficherVueLancement();
+            afficherPrincipaleVue();
         }
     }
 
@@ -126,6 +126,15 @@ public class MasterVue {
         } else {
             return null; // Retourne null si CIVue n'est pas initialisé
         }
+    }
+
+    public void resetLancementVue() {
+        frame.getContentPane().removeAll();
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+
+        this.lancement_vue = new LancementVue(this);
+        afficherVueLancement();
     }
 
 }

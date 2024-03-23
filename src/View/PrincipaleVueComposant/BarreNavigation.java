@@ -77,8 +77,7 @@ public class BarreNavigation extends JPanel {
     }
 
     public void clicConnexion(){
-        principale_vue.clicsBarreNavigation("Connexion");
-        removeAll();
+        principale_vue.getMasterVue().resetLancementVue();
 
         // Revalide la mise en page + redessine le panneau
         principale_vue.revalidate();

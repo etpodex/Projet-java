@@ -86,4 +86,9 @@ public class PrincipaleVue extends JPanel{
         panneau_contenu.repaint();
 
     }
+
+    public MasterVue getMasterVue() {
+        return this.master_vue;
+    }
+
 }
