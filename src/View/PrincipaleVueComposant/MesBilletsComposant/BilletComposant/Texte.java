@@ -1,6 +1,7 @@
 package View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Texte extends JPanel {
@@ -18,9 +19,10 @@ public class Texte extends JPanel {
 
     public Texte(int barre_navigation_panel_width, int hauteur){
         setBackground(new Color(100,100,100));
-        int longueur_texte = barre_navigation_panel_width*2/3;
+        int longueur_texte = barre_navigation_panel_width*3/2;
         setPreferredSize(new Dimension(longueur_texte, hauteur));
 
+        setBorder(new EmptyBorder(0, 5, 5, 5));
         setLayout(new GridLayout(0, 1));
 
         title_billet = new JLabel();
@@ -67,7 +69,6 @@ public class Texte extends JPanel {
         panel.add(senior_billet);
         return panel;
     }
-
 
     public void setTitreFilm(String titre) {
         title_billet.setText("Titre: " + titre);
