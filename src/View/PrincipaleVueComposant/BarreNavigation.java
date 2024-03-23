@@ -13,6 +13,7 @@ public class BarreNavigation extends JPanel {
     private MesBillets mes_billets;
     private Accueil accueil;
     private MonCompte mon_compte;
+    private Connexion connexion;
     private PrincipaleVue principale_vue;
 
     public BarreNavigation(PrincipaleVue principale_vue){
@@ -22,6 +23,7 @@ public class BarreNavigation extends JPanel {
         this.mes_billets = new MesBillets(this);
         this.accueil = new Accueil(this);
         this.mon_compte = new MonCompte(this);
+        this.connexion = new Connexion(this);
 
         setBackground(new Color(186, 230, 187));
 
@@ -31,6 +33,7 @@ public class BarreNavigation extends JPanel {
         panel_boutons.add(mes_billets);
         panel_boutons.add(accueil);
         panel_boutons.add(mon_compte);
+        panel_boutons.add(connexion);
 
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
@@ -67,6 +70,15 @@ public class BarreNavigation extends JPanel {
 
     public void clicMonCompte(){
         principale_vue.clicsBarreNavigation("MonCompte");
+
+        // Revalide la mise en page + redessine le panneau
+        principale_vue.revalidate();
+        principale_vue.repaint();
+    }
+
+    public void clicConnexion(){
+        principale_vue.clicsBarreNavigation("Connexion");
+        removeAll();
 
         // Revalide la mise en page + redessine le panneau
         principale_vue.revalidate();
