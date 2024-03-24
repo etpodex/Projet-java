@@ -1,5 +1,5 @@
 package database;
-
+import Model.Utilisateur;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -121,37 +121,37 @@ public class UtilisateurDAO implements IUtilisateurDAO {
     }
 
     @Override
-    public List<String> rechercher(String... details) {
+    public List<Utilisateur> rechercher(String... details) {
         String critere = details[0];
         int nivadmin = Integer.parseInt(details[1]);
-        List<String> utilisateurs = new ArrayList<>();
-        String query = "SELECT uuid, email, nom, prenom, age, nvAvantage,password FROM utilisateur WHERE email LIKE ? and nvAvantage = ?";
+        List<Utilisateur> utilisateurs = new ArrayList<>();
+        String query = "SELECT uuid, email, nom, prenom, age, nvAvantage, password FROM utilisateur WHERE email LIKE ? AND nvAvantage = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement recupdonnee = conn.prepareStatement(query)) {
 
             recupdonnee.setString(1, "%" + critere + "%");
             recupdonnee.setInt(2, nivadmin);
-            // Définir le critère de recherche pour l'email
             ResultSet rs = recupdonnee.executeQuery();
 
             while (rs.next()) {
-                String utilisateur = " UUID: " + rs.getString("uuid") +
-                        ", Email: " + rs.getString("email") +
-                        ", Nom: " + rs.getString("nom") +
-                        ", Prénom: " + rs.getString("prenom") +
-                        ", Age: " + rs.getInt("age") +
-                        ", Niveau Avantage: " + rs.getInt("nvAvantage")+
-                        ", password " +rs.getString("password");
+                Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setUuid(rs.getString("uuid"));
+                utilisateur.setEmail(rs.getString("email"));
+                utilisateur.setNom(rs.getString("nom"));
+                utilisateur.setPrenom(rs.getString("prenom"));
+                utilisateur.setAge(rs.getInt("age"));
+                utilisateur.setNvAvantage(rs.getInt("nvAvantage"));
+                // Ajoutez le mot de passe si nécessaire ou approprié
                 utilisateurs.add(utilisateur);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            utilisateurs.add("Erreur lors de la récupération des utilisateurs : " + e.getMessage());
+            // Gérer l'erreur comme souhaité
         }
 
         if (utilisateurs.isEmpty()) {
-            utilisateurs.add("Aucun utilisateur trouvé.");
+            // Peut-être retourner null ou une liste vide en fonction de la logique de votre application
         }
         return utilisateurs;
     }

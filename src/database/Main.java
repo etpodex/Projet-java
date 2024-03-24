@@ -1,5 +1,6 @@
 package database;
 
+import Model.Utilisateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -80,7 +81,15 @@ public class Main {
                 case 5:
                     System.out.print("Entrez votre email: ");
                     String mail = scanner.nextLine();
-                    client.rechercher(mail,String.valueOf(1));
+                    List<Utilisateur> resultats = client.rechercher(mail, String.valueOf(1));
+                    if (resultats.isEmpty()) {
+                        System.out.println("Aucun utilisateur trouvé.");
+                    } else {
+                        for (Utilisateur utilisateur : resultats) {
+                            System.out.println(utilisateur.getEmail() + ", " + utilisateur.getNom() + " " + utilisateur.getPrenom());
+                            // Afficher les autres détails selon les besoins
+                        }
+                    }
                     break;
                 case 6:
                     //System.out.print("Entrez votre email: ");
