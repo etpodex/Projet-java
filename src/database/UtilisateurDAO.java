@@ -15,7 +15,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
     // Implémentation des méthodes de GestionUtilisateur pour les clients
     @Override
     public List<String> connecter(String email, String password) {
-        List<String> userInfo = new ArrayList<>();
+        List<String> listeinfo = new ArrayList<>();
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND password = ?")) {
@@ -26,13 +26,13 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
             // Si l'utilisateur existe, ajouter ses informations à la liste
             if (rs.next()) {
-                userInfo.add("UUID: " + rs.getString("uuid")); // Utiliser getString pour l'UUID
-                userInfo.add("Email: " + rs.getString("email"));
-                userInfo.add("Nom: " + rs.getString("nom"));
-                userInfo.add("Prénom: " + rs.getString("prenom"));
-                userInfo.add("Age: " + rs.getInt("age"));
-                userInfo.add("Niveau Avantage: " + rs.getInt("nvAvantage"));
-                return userInfo; // Renvoyer la liste des informations
+                listeinfo.add("UUID: " + rs.getString("uuid")); // Utiliser getString pour l'UUID
+                listeinfo.add("Email: " + rs.getString("email"));
+                listeinfo.add("Nom: " + rs.getString("nom"));
+                listeinfo.add("Prénom: " + rs.getString("prenom"));
+                listeinfo.add("Age: " + rs.getInt("age"));
+                listeinfo.add("Niveau Avantage: " + rs.getInt("nvAvantage"));
+                return listeinfo; // Renvoyer la liste des informations
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,17 +56,17 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
         String query = "INSERT INTO utilisateur (uuid, email, password, nom, prenom, age, nvAvantage) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) { // Enlever Statement.RETURN_GENERATED_KEYS
+             PreparedStatement recupdonnee = conn.prepareStatement(query)) { // Enlever Statement.RETURN_GENERATED_KEYS
 
-            pstmt.setString(1, uuid.toString()); // UUID converti en String
-            pstmt.setString(2, email);
-            pstmt.setString(3, password);
-            pstmt.setString(4, nom);
-            pstmt.setString(5, prenom);
-            pstmt.setInt(6, age);
-            pstmt.setInt(7, nvAvantage);
+            recupdonnee.setString(1, uuid.toString()); // UUID converti en String
+            recupdonnee.setString(2, email);
+            recupdonnee.setString(3, password);
+            recupdonnee.setString(4, nom);
+            recupdonnee.setString(5, prenom);
+            recupdonnee.setInt(6, age);
+            recupdonnee.setInt(7, nvAvantage);
 
-            int affectedRows = pstmt.executeUpdate();
+            int affectedRows = recupdonnee.executeUpdate();
             if (affectedRows > 0) {
                 return Arrays.asList("Inscription réussie ! ID client: " + uuid.toString());
             }
@@ -83,14 +83,15 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         String query = "UPDATE utilisateur SET " + champ + " = ? WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
 
             // Set nouvelle valeur
-            pstmt.setString(1, nouvelleValeur);
+            recupdonnee.setString(1, nouvelleValeur);
             // Set email
-            pstmt.setString(2, email);
 
-            int affectedRows = pstmt.executeUpdate();
+            recupdonnee.setString(2, email);
+
+            int affectedRows = recupdonnee.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("L'information du client a été modifiée avec succès.");
             } else {
@@ -104,11 +105,11 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         String query = "DELETE FROM utilisateur WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, usermail);
+            recupdonnee.setString(1, usermail);
 
-            int affectedRows = pstmt.executeUpdate();
+            int affectedRows = recupdonnee.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("Le client avec l'email " + usermail + " a été supprimé avec succès.");
             } else {
@@ -127,12 +128,12 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         String query = "SELECT uuid, email, nom, prenom, age, nvAvantage,password FROM utilisateur WHERE email LIKE ? and nvAvantage = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, "%" + critere + "%");
-            pstmt.setInt(2, nivadmin);
+            recupdonnee.setString(1, "%" + critere + "%");
+            recupdonnee.setInt(2, nivadmin);
             // Définir le critère de recherche pour l'email
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = recupdonnee.executeQuery();
 
             while (rs.next()) {
                 String utilisateur = " UUID: " + rs.getString("uuid") +

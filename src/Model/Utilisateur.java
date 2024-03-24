@@ -18,7 +18,6 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
         this.nvMembre = nvMembre;
         this.estEmploye = estEmploye;
-
     }
 
     public String getNom() {
