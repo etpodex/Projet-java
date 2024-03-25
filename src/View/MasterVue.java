@@ -1,5 +1,7 @@
 package View;
 
+import Controller.VueControleur;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,12 +11,14 @@ public class MasterVue {
     private LancementVue lancement_vue;
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
+    private VueControleur vue_controleur;
 
-    public MasterVue() {
+    public MasterVue(VueControleur vue_controleur) {
         initialiserFrame();
         this.lancement_vue = new LancementVue(this);
         this.ci_vue = new CIVue(this);
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
+        this.vue_controleur = vue_controleur;
     }
 
     private void initialiserFrame() {
@@ -87,6 +91,7 @@ public class MasterVue {
             frame.getContentPane().revalidate(); // Recalculer la disposition des composants
             frame.getContentPane().repaint(); // Redessiner la JFrame
 
+            vue_controleur.inscription();
             afficherPrincipaleVue();
         }
     }
