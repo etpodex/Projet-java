@@ -1,4 +1,4 @@
-package View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant;
+package View.Onglets.MesBilletsComposant.BilletComposant;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

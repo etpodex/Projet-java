@@ -1,7 +1,7 @@
-package View.PrincipaleVueComposant;
+package View.Onglets;
 
 import View.PrincipaleVue;
-import View.PrincipaleVueComposant.BarreNavigationComposant.*;
+import View.Onglets.BarreNavigationComposant.*;
 
 import javax.swing.*;
 import java.awt.*;

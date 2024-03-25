@@ -1,4 +1,4 @@
-package View.PrincipaleVueComposant.BarreNavigationComposant;
+package View.Onglets.BarreNavigationComposant;
 
 import javax.swing.*;
 

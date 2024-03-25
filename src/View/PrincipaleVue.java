@@ -1,7 +1,6 @@
 package View;
 
-import View.PrincipaleVueComposant.*;
-import View.PrincipaleVueComposant.BarreNavigationComposant.Connexion;
+import View.Onglets.*;
 
 import javax.swing.*;
 import java.awt.*;
