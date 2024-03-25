@@ -1,5 +1,6 @@
 package database;
 
+import Model.Utilisateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,21 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GestionClient client = new GestionClient();
-        GestionFilm Film = new GestionFilm();
+        UtilisateurDAO client = new UtilisateurDAO();
+        //GestionFilm Film = new GestionFilm();
 
-        // Pour récupérer les infos d'un client
-        //4dbHelper.getClientInfo(1); // Remplacez 1 par l'ID du client souhaité
-
-        // Pour ajouter un nouveau client
-        //dbHelper.addClient(1, "coco@example.com", "motdepasse", 20, 0, "Doee", "eJohn");
-        //dbHelper.deleteClient(1);
-        //GestionnairedeCompte manager = new GestionnairedeCompte();
-
-        // Essayez de vous connecter avec un email et mot de passe
 
         boolean running = true;
 
@@ -30,6 +23,9 @@ public class Main {
             System.out.println("1. Se connecter");
             System.out.println("2. S'inscrire");
             System.out.println("3. Quitter");
+            System.out.println("4. retirer");
+            System.out.println("3. rechercher par mail");
+            System.out.println("3. modifier");
             System.out.print("Entrez votre choix: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consomme la ligne de fin après le nombre
@@ -81,9 +77,29 @@ public class Main {
                     System.out.print("Entrez votre email: ");
                     String maildelete = scanner.nextLine();
                     client.retirer(maildelete);
+                    break;
+                case 5:
+                    System.out.print("Entrez votre email: ");
+                    String mail = scanner.nextLine();
+                    List<Utilisateur> resultats = client.rechercher(mail, String.valueOf(1));
+                    if (resultats.isEmpty()) {
+                        System.out.println("Aucun utilisateur trouvé.");
+                    } else {
+                        for (Utilisateur utilisateur : resultats) {
+                            System.out.println(utilisateur.getEmail() + ", " + utilisateur.getNom() + " " + utilisateur.getPrenom());
+                            // Afficher les autres détails selon les besoins
+                        }
+                    }
+                    break;
+                case 6:
+                    //System.out.print("Entrez votre email: ");
+                    //String email = scanner.nextLine();
+                    //response = client.modifier(email,String.valueOf(1));
+                    break;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
             }
+            choice = 0;
         }
         scanner.close();
     }
