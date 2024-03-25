@@ -15,7 +15,7 @@ public class MesBilletsVue extends JPanel {
         setLayout(new BorderLayout());
 
         // Création des composants
-        Billet billet = new Billet(barre_navigation_panel_width, frame_height);
+        AffichageBillet billet = new AffichageBillet(barre_navigation_panel_width, frame_height);
 
         // Ajout des composants
         add(billet, BorderLayout.NORTH);

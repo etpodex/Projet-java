@@ -7,26 +7,26 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class Billet extends JPanel {
+public class AffichageBillet extends JPanel {
 
     // Attribut
 
     // texte
-    private int nombre_de_panel_billet = 2;
-    private String[] titre_film_billet = {"coucou francis", "l'eau mouille"};
-    private String[] data_film_billet = {"12/03/24", "30/10/25"};
-    private String[] data_horaire_billet = {"15h00", "17h00"};
-    private int data_salle_billet[] = {2, 3};
-    private String[] data_siege_billet = {"5A", "7B"};
-    private int nbre_de_billet_acheter[] = {2, 3};
-    private int nbre_de_billet_adulte[] = {1, 1};
-    private int nbre_de_billet_enfant[] = {1, 1};
-    private int nbre_de_billet_senior[] = {0, 1};
+    private int nombre_de_panel_billet = 4;
+    private String[] titre_film_billet = {"coucou francis", "l'eau mouille", "hop hop hop", "azerty"};
+    private String[] data_film_billet = {"12/03/24", "30/10/25", "15/05/2018", "30/02/2023"};
+    private String[] data_horaire_billet = {"15h00", "17h00", "11h00", "20h00"};
+    private int data_salle_billet[] = {2, 3, 2, 1};
+    private String[] data_siege_billet = {"5A", "7B", "9F - 5Y - 9I", "10M"};
+    private int nbre_de_billet_acheter[] = {2, 3, 3, 1};
+    private int nbre_de_billet_adulte[] = {1, 1, 3, 0};
+    private int nbre_de_billet_enfant[] = {1, 1, 0, 0};
+    private int nbre_de_billet_senior[] = {0, 1, 0, 1};
 
-    private String qrcode_billet[] = {"image1.jpg", "image2.jpg"};
+    private String qrcode_billet[] = {"image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"};
 
 
-    public Billet(int barre_navigation_panel_width, int frame_height) {
+    public AffichageBillet(int barre_navigation_panel_width, int frame_height) {
 
         int hauteur = frame_height / 3 - 30;
         setBackground(new Color(0, 255, 127));
