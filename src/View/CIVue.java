@@ -1,7 +1,6 @@
 package View;
 
 import View.CIComposant.*;
-import View.LancementComposant.Skip;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +10,7 @@ public class CIVue {
 
     private MasterVue master_vue;
     private Inscription inscription_panel; // Ajout de la référence à Inscription
+    private Connexion connexion_panel;
 
 
     public CIVue(MasterVue master_vue) {
@@ -33,6 +33,7 @@ public class CIVue {
         Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
 
         this.inscription_panel = inscription_panel;
+        this.connexion_panel = connexion_panel;
 
         if(choix == 1){
             CIPanel.setLayout(new BorderLayout());
@@ -57,7 +58,14 @@ public class CIVue {
         if (inscription_panel != null) {
             return inscription_panel.getInscriptionData();
         } else {
-            return null; // Retourne null si Inscription n'est pas initialisé
+            return null;
+        }
+    }
+    public String[] getConnextionData(){
+        if (connexion_panel != null) {
+            return connexion_panel.getConnexionData();
+        } else {
+            return null;
         }
     }
 
@@ -68,7 +76,4 @@ public class CIVue {
     public void clicValider() {
         master_vue.clicsCIView("Valider");
     }
-
 }
-
-
