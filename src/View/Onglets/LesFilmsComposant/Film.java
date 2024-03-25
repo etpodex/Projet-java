@@ -1,4 +1,4 @@
-package View.PrincipaleVueComposant.LesFilmsComposant;
+package View.Onglets.LesFilmsComposant;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
