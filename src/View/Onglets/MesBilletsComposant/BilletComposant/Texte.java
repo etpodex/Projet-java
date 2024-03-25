@@ -19,7 +19,7 @@ public class Texte extends JPanel {
 
     public Texte(int barre_navigation_panel_width, int hauteur){
         setBackground(new Color(100,100,100));
-        int longueur_texte = barre_navigation_panel_width*13/8;
+        int longueur_texte = barre_navigation_panel_width*3/4;
         setPreferredSize(new Dimension(longueur_texte, hauteur));
 
         setBorder(new EmptyBorder(0, 5, 5, 5));

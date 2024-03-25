@@ -33,11 +33,12 @@ public class AffichageBillet extends JPanel {
         setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding autour de Billet
 
         setLayout(new GridLayout(nombre_de_panel_billet, 1, 0, 10)); // Utilisation de GridLayout avec 1 colonne et espacement vertical
-
+        //barre_navigation_panel_width = (int) (barre_navigation_panel_width*1/2);
         for (int i = 0; i < nombre_de_panel_billet; i++) {
             JPanel billetPanel = new JPanel(new BorderLayout()); // Utilisation de BorderLayout pour organiser les composants
 
-            Texte texte = new Texte(barre_navigation_panel_width / 2, hauteur);
+
+            Texte texte = new Texte(barre_navigation_panel_width, hauteur);
             texte.setTitreFilm(titre_film_billet[i]);
             texte.setDataFilm(data_film_billet[i]);
             texte.setDataHoraire(data_horaire_billet[i]);
@@ -49,7 +50,7 @@ public class AffichageBillet extends JPanel {
             texte.setNbreBilletSenior(nbre_de_billet_senior[i]);
             billetPanel.add(texte, BorderLayout.EAST); // Ajout de Texte à droite
 
-            QRCode qrcode = new QRCode(barre_navigation_panel_width / 2, hauteur);
+            QRCode qrcode = new QRCode(barre_navigation_panel_width, hauteur);
             qrcode.setQRCode(qrcode_billet[i]); // Mise à jour du QRCode
             billetPanel.add(qrcode, BorderLayout.WEST); // Ajout de QRCode à gauche
 

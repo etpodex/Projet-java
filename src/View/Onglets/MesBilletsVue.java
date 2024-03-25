@@ -9,13 +9,13 @@ import java.awt.event.MouseWheelEvent;
 
 public class MesBilletsVue extends JPanel {
 
-    public MesBilletsVue(int barre_navigation_panel_width, int frame_height) {
+    public MesBilletsVue(int panneau_contenu_width, int frame_height) {
         setBackground(new Color(40, 25, 125));
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(20, 20, 20, 20));
-
+        panneau_contenu_width = panneau_contenu_width*14/15;
         // Création des composants
-        AffichageBillet billet = new AffichageBillet(barre_navigation_panel_width*14/15, frame_height);
+        AffichageBillet billet = new AffichageBillet(panneau_contenu_width, frame_height);
 
         // Création d'un panel interne pour le contenu défilable
         JPanel contentPanel = new JPanel(new BorderLayout());
