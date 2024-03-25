@@ -1,6 +1,5 @@
 package View;
 
-import View.LancementComposant.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
