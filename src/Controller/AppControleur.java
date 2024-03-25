@@ -3,7 +3,6 @@ package Controller;
 import Controller.BilletInfoPourAppControleur.BilletInfo;
 import View.PrincipaleVueComposant.MesBilletsComposant.AffichageBillet;
 
-
 import View.MasterVue;
 import database.GestionClient;
 import database.GestionFilm;
