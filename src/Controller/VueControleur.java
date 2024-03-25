@@ -13,34 +13,26 @@ public class VueControleur {
 
     /**ATTRIBUTS**/
 
+    private AppControleur app_controleur;
     private MasterVue master_vue;
 
 
     /**CONSTRUCTEUR**/
-    public VueControleur() {
-        master_vue = new MasterVue();
-        master_vue.afficherVueLancement();
+    public VueControleur(AppControleur app_controleur) {
+        this.master_vue = new MasterVue(this);
+        this.master_vue.afficherVueLancement();
+        this.app_controleur = app_controleur;
     }
 
 
 
     /**METHODE**/
     //recevoir les datas d'inscriptions
-    public String[] getMasterVueData() {
+    public void inscription() {
+        app_controleur.inscription();
+    }
+
+    public String[] getInscriptionData() {
         return master_vue.getInscriptionData();
     }
-
-    //print pour vérif les data
-    public void printMasterVueInscriptionData() {
-        String[] inscriptionData = master_vue.getInscriptionData();
-        if (inscriptionData != null) {
-            System.out.println("Données d'inscription de MasterVue : ");
-            for (String data : inscriptionData) {
-                System.out.println(data);
-            }
-        } else {
-            System.out.println("MasterVue n'est pas initialisé ou les données d'inscription sont vides.");
-        }
-    }
-
 }
