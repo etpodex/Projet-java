@@ -11,10 +11,10 @@ public class QRCode extends JPanel {
 
     public QRCode(int barre_navigation_panel_width, int hauteur){
         setBackground(new Color(150,100,100));
-        int longueur_qrcode = barre_navigation_panel_width*3/6;
+        int longueur_qrcode = barre_navigation_panel_width*1/4;
         setPreferredSize(new Dimension(longueur_qrcode, hauteur));
 
-        setBorder(new EmptyBorder(5, 5, 5, 5));
+        setBorder(new EmptyBorder(5, 35, 5, 5));
 
         setLayout(new GridLayout(0, 1));
 
