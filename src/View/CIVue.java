@@ -10,6 +10,8 @@ public class CIVue {
     /**ATTRIBUT**/
 
     private MasterVue master_vue;
+    private Inscription inscription_panel; // Ajout de la référence à Inscription
+
 
     public CIVue(MasterVue master_vue) {
         this.master_vue = master_vue;
@@ -30,6 +32,8 @@ public class CIVue {
         Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
         Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
 
+        this.inscription_panel = inscription_panel;
+
         if(choix == 1){
             CIPanel.setLayout(new BorderLayout());
             CIPanel.add(header_panel, BorderLayout.NORTH);
@@ -47,8 +51,17 @@ public class CIVue {
             frame.getContentPane().add(CIPanel);
         }
     }
-    ///méthode des listener 1 pour valider, 1 pour retour (avec le footer)
 
+    /// Méthode pour récupérer les données d'inscription à partir de Inscription
+    public String[] getInscriptionData() {
+        if (inscription_panel != null) {
+            return inscription_panel.getInscriptionData();
+        } else {
+            return null; // Retourne null si Inscription n'est pas initialisé
+        }
+    }
+
+    ///méthode des listener
     public void clicRetour() {
         master_vue.clicsCIView("Retour");
     }
