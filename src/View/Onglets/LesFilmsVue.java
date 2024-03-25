@@ -1,9 +1,6 @@
-package View.PrincipaleVueComposant;
+package View.Onglets;
 
-import View.PrincipaleVueComposant.AccueilVueComposant.*;
-import View.PrincipaleVueComposant.LesFilmsComposant.Film;
-import View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant.QRCode;
-import View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant.Texte;
+import View.Onglets.LesFilmsComposant.Film;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

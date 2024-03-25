@@ -1,4 +1,4 @@
-package View.PrincipaleVueComposant.AccueilVueComposant;
+package View.Onglets.AccueilVueComposant;
 
 import javax.swing.*;
 import java.awt.*;

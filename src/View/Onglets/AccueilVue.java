@@ -1,6 +1,6 @@
-package View.PrincipaleVueComposant;
+package View.Onglets;
 
-import View.PrincipaleVueComposant.AccueilVueComposant.*;
+import View.Onglets.AccueilVueComposant.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

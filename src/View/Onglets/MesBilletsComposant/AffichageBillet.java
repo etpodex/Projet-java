@@ -1,7 +1,7 @@
-package View.PrincipaleVueComposant.MesBilletsComposant;
+package View.Onglets.MesBilletsComposant;
 
-import View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant.QRCode;
-import View.PrincipaleVueComposant.MesBilletsComposant.BilletComposant.Texte;
+import View.Onglets.MesBilletsComposant.BilletComposant.QRCode;
+import View.Onglets.MesBilletsComposant.BilletComposant.Texte;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
