@@ -85,7 +85,7 @@ public class Inscription extends JPanel {
         String mail = mailField.getText();
         String password = new String(passwordField.getPassword());
 
-        return new String[]{nom, prenom, age, mail, password};
+        return new String[]{mail, password, nom, prenom, age, "1"};
 
         //pour change convertir le string d'age en int plus tard
         /**
