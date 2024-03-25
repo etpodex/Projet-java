@@ -41,7 +41,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         return null;
     }
     @Override
-    public List<String> ajouter(String... details) {
+    public int ajouter(String... details) {
         String email = details[0];
         String password = details[1];
         String nom = details[2];
@@ -51,7 +51,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
         if (outildatabase.emailExists(email)) {
-            return Arrays.asList("Échec de l'inscription : l'email existe déjà.");
+            return 1;
         }
 
         String query = "INSERT INTO utilisateur (uuid, email, password, nom, prenom, age, nvAvantage) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -68,13 +68,13 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
             int affectedRows = recupdonnee.executeUpdate();
             if (affectedRows > 0) {
-                return Arrays.asList("Inscription réussie ! ID client: " + uuid.toString());
+                return 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return Arrays.asList("Échec de l'inscription : erreur inconnue.");
+        return 2;
     }
 
 
