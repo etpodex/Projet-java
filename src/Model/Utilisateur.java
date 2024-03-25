@@ -1,47 +1,95 @@
 package Model;
 
-import java.util.Date;
-
 public class Utilisateur {
+    private String uuid;
+    private String email;
     private String nom;
     private String prenom;
-    private String email;
-    private Date dateNaissance;
-    private int nvMembre;
+    private int age;
+    private int nvAvantage;
+    private String password;
 
-    private boolean estEmploye;
+    public Utilisateur() {
+    }
 
-    public Utilisateur(String nom, String prenom, String email, Date dateNaissance, int nvMembre, boolean estEmploye) {
+    // Constructeur //
+    public Utilisateur(String uuid, String email, String nom, String prenom, int age, int nvAvantage, String password) {
+        this.uuid = uuid;
+        this.email = email;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
-        this.dateNaissance = dateNaissance;
-        this.nvMembre = nvMembre;
-        this.estEmploye = estEmploye;
-
+        this.age = age;
+        this.nvAvantage = nvAvantage;
+        this.password = password; // Encore une fois, soyez prudent avec les mots de passe.
     }
 
-    public String getNom() {
-        return nom;
+    // Getters et Setters
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Date getDateNaissance() {
-        return dateNaissance;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getNvMembre() {
-        return nvMembre;
+    public String getNom() {
+        return nom;
     }
 
-    public boolean getEstEmploye() {
-        return estEmploye;
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getNvAvantage() {
+        return nvAvantage;
+    }
+
+    public void setNvAvantage(int nvAvantage) {
+        this.nvAvantage = nvAvantage;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {//affiche info utilisateur
+        return "Utilisateur{" +
+                "uuid='" + uuid + '\'' +
+                ", email='" + email + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", age=" + age +
+                ", nvAvantage=" + nvAvantage +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

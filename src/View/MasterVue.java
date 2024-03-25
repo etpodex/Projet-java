@@ -101,7 +101,7 @@ public class MasterVue {
         if (bouton.equals("LesFilms")) {
             afficherPrincipaleVue();
         }
-        else if (bouton.equals("Calendrier")) {
+        else if (bouton.equals("MesBillets")) {
             afficherPrincipaleVue();
         }
         else if (bouton.equals("Accueil")){
@@ -110,5 +110,31 @@ public class MasterVue {
         else if (bouton.equals("Mon Compte")){
             afficherPrincipaleVue();
         }
+        else if (bouton.equals("Connexion")){
+            afficherVueLancement();
+        }
+
+        // Revalide la mise en page + redessine le panneau
+        principale_vue.revalidate();
+        principale_vue.repaint();
     }
+
+    // Méthode pour récupérer les données d'inscription à partir de CIVue
+    public String[] getInscriptionData() {
+        if (ci_vue != null) {
+            return ci_vue.getInscriptionData();
+        } else {
+            return null; // Retourne null si CIVue n'est pas initialisé
+        }
+    }
+
+    public void resetLancementVue() {
+        frame.getContentPane().removeAll();
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+
+        this.lancement_vue = new LancementVue(this);
+        afficherVueLancement();
+    }
+
 }
