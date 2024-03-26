@@ -44,7 +44,7 @@ public class AffichageBillet extends JPanel {
             QRCode qrcode = new QRCode(barre_navigation_panel_width / 5, hauteur); // Utilise 20% de la largeur du billetPanel
             qrcode.setQRCode(billets[i].getUrlImageFilm()); // Mise à jour du QRCode
             gbc.anchor = GridBagConstraints.LINE_START;
-            gbc.weightx = 0.2; // QRCode occupe 20% de la largeur disponible
+            gbc.weightx = 0.1; // QRCode occupe 20% de la largeur disponible
             gbc.gridheight = GridBagConstraints.REMAINDER; // Fait en sorte que le QRCode prenne toute la hauteur du panneau
             billetPanel.add(qrcode, gbc); // Ajout de QRCode à gauche
 
@@ -60,7 +60,7 @@ public class AffichageBillet extends JPanel {
             texte.setNbreBilletEnfant(billets[i].getNombreBilletEnfant());
             texte.setNbreBilletSenior(billets[i].getNombreBilletSenior());
             gbc.anchor = GridBagConstraints.LINE_END;
-            gbc.weightx = 0.8; // Texte occupe 80% de la largeur disponible
+            gbc.weightx = 0.9; // Texte occupe 80% de la largeur disponible
             billetPanel.add(texte, gbc); // Ajout de Texte à droite
 
             add(billetPanel); // Ajouter le panneau de billet à la grille

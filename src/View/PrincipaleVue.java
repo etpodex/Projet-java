@@ -22,6 +22,10 @@ public class PrincipaleVue extends JPanel{
     private MonCompteVue mon_compte_vue;// La vue de mon compte
     private ConnexionVue connexion_vue;// La vue de connexion
 
+    private GererOffreVue gerer_offre;
+    private GererFilmVue gerer_film;
+    private GererSeanceVue gerer_seance;
+
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height){
 
@@ -39,6 +43,10 @@ public class PrincipaleVue extends JPanel{
         this.accueil_vue = new AccueilVue(panneau_contenu_width, frame_height);
         this.mon_compte_vue = new MonCompteVue(panel_navigation_width, frame_height);
         this.connexion_vue = new ConnexionVue(panel_navigation_width, frame_height);
+        this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
+        this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
+        this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
+
 
         Dimension barre_nav_dim = new Dimension(panel_navigation_width, frame_height);
         this.barre_navigation.setPreferredSize(barre_nav_dim);
@@ -77,6 +85,15 @@ public class PrincipaleVue extends JPanel{
         } else if (bouton_barre.equals("Connexion")){
             master_vue.clicsPrincipaleVue("Connexion");
             panneau_contenu.add(connexion_vue, BorderLayout.CENTER);
+        }else if (bouton_barre.equals("GererOffre")){
+            master_vue.clicsPrincipaleVue("GererOffre");
+            panneau_contenu.add(gerer_offre, BorderLayout.CENTER);
+        }else if (bouton_barre.equals("GererFilm")){
+            master_vue.clicsPrincipaleVue("GererFilm");
+            panneau_contenu.add(gerer_film, BorderLayout.CENTER);
+        }else if (bouton_barre.equals("GererSeance")){
+            master_vue.clicsPrincipaleVue("GererSeance");
+            panneau_contenu.add(gerer_seance, BorderLayout.CENTER);
         }
 
 

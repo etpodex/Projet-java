@@ -9,7 +9,7 @@ public class MesBilletsVue extends JPanel {
 
     public MesBilletsVue(int panneau_contenu_width, int frame_height) {
         setBackground(new Color(40, 25, 125));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
+        setBorder(new EmptyBorder(20, 20, 0, 20));
 
         // Ajustement de la largeur du panneau de contenu
         panneau_contenu_width = panneau_contenu_width * 14 / 15;

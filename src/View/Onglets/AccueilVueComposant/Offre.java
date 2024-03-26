@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class Offre extends JPanel {
 
-    private int nombre_de_panel_offre = 3;
-    private double[] poids_panels = {0.50, 0.25, 0.25};
+    private int nombre_de_panel_offre = 4;
+    private double[] poids_panels = {0.25, 0.25, 0.25, 0.25};
 
     // Constructeur
     public Offre(int barre_navigation_panel_width, int frame_height) {

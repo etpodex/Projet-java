@@ -28,7 +28,7 @@ public class Films extends JPanel {
     // Méthode
     private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur) {
         JPanel panel_film = new JPanel();
-        panel_film.setBorder(new EmptyBorder(5, 5, 5, 5));
+        panel_film.setBorder(new EmptyBorder(25, 5, 5, 5));
         panel_film.setBackground(new Color(255, 200, 0));
 
         gbc.gridx = 0;
