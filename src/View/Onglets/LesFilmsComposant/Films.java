@@ -1,8 +1,11 @@
 package View.Onglets.LesFilmsComposant;
+
+import Model.Film;
+import View.Onglets.ReservationVue;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import Model.Film;
 
 public class Films extends JPanel {
 
@@ -42,7 +45,7 @@ public class Films extends JPanel {
         add(panel_film, gbc);
 
         // Affichage des détails dans le deuxième panel
-        JPanel detailsPanel = new JPanel(new GridLayout(4, 1));
+        JPanel detailsPanel = new JPanel(new GridLayout(5, 1)); // Ajout d'une rangée pour le bouton Réserver
         detailsPanel.setBackground(Color.WHITE);
         detailsPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -53,9 +56,11 @@ public class Films extends JPanel {
 
         JButton reserverButton = new JButton("Réserver"); // Bouton Réserver
         reserverButton.addActionListener(e -> {
-            // Mettez ici le code pour la réservation du film
-            // Par exemple :
-            JOptionPane.showMessageDialog(null, "Vous avez réservé le film " + film.getNom());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(Films.this);
+            frame.getContentPane().removeAll(); // Supprime le contenu actuel de la fenêtre
+            frame.getContentPane().add(new ReservationVue()); // Ajoute la page de réservation à la fenêtre
+            frame.revalidate(); // Rafraîchit la fenêtre pour afficher la nouvelle page
+            frame.repaint();
         });
 
         detailsPanel.add(titreLabel);
