@@ -23,6 +23,7 @@ public class PaiementEnCoursVue extends JPanel {
         // Animation de rotation de l'icône
         Timer timer = new Timer(100, new ActionListener() {
             double angle = 0;
+            int count = 0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,6 +32,11 @@ public class PaiementEnCoursVue extends JPanel {
                     angle -= Math.PI * 2;
                 }
                 loadingLabel.setIcon(new RotatedIcon(loadingIcon, angle));
+                count++;
+                if (count >= 20) { // 20 * 100 ms
+                    ((Timer) e.getSource()).stop(); // Arrêter le timer après 2 secondes
+                    clearAndDisplayMessage();
+                }
             }
         });
         timer.start();
@@ -38,6 +44,18 @@ public class PaiementEnCoursVue extends JPanel {
         // Ajout des composants à la page de paiement en cours
         add(messageLabel, BorderLayout.NORTH);
         add(loadingLabel, BorderLayout.CENTER);
+    }
+
+    // Méthode pour effacer le contenu du JPanel et afficher un nouveau message
+    private void clearAndDisplayMessage() {
+        removeAll(); // Effacer tous les composants du JPanel
+        revalidate(); // Mettre à jour l'affichage
+        repaint(); // Redessiner le JPanel
+
+        // Nouveau message
+        JLabel newMessageLabel = new JLabel("Le paiement a bien été effectué, retrouvez votre e-billet par e-mail.");
+        newMessageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(newMessageLabel, BorderLayout.CENTER);
     }
 
     // Classe interne pour la rotation de l'icône
