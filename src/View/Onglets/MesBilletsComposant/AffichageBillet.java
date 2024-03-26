@@ -35,8 +35,19 @@ public class AffichageBillet extends JPanel {
         setLayout(new GridLayout(nombre_de_panel_billet, 1, 0, 10)); // Utilisation de GridLayout avec 1 colonne et espacement vertical
         //barre_navigation_panel_width = (int) (barre_navigation_panel_width*1/2);
         for (int i = 0; i < nombre_de_panel_billet; i++) {
-            JPanel billetPanel = new JPanel(new BorderLayout()); // Utilisation de BorderLayout pour organiser les composants
+            JPanel billetPanel = new JPanel(new GridBagLayout()); // Utilisation de GridBagLayout pour organiser les composants
 
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.weightx = 1.0;
+            gbc.weighty = 1.0;
+
+            QRCode qrcode = new QRCode(barre_navigation_panel_width, hauteur);
+            qrcode.setQRCode(qrcode_billet[i]); // Mise à jour du QRCode
+            gbc.anchor = GridBagConstraints.LINE_START;
+            gbc.weighty = 1.0; // Permet au composant de prendre toute la place verticale disponible
+            gbc.gridheight = GridBagConstraints.REMAINDER; // Fait en sorte que le QRCode prenne toute la hauteur du panneau
+            billetPanel.add(qrcode, gbc); // Ajout de QRCode à gauche
 
             Texte texte = new Texte(barre_navigation_panel_width, hauteur);
             texte.setTitreFilm(titre_film_billet[i]);
@@ -48,11 +59,9 @@ public class AffichageBillet extends JPanel {
             texte.setNbreBilletAdulte(nbre_de_billet_adulte[i]);
             texte.setNbreBilletEnfant(nbre_de_billet_enfant[i]);
             texte.setNbreBilletSenior(nbre_de_billet_senior[i]);
-            billetPanel.add(texte, BorderLayout.EAST); // Ajout de Texte à droite
-
-            QRCode qrcode = new QRCode(barre_navigation_panel_width, hauteur);
-            qrcode.setQRCode(qrcode_billet[i]); // Mise à jour du QRCode
-            billetPanel.add(qrcode, BorderLayout.WEST); // Ajout de QRCode à gauche
+            gbc.anchor = GridBagConstraints.LINE_END;
+            gbc.weighty = 1.0; // Permet au composant de prendre toute la place verticale disponible
+            billetPanel.add(texte, gbc); // Ajout de Texte à droite
 
             add(billetPanel); // Ajouter le panneau de billet à la grille
         }
@@ -60,5 +69,3 @@ public class AffichageBillet extends JPanel {
         setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur * nombre_de_panel_billet));
     }
 }
-
-
