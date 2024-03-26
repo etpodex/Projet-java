@@ -1,9 +1,8 @@
 package View.Onglets.LesFilmsComposant;
-import Model.Film;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import Model.Film;
 
 public class Films extends JPanel {
 
@@ -51,12 +50,18 @@ public class Films extends JPanel {
         JLabel acteurLabel = new JLabel("Acteur : " + film.getActeur());
         JLabel synopsisLabel = new JLabel("Synopsis: " + film.getSynopsis());
         JLabel noteLabel = new JLabel("Note: " + film.getNote());
-        //JLabel prixLabel = new JLabel("Prix: " + film.getPrixFilm());
+
+        JButton reserverButton = new JButton("Réserver"); // Bouton Réserver
+        reserverButton.addActionListener(e -> {
+            // Mettez ici le code pour la réservation du film
+            // Par exemple :
+            JOptionPane.showMessageDialog(null, "Vous avez réservé le film " + film.getNom());
+        });
 
         detailsPanel.add(titreLabel);
         detailsPanel.add(synopsisLabel);
         detailsPanel.add(noteLabel);
-        //detailsPanel.add(prixLabel);
+        detailsPanel.add(reserverButton); // Ajout du bouton Réserver
 
         gbc.gridx = 1;
         gbc.weightx = poids_panels[1]; // Utilisation du poids pour le deuxième panel
