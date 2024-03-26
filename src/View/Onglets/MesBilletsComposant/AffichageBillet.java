@@ -33,23 +33,24 @@ public class AffichageBillet extends JPanel {
         setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding autour de Billet
 
         setLayout(new GridLayout(nombre_de_panel_billet, 1, 0, 10)); // Utilisation de GridLayout avec 1 colonne et espacement vertical
-        //barre_navigation_panel_width = (int) (barre_navigation_panel_width*1/2);
+
         for (int i = 0; i < nombre_de_panel_billet; i++) {
             JPanel billetPanel = new JPanel(new GridBagLayout()); // Utilisation de GridBagLayout pour organiser les composants
 
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.fill = GridBagConstraints.BOTH;
-            gbc.weightx = 1.0;
             gbc.weighty = 1.0;
 
-            QRCode qrcode = new QRCode(barre_navigation_panel_width, hauteur);
+            // Pour le QRCode
+            QRCode qrcode = new QRCode(barre_navigation_panel_width / 5, hauteur); // Utilise 20% de la largeur du billetPanel
             qrcode.setQRCode(qrcode_billet[i]); // Mise à jour du QRCode
             gbc.anchor = GridBagConstraints.LINE_START;
-            gbc.weighty = 1.0; // Permet au composant de prendre toute la place verticale disponible
+            gbc.weightx = 0.2; // QRCode occupe 20% de la largeur disponible
             gbc.gridheight = GridBagConstraints.REMAINDER; // Fait en sorte que le QRCode prenne toute la hauteur du panneau
             billetPanel.add(qrcode, gbc); // Ajout de QRCode à gauche
 
-            Texte texte = new Texte(barre_navigation_panel_width, hauteur);
+            // Pour le Texte
+            Texte texte = new Texte((int)(barre_navigation_panel_width * 0.8), hauteur); // Utilise 80% de la largeur du billetPanel
             texte.setTitreFilm(titre_film_billet[i]);
             texte.setDataFilm(data_film_billet[i]);
             texte.setDataHoraire(data_horaire_billet[i]);
@@ -60,7 +61,7 @@ public class AffichageBillet extends JPanel {
             texte.setNbreBilletEnfant(nbre_de_billet_enfant[i]);
             texte.setNbreBilletSenior(nbre_de_billet_senior[i]);
             gbc.anchor = GridBagConstraints.LINE_END;
-            gbc.weighty = 1.0; // Permet au composant de prendre toute la place verticale disponible
+            gbc.weightx = 0.8; // Texte occupe 80% de la largeur disponible
             billetPanel.add(texte, gbc); // Ajout de Texte à droite
 
             add(billetPanel); // Ajouter le panneau de billet à la grille
