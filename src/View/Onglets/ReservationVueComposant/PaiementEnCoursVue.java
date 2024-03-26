@@ -1,5 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
+import View.Onglets.AccueilVue;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,6 +43,8 @@ public class PaiementEnCoursVue extends JPanel {
         });
         timer.start();
 
+
+
         // Ajout des composants à la page de paiement en cours
         add(messageLabel, BorderLayout.NORTH);
         add(loadingLabel, BorderLayout.CENTER);
@@ -52,10 +56,27 @@ public class PaiementEnCoursVue extends JPanel {
         revalidate(); // Mettre à jour l'affichage
         repaint(); // Redessiner le JPanel
 
+        // Bouton pour retourner à l'accueil
+        JButton accueilButton = new JButton("Retour à l'accueil");
+        accueilButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Code pour retourner à l'accueil
+                // Par exemple :
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PaiementEnCoursVue.this);
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new AccueilVue(frame.getWidth(), frame.getHeight()));
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+
         // Nouveau message
         JLabel newMessageLabel = new JLabel("Le paiement a bien été effectué, retrouvez votre e-billet par e-mail.");
         newMessageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(newMessageLabel, BorderLayout.CENTER);
+        add(accueilButton, BorderLayout.SOUTH);
     }
 
     // Classe interne pour la rotation de l'icône
