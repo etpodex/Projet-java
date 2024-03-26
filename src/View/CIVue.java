@@ -11,6 +11,8 @@ public class CIVue {
 
     private MasterVue master_vue;
     private Inscription inscription_panel; // Ajout de la référence à Inscription
+    private Connexion connexion_panel;
+    private String current_view;
 
 
     public CIVue(MasterVue master_vue) {
@@ -33,12 +35,15 @@ public class CIVue {
         Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
 
         this.inscription_panel = inscription_panel;
+        this.connexion_panel = connexion_panel;
 
         if(choix == 1){
             CIPanel.setLayout(new BorderLayout());
             CIPanel.add(header_panel, BorderLayout.NORTH);
             CIPanel.add(connexion_panel, BorderLayout.CENTER);
             CIPanel.add(footer_panel, BorderLayout. SOUTH);
+
+            this.current_view = "Connexion";
 
             frame.getContentPane().add(CIPanel);
         }
@@ -47,6 +52,8 @@ public class CIVue {
             CIPanel.add(header_panel);
             CIPanel.add(inscription_panel);
             CIPanel.add(footer_panel);
+
+            this.current_view = "Insription";
 
             frame.getContentPane().add(CIPanel);
         }
@@ -61,12 +68,26 @@ public class CIVue {
         }
     }
 
+    public String[] getConnexionData() {
+        if (inscription_panel != null) {
+            return connexion_panel.getConnexionData();
+        } else {
+            return null; // Retourne null si Inscription n'est pas initialisé
+        }
+    }
+
     ///méthode des listener
     public void clicRetour() {
         master_vue.clicsCIView("Retour");
     }
     public void clicValider() {
-        master_vue.clicsCIView("Valider");
+        if (current_view.equals("Inscription")) {
+            master_vue.clicsCIView("ValiderInscription");
+        } else if (current_view.equals("Connexion")){
+            master_vue.clicsCIView("ValiderConnexion");
+        } else {
+            System.out.println("Erreur: Vue actuelle non reconnue");
+        }
     }
 
 }

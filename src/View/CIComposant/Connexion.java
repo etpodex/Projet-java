@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Connexion extends JPanel {
+
+    private JTextField emailField;
+    private JPasswordField passwordField;
+
     public Connexion(int frame_width, int frame_height) {
         setLayout(new BorderLayout());
 
@@ -20,7 +24,7 @@ public class Connexion extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         formPanel.add(emailLabel, gbc);
         gbc.gridy++;
-        JTextField emailField = new JTextField(20);
+        this.emailField = new JTextField(20);
         formPanel.add(emailField, gbc);
 
         // Panel pour la paire d'étiquette-champ de saisie du mot de passe
@@ -28,10 +32,18 @@ public class Connexion extends JPanel {
         gbc.gridy++;
         formPanel.add(passwordLabel, gbc);
         gbc.gridy++;
-        JPasswordField passwordField = new JPasswordField(20);
+        this.passwordField = new JPasswordField(20);
         formPanel.add(passwordField, gbc);
 
         // Ajoute le panneau du formulaire au centre du panneau principal
         add(formPanel, BorderLayout.CENTER);
+    }
+
+    public String[] getConnexionData() {
+        // Récupère les données de connexion
+        String[] data = new String[2];
+        data[0] = emailField.getText();
+        data[1] = new String(passwordField.getPassword());
+        return data;
     }
 }
