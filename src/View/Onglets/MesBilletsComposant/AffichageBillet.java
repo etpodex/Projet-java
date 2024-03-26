@@ -1,5 +1,6 @@
 package View.Onglets.MesBilletsComposant;
 
+import Model.Billet;
 import View.Onglets.MesBilletsComposant.BilletComposant.QRCode;
 import View.Onglets.MesBilletsComposant.BilletComposant.Texte;
 
@@ -10,21 +11,19 @@ import java.awt.*;
 public class AffichageBillet extends JPanel {
 
     // Attribut
+    Billet[] billets = new Billet[]{
+            new Billet("Titre du film 1", "12/03/2023", "14:00", "Salle 1","7H",
+                    2, 3, 1, "client@example1.com", "image1.jpg"),
+            new Billet("Titre du film 2", "12/04/2023", "15:00", "Salle 2","7G",
+                    2, 3, 1, "client@example2.com", "image2.jpg"),
+            new Billet("Titre du film 3", "12/05/2023", "16:00", "Salle 3","7F",
+                    2, 3, 1, "client@example3.com", "image3.jpg"),
+            new Billet("Titre du film 4", "12/06/2023", "17:00", "Salle 4","7E",
+                    2, 3, 1, "client@example4.com", "image4.jpg")
+    };
 
     // texte
-    private int nombre_de_panel_billet = 4;
-    private String[] titre_film_billet = {"coucou francis", "l'eau mouille", "hop hop hop", "azerty"};
-    private String[] data_film_billet = {"12/03/24", "30/10/25", "15/05/2018", "30/02/2023"};
-    private String[] data_horaire_billet = {"15h00", "17h00", "11h00", "20h00"};
-    private int data_salle_billet[] = {2, 3, 2, 1};
-    private String[] data_siege_billet = {"5A", "7B", "9F - 5Y - 9I", "10M"};
-    private int nbre_de_billet_acheter[] = {2, 3, 3, 1};
-    private int nbre_de_billet_adulte[] = {1, 1, 3, 0};
-    private int nbre_de_billet_enfant[] = {1, 1, 0, 0};
-    private int nbre_de_billet_senior[] = {0, 1, 0, 1};
-
-    private String qrcode_billet[] = {"image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"};
-
+    private int nombre_de_panel_billet = billets.length;
 
     public AffichageBillet(int barre_navigation_panel_width, int frame_height) {
 
@@ -43,7 +42,7 @@ public class AffichageBillet extends JPanel {
 
             // Pour le QRCode
             QRCode qrcode = new QRCode(barre_navigation_panel_width / 5, hauteur); // Utilise 20% de la largeur du billetPanel
-            qrcode.setQRCode(qrcode_billet[i]); // Mise à jour du QRCode
+            qrcode.setQRCode(billets[i].getUrlImageFilm()); // Mise à jour du QRCode
             gbc.anchor = GridBagConstraints.LINE_START;
             gbc.weightx = 0.2; // QRCode occupe 20% de la largeur disponible
             gbc.gridheight = GridBagConstraints.REMAINDER; // Fait en sorte que le QRCode prenne toute la hauteur du panneau
@@ -51,15 +50,15 @@ public class AffichageBillet extends JPanel {
 
             // Pour le Texte
             Texte texte = new Texte((int)(barre_navigation_panel_width * 0.8), hauteur); // Utilise 80% de la largeur du billetPanel
-            texte.setTitreFilm(titre_film_billet[i]);
-            texte.setDataFilm(data_film_billet[i]);
-            texte.setDataHoraire(data_horaire_billet[i]);
-            texte.setDataSalle(data_salle_billet[i]);
-            texte.setDataSiege(data_siege_billet[i]);
-            texte.setNbreBilletAcheter(nbre_de_billet_acheter[i]);
-            texte.setNbreBilletAdulte(nbre_de_billet_adulte[i]);
-            texte.setNbreBilletEnfant(nbre_de_billet_enfant[i]);
-            texte.setNbreBilletSenior(nbre_de_billet_senior[i]);
+            texte.setTitreFilm(billets[i].getTitreFilm());
+            texte.setDataFilm(billets[i].getDateSeance());
+            texte.setDataHoraire(billets[i].getHeureSeance());
+            texte.setDataSalle(billets[i].getSalleBillet());
+            texte.setDataSiege(billets[i].getSiegeBillet());
+            texte.setNbreBilletAcheter(billets[i].getNombreBilletAdulte() + billets[i].getNombreBilletEnfant() + billets[i].getNombreBilletSenior()); // Total des billets
+            texte.setNbreBilletAdulte(billets[i].getNombreBilletAdulte());
+            texte.setNbreBilletEnfant(billets[i].getNombreBilletEnfant());
+            texte.setNbreBilletSenior(billets[i].getNombreBilletSenior());
             gbc.anchor = GridBagConstraints.LINE_END;
             gbc.weightx = 0.8; // Texte occupe 80% de la largeur disponible
             billetPanel.add(texte, gbc); // Ajout de Texte à droite

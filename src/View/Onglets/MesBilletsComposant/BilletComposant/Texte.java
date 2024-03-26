@@ -82,7 +82,7 @@ public class Texte extends JPanel {
         horaire_billet.setText("Horaire: " + horaire);
     }
 
-    public void setDataSalle(int salle) {
+    public void setDataSalle(String salle) {
         salle_billet.setText("Salle: " + salle);
     }
 
