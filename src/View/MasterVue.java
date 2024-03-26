@@ -141,5 +141,10 @@ public class MasterVue {
         this.lancement_vue = new LancementVue(this);
         afficherVueLancement();
     }
+    // Dans la classe MasterVue
+    public void afficherAccueilVue() {
+        clicsPrincipaleVue("Accueil");
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package View.Onglets.ReservationVueComposant;
 
+import View.MasterVue;
 import View.Onglets.AccueilVue;
 
 import javax.swing.*;
@@ -9,20 +10,22 @@ import java.awt.event.ActionListener;
 
 public class PaiementEnCoursVue extends JPanel {
 
-    public PaiementEnCoursVue() {
-        setBackground(Color.WHITE); // Fond blanc
-        setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
+    private MasterVue masterVue;
+    private JButton accueilButton; // Déclaration du bouton en tant que variable membre pour y accéder ultérieurement
 
-        // Message de paiement en cours
+    public PaiementEnCoursVue(MasterVue masterVue) {
+        this.masterVue = masterVue;
+
+        setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
+
         JLabel messageLabel = new JLabel("Nous vérifions vos informations bancaires, merci de patienter !");
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Icône de chargement tournante
-        ImageIcon loadingIcon = new ImageIcon("gear.png"); // Assurez-vous d'avoir l'icône "gear.png" dans votre répertoire de travail
+        ImageIcon loadingIcon = new ImageIcon("gear.png");
         JLabel loadingLabel = new JLabel(loadingIcon);
         loadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Animation de rotation de l'icône
         Timer timer = new Timer(100, new ActionListener() {
             double angle = 0;
             int count = 0;
@@ -35,51 +38,53 @@ public class PaiementEnCoursVue extends JPanel {
                 }
                 loadingLabel.setIcon(new RotatedIcon(loadingIcon, angle));
                 count++;
-                if (count >= 20) { // 20 * 100 ms
-                    ((Timer) e.getSource()).stop(); // Arrêter le timer après 2 secondes
+                if (count >= 20) {
+                    ((Timer) e.getSource()).stop();
                     clearAndDisplayMessage();
                 }
             }
         });
         timer.start();
 
-
-
-        // Ajout des composants à la page de paiement en cours
         add(messageLabel, BorderLayout.NORTH);
         add(loadingLabel, BorderLayout.CENTER);
     }
 
-    // Méthode pour effacer le contenu du JPanel et afficher un nouveau message
     private void clearAndDisplayMessage() {
-        removeAll(); // Effacer tous les composants du JPanel
-        revalidate(); // Mettre à jour l'affichage
-        repaint(); // Redessiner le JPanel
+        removeAll(); // Supprime tous les composants actuels de cette page
 
-        // Bouton pour retourner à l'accueil
-        JButton accueilButton = new JButton("Retour à l'accueil");
+        // Affiche le message de confirmation de paiement
+        JLabel newMessageLabel = new JLabel("Le paiement a bien été effectué, retrouvez votre e-billet par e-mail.");
+        newMessageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(newMessageLabel, BorderLayout.CENTER);
+
+        // Crée le bouton de retour à l'accueil
+        accueilButton = new JButton("Retour à l'accueil");
         accueilButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Code pour retourner à l'accueil
-                // Par exemple :
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PaiementEnCoursVue.this);
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(new AccueilVue(frame.getWidth(), frame.getHeight()));
-                frame.revalidate();
-                frame.repaint();
+                masterVue.afficherAccueilVue();
+                // Nettoyer le contenu de la page
+                clearContent();
             }
         });
 
 
-        // Nouveau message
-        JLabel newMessageLabel = new JLabel("Le paiement a bien été effectué, retrouvez votre e-billet par e-mail.");
-        newMessageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(newMessageLabel, BorderLayout.CENTER);
         add(accueilButton, BorderLayout.SOUTH);
+
+        // Valide les changements et redessine la fenêtre
+        revalidate();
+        repaint();
     }
 
-    // Classe interne pour la rotation de l'icône
+    // Méthode pour nettoyer le contenu de la page
+    public void clearContent() {
+        removeAll();
+        revalidate();
+        repaint();
+    }
+
+    // Classe interne pour gérer la rotation de l'icône de chargement
     private static class RotatedIcon implements Icon {
         private final Icon icon;
         private final double angle;

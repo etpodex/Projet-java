@@ -1,6 +1,7 @@
 package View.Onglets.LesFilmsComposant;
 
 import Model.Film;
+import View.MasterVue;
 import View.Onglets.ReservationVue;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class Films extends JPanel {
     private double[] poids_panels = {0.2, 0.8};
 
     // Constructeur
-    public Films(int barre_navigation_panel_width, int hauteur, Film film) {
+    public Films(int barre_navigation_panel_width, int hauteur, Film film, MasterVue masterVue) {
         this.film = film; // Initialiser le film actuel
 
         setBackground(new Color(0, 255, 127));
@@ -24,11 +25,11 @@ public class Films extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
-        creerEtAjouterPanels(gbc, hauteur);
+        creerEtAjouterPanels(gbc, hauteur, masterVue);
     }
 
     // Méthode
-    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur) {
+    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur, MasterVue masterVue) {
         JPanel panel_film = new JPanel();
         panel_film.setBorder(new EmptyBorder(5, 5, 5, 5));
         panel_film.setBackground(new Color(255, 200, 0));
@@ -58,7 +59,7 @@ public class Films extends JPanel {
         reserverButton.addActionListener(e -> {
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(Films.this);
             frame.getContentPane().removeAll(); // Supprime le contenu actuel de la fenêtre
-            frame.getContentPane().add(new ReservationVue()); // Ajoute la page de réservation à la fenêtre
+            frame.getContentPane().add(new ReservationVue(masterVue)); // Ajoute la page de réservation à la fenêtre avec la référence à MasterVue
             frame.revalidate(); // Rafraîchit la fenêtre pour afficher la nouvelle page
             frame.repaint();
         });

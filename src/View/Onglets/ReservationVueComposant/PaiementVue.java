@@ -1,5 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
+import View.MasterVue;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,9 +9,13 @@ import java.awt.event.ActionListener;
 
 public class PaiementVue extends JPanel {
 
-    public PaiementVue() {
-        setBackground(Color.WHITE); // Fond blanc
-        setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
+    private MasterVue masterVue;
+
+    public PaiementVue(MasterVue masterVue) {
+        this.masterVue = masterVue;
+
+        setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
 
         // En-tête de la page de paiement
         JLabel titleLabel = new JLabel("Paiement par carte de crédit");
@@ -17,8 +23,8 @@ public class PaiementVue extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         // Zone de saisie des détails de la carte de crédit
-        JPanel cardDetailsPanel = new JPanel(new GridBagLayout()); // Utilisation de GridBagLayout
-        cardDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Marge intérieure
+        JPanel cardDetailsPanel = new JPanel(new GridBagLayout());
+        cardDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -38,28 +44,7 @@ public class PaiementVue extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         cardDetailsPanel.add(nomSurCarteLabel, gbc);
 
-        gbc.gridy = 1;
-        cardDetailsPanel.add(cardNumberLabel, gbc);
-
-        gbc.gridy = 2;
-        cardDetailsPanel.add(expiryDateLabel, gbc);
-
-        gbc.gridy = 3;
-        cardDetailsPanel.add(cvvLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        cardDetailsPanel.add(nomSurCarteField, gbc);
-
-        gbc.gridy = 1;
-        cardDetailsPanel.add(cardNumberField, gbc);
-
-        gbc.gridy = 2;
-        cardDetailsPanel.add(expiryDateField, gbc);
-
-        gbc.gridy = 3;
-        cardDetailsPanel.add(cvvField, gbc);
+        // Ajoutez d'autres composants ici ...
 
         // Bouton de paiement
         JButton payButton = new JButton("Payer");
@@ -70,10 +55,10 @@ public class PaiementVue extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Basculer vers la page de paiement en cours
-                removeAll(); // Supprimer tous les composants de la page actuelle
-                add(new PaiementEnCoursVue(), BorderLayout.CENTER); // Ajouter la page de paiement en cours
-                revalidate(); // Mettre à jour l'affichage
-                repaint(); // Redessiner la page
+                removeAll();
+                add(new PaiementEnCoursVue(masterVue), BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
         });
 

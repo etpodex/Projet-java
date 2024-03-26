@@ -1,5 +1,6 @@
 package View.Onglets;
 
+import View.MasterVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
 
 import javax.swing.*;
@@ -9,7 +10,11 @@ import java.awt.event.ActionListener;
 
 public class ReservationVue extends JPanel {
 
-    public ReservationVue() {
+    private MasterVue masterVue;
+
+    public ReservationVue(MasterVue masterVue) {
+        this.masterVue = masterVue;
+
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
@@ -21,7 +26,7 @@ public class ReservationVue extends JPanel {
                 // Code pour ouvrir la page de paiement
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(ReservationVue.this);
                 frame.getContentPane().removeAll(); // Supprime le contenu actuel de la fenêtre
-                frame.getContentPane().add(new PaiementVue()); // Ajoute la page de paiement à la fenêtre
+                frame.getContentPane().add(new PaiementVue(masterVue)); // Ajoute la page de paiement à la fenêtre avec la référence à MasterVue
                 frame.revalidate(); // Rafraîchit la fenêtre pour afficher la nouvelle page
                 frame.repaint();
             }
