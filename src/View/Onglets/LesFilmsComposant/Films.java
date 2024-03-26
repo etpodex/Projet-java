@@ -1,4 +1,5 @@
 package View.Onglets.LesFilmsComposant;
+import Model.Film;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -6,19 +7,12 @@ import java.awt.*;
 
 public class Films extends JPanel {
 
-    private int nombre_de_panel_film = 2;
-    private double[] poids_panels = {0.25, 0.75};
-
-    private JLabel titre_film;
-    private JLabel etoile_film;
-    private JLabel auteur_film;
-    private JLabel heure_film;
-    private JLabel synopsis_film;
-    private JLabel affiche_film;
-
+    private Film film; // Garder une référence au film actuel
+    private double[] poids_panels = {0.2, 0.8};
 
     // Constructeur
-    public Films(int barre_navigation_panel_width, int hauteur) {
+    public Films(int barre_navigation_panel_width, int hauteur, Film film) {
+        this.film = film; // Initialiser le film actuel
 
         setBackground(new Color(0, 255, 127));
         setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur));
@@ -28,73 +22,44 @@ public class Films extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
-
-        titre_film = new JLabel();
-        etoile_film = new JLabel();
-        auteur_film = new JLabel();
-        heure_film = new JLabel();
-        synopsis_film = new JLabel();
-
-        affiche_film = new JLabel();
-
-
-
-        for (int i = 0; i < nombre_de_panel_film; i++) {
-            JPanel panel_film = new JPanel();
-            panel_film.setBorder(new EmptyBorder(5, 5, 5, 5));
-            panel_film.setBackground(new Color(255 * i / (i + 1), 100 * i / (i + 1), 0));
-
-            gbc.gridx = i;
-            gbc.weightx = poids_panels[i];
-            gbc.weighty = hauteur;
-
-            if (i == 0) {
-                panel_film.add(affiche_film);
-
-            } else {
-                panel_film.setLayout(new GridLayout(0, 1, 0, 0)); // Utiliser FlowLayout avec alignement à gauche
-
-                panel_film.add(titre_film);
-                panel_film.add(createInfoFilmPanel());
-                panel_film.add(synopsis_film);
-            }
-
-            add(panel_film, gbc);
-
-        }
+        creerEtAjouterPanels(gbc, hauteur);
     }
 
-    //Methode
+    // Méthode
+    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur) {
+        JPanel panel_film = new JPanel();
+        panel_film.setBorder(new EmptyBorder(5, 5, 5, 5));
+        panel_film.setBackground(new Color(255, 200, 0));
 
-    private JPanel createInfoFilmPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(etoile_film);
-        panel.add(auteur_film);
-        panel.add(heure_film);
-        return panel;
-    }
+        gbc.gridx = 0;
+        gbc.weightx = poids_panels[0]; // Utilisation du poids pour le premier panel
+        gbc.weighty = 1.0;
 
-    public void setTitreFilm(String titre) {
-        titre_film.setText("Titre: " + titre);
-    }
+        // Affichage de l'image dans le premier panel
+        ImageIcon imageIcon = new ImageIcon(film.getUrlImage());
+        JLabel imageLabel = new JLabel(imageIcon);
+        panel_film.add(imageLabel);
 
-    public void setEtoile (String etoile) {
-        etoile_film.setText(etoile);
-    }
+        add(panel_film, gbc);
 
-    public void setAuteur(String auteur) {
-        auteur_film.setText(auteur);
-    }
+        // Affichage des détails dans le deuxième panel
+        JPanel detailsPanel = new JPanel(new GridLayout(4, 1));
+        detailsPanel.setBackground(Color.WHITE);
+        detailsPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-    public void setHeure(String heure) {
-        heure_film.setText("  -  " + heure);
-    }
+        JLabel titreLabel = new JLabel("Titre: " + film.getNom());
+        JLabel acteurLabel = new JLabel("Acteur : " + film.getActeur());
+        JLabel synopsisLabel = new JLabel("Synopsis: " + film.getSynopsis());
+        JLabel noteLabel = new JLabel("Note: " + film.getNote());
+        //JLabel prixLabel = new JLabel("Prix: " + film.getPrixFilm());
 
-    public void setSynopsis(String synopsis) {
-        synopsis_film.setText("Synopsis: " + synopsis);
-    }
+        detailsPanel.add(titreLabel);
+        detailsPanel.add(synopsisLabel);
+        detailsPanel.add(noteLabel);
+        //detailsPanel.add(prixLabel);
 
-    public void setAfficheFilm(String affiches_film) {
-        affiche_film.setIcon(new ImageIcon(affiches_film)); // Définit l'icône du JLabel avec l'image QRCode
+        gbc.gridx = 1;
+        gbc.weightx = poids_panels[1]; // Utilisation du poids pour le deuxième panel
+        add(detailsPanel, gbc);
     }
 }

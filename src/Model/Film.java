@@ -3,23 +3,27 @@ package Model;
 public class Film {
     private String uuid;
     private String nom;
+    private String acteur;
     private String synopsis;
     private float note;
     private String urlImage;
     private int prixFilm;
+
 
     // Constructeur par défaut
     public Film() {
     }
 
     // Constructeur avec tous les paramètres
-    public Film(String uuid, String nom, String synopsis, float note, String urlImage, int prixFilm) {
+    public Film(String uuid, String nom, String acteur, String synopsis, float note, String urlImage, int prixFilm) {
         this.uuid = uuid;
         this.nom = nom;
+        this.acteur = acteur;
         this.synopsis = synopsis;
         this.note = note;
         this.urlImage = urlImage;
         this.prixFilm = prixFilm;
+
     }
 
     // Getters et Setters
@@ -35,8 +39,16 @@ public class Film {
         return nom;
     }
 
+    public String getActeur() {
+        return acteur;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public void setActeur(String acteur) {
+        this.acteur = acteur;
     }
 
     public String getSynopsis() {
