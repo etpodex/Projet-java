@@ -1,10 +1,13 @@
 package View.Onglets;
 
+import Model.Utilisateur;
 import View.Onglets.MonCompteComposant.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class MonCompteVue extends JPanel {
+
+    Utilisateur utilisateur = new Utilisateur("1", "utilisateur@gmail.com", "LELAMA", "Lama", 23, 1, "oeoeoeoe");
 
     private JScrollPane information_utilisateurs_scroll_panel;
     private JScrollPane modification_information_utilisateur_scroll_panel;
@@ -15,8 +18,8 @@ public class MonCompteVue extends JPanel {
         setLayout(new BorderLayout());
 
         // Création des panels
-        InformationUtilisateurs information_utilisateurs_panel = new InformationUtilisateurs();
-        ModificationInformationUtilisateur modification_information_utilisateur_panel = new ModificationInformationUtilisateur();
+        InformationUtilisateurs information_utilisateurs_panel = new InformationUtilisateurs(utilisateur);
+        ModificationInformationUtilisateur modification_information_utilisateur_panel = new ModificationInformationUtilisateur(utilisateur);
 
         // Création des JScrollPane pour chaque panel
         information_utilisateurs_scroll_panel = new JScrollPane(information_utilisateurs_panel);
