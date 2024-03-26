@@ -9,18 +9,18 @@ public class PrincipaleVue extends JPanel{
 
     // ATTRIBUTS //
 
-    private MasterVue master_vue;               // Instance de la vue principale
+    private MasterVue master_vue;// Instance de la vue principale
 
     // Instance des panels qui composent la vue principale
-    private BarreNavigation barre_navigation;   // La barre de navigation à gauche
-    private JPanel panneau_contenu;             // Le panneau de contenu à droite
+    private BarreNavigation barre_navigation;// La barre de navigation à gauche
+    private JPanel panneau_contenu;// Le panneau de contenu à droite
 
     // Instances des vues composant le panneau de contenu
-    private MesBilletsVue mes_billets_vue;       // La vue du calendrier
-    private LesFilmsVue les_films_vue;          // La vue des films
-    private AccueilVue accueil_vue;             // La vue d'accueil
-    private MonCompteVue mon_compte_vue;        // La vue de mon compte
-    private ConnexionVue connexion_vue;                // La vue de connexion
+    private MesBilletsVue mes_billets_vue;// La vue du calendrier
+    private LesFilmsVue les_films_vue;// La vue des films
+    private AccueilVue accueil_vue;// La vue d'accueil
+    private MonCompteVue mon_compte_vue;// La vue de mon compte
+    private ConnexionVue connexion_vue;// La vue de connexion
 
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height){
