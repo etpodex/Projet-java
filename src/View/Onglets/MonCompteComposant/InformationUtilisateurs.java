@@ -38,7 +38,7 @@ public class InformationUtilisateurs extends JPanel {
         ageField = new JTextField(3); // Taille réduite pour l'âge
         nvAvantageField = new JTextField(5);
         emailField = new JTextField(15);
-        passwordField = new JTextField(10);
+        passwordField = new JPasswordField(10);
 
         // Affichage des informations de l'utilisateur dans les champs de texte correspondants
         prenomField.setText(utilisateur.getPrenom());
