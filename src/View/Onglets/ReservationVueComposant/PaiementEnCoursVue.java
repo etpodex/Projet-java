@@ -19,12 +19,12 @@ public class PaiementEnCoursVue extends JPanel {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
-        JLabel messageLabel = new JLabel("Nous vérifions vos informations bancaires, merci de patienter !");
-        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel message_label = new JLabel("Nous vérifions vos informations bancaires, merci de patienter !");
+        message_label.setHorizontalAlignment(SwingConstants.CENTER);
 
-        ImageIcon loadingIcon = new ImageIcon("gear.png");
-        JLabel loadingLabel = new JLabel(loadingIcon);
-        loadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        ImageIcon chargement_icon = new ImageIcon("gear.png");
+        JLabel chargement_label = new JLabel(chargement_icon);
+        chargement_label.setHorizontalAlignment(SwingConstants.CENTER);
 
         Timer timer = new Timer(100, new ActionListener() {
             double angle = 0;
@@ -36,7 +36,7 @@ public class PaiementEnCoursVue extends JPanel {
                 if (angle >= Math.PI * 2) {
                     angle -= Math.PI * 2;
                 }
-                loadingLabel.setIcon(new RotatedIcon(loadingIcon, angle));
+                chargement_label.setIcon(new RotatedIcon(chargement_icon, angle));
                 count++;
                 if (count >= 20) {
                     ((Timer) e.getSource()).stop();
@@ -46,8 +46,8 @@ public class PaiementEnCoursVue extends JPanel {
         });
         timer.start();
 
-        add(messageLabel, BorderLayout.NORTH);
-        add(loadingLabel, BorderLayout.CENTER);
+        add(message_label, BorderLayout.NORTH);
+        add(chargement_label, BorderLayout.CENTER);
     }
 
     private void clearAndDisplayMessage() {
