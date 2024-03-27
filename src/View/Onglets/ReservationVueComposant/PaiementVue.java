@@ -92,6 +92,46 @@ public class PaiementVue extends JPanel {
             }
         });
 
+        // Ajout du faux numéro de carte en gris clair
+        date_expiration_field.setForeground(Color.LIGHT_GRAY);
+        date_expiration_field.setText("MM/AA");
+        date_expiration_field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (date_expiration_field.getText().equals("MM/AA")) {
+                    date_expiration_field.setText("");
+                    date_expiration_field.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (date_expiration_field.getText().isEmpty()) {
+                    date_expiration_field.setText("MM/AA");
+                    date_expiration_field.setForeground(Color.LIGHT_GRAY);
+                }
+            }
+        });
+
+        // Blinder le champ de la date d'expiration pour accepter uniquement des chiffres et insérer automatiquement le "/" après 2 chiffres
+        date_expiration_field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                JTextField textField = (JTextField) e.getSource();
+                if (!((c >= '0' && c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+                if (textField.getText().length() == 2 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+                    textField.setText(textField.getText() + "/");
+                }
+                if (textField.getText().length() >= 5) {
+                    e.consume();
+                }
+            }
+        });
+
+
         // Ajout du faux CVV en gris clair
         cvv_field.setForeground(Color.LIGHT_GRAY);
         cvv_field.setText("000");
