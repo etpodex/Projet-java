@@ -1,5 +1,8 @@
 package View;
 
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.SkipEvenement;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,9 +46,6 @@ public class LancementVue {
         return connexion_inscription_panel;
     }
 
-    public void clicSkip(){
-        master_vue.clicsLancement("Skip");
-    }
     public void clicConnexion() {
         master_vue.clicsLancement("Connexion");
     }
@@ -69,13 +69,7 @@ class Skip extends JPanel {
 
         //Bouton skip
         bouton_skip = new JButton ("Skip");
-        bouton_skip.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Skip\" a été cliqué!");
-                lancement_vue.clicSkip();
-            }
-        });
+        bouton_skip.addActionListener(e -> FileEvenements.getInstance().publier(new SkipEvenement()));
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();

@@ -1,9 +1,6 @@
 package View;
 
-import Controller.VueControleur;
 import View.Onglets.*;
-import View.Onglets.LesFilmsComposant.Films;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;
