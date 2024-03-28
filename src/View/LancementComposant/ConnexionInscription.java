@@ -52,25 +52,4 @@ public class ConnexionInscription extends JPanel {
 
         setPreferredSize(new Dimension(frame_width,frame_height));
     }
-
-    /**METHODE**/
-
-    // POUR BOUTON CONNEXION
-
-    //-->pour le moment cette methode est inutile
-    public void addConnexionBoutonListener(ActionListener listener){
-        bouton_connexion.addActionListener(listener);
-    }
-
-    // Méthode pour obtenir le bouton "Skip"
-    public JButton getConnexionBouton() {
-        return bouton_connexion;
-    }
-
-    // POUR BOUTON INSCRIPTION
-
-    // Méthode pour obtenir le bouton "Skip"
-    public JButton getInscriptionBouton() {
-        return bouton_inscription;
-    }
 }

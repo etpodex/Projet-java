@@ -2,12 +2,6 @@ package Controller;
 
 /**BIBLIOTHEQUE**/
 import View.*;
-import View.LancementComposant.ConnexionInscription;
-import View.LancementComposant.Skip;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VueControleur {
 
@@ -32,7 +26,15 @@ public class VueControleur {
         app_controleur.inscription();
     }
 
+    public int connexion() {
+        return app_controleur.connexion();
+    }
+
     public String[] getInscriptionData() {
         return master_vue.getInscriptionData();
+    }
+
+    public String[] getConnexionData() {
+        return master_vue.getConnexionData();
     }
 }

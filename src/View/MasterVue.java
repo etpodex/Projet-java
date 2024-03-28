@@ -84,7 +84,7 @@ public class MasterVue {
 
             afficherVueLancement();
         }
-        else if (bouton.equals("Valider")) {
+        else if (bouton.equals("ValiderInscription")) {
 
             //réinitialiser la frame
             frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
@@ -93,6 +93,20 @@ public class MasterVue {
 
             vue_controleur.inscription();
             afficherPrincipaleVue();
+        }
+        else if (bouton.equals("ValiderConnexion")) {
+
+            //réinitialiser la frame
+
+            int connect_result = vue_controleur.connexion();
+            if (connect_result == 0) {
+
+                frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+                frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+                frame.getContentPane().repaint(); // Redessiner la JFrame
+
+                afficherPrincipaleVue();
+            }
         }
     }
 
@@ -115,8 +129,17 @@ public class MasterVue {
         else if (bouton.equals("Mon Compte")){
             afficherPrincipaleVue();
         }
-        else if (bouton.equals("Connexion")){
+        else if (bouton.equals("Connexion")) {
             afficherVueLancement();
+        }
+        else if (bouton.equals("Gérer Offre")){
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Gérer Film")){
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Gérer Séance")){
+            afficherPrincipaleVue();
         }
 
         // Revalide la mise en page + redessine le panneau
@@ -133,6 +156,14 @@ public class MasterVue {
         }
     }
 
+    public String[] getConnexionData() {
+        if (ci_vue != null) {
+            return ci_vue.getConnexionData();
+        } else {
+            return null; // Retourne null si CIVue n'est pas initialisé
+        }
+    }
+
     public void resetLancementVue() {
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
@@ -141,5 +172,10 @@ public class MasterVue {
         this.lancement_vue = new LancementVue(this);
         afficherVueLancement();
     }
+    // Dans la classe MasterVue
+    public void afficherAccueilVue() {
+        clicsPrincipaleVue("Accueil");
+    }
+
 
 }

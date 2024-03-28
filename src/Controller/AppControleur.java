@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Film;
+import View.Onglets.LesFilmsComposant.Films;
 import database.UtilisateurDAO;
 
 import java.util.List;
@@ -13,6 +15,11 @@ public class AppControleur {
     public AppControleur() {
         vue_controleur = new VueControleur(this);
         utilisateur_dao = new UtilisateurDAO();
+        Film[] films = new Film[]{
+                new Film("idfilm1", "titre1", "acteur1", "synopsis1", 9.0f, "image1.jpg", 10),
+                new Film("idfilm2", "titre2", "acteur2","synopsis2", 8.5f, "image2.jpg", 15),
+        };
+
     }
 
     public static void main(String[] args) {
@@ -30,5 +37,21 @@ public class AppControleur {
                 System.out.println("Erreur lors de l'inscription.");
             }
         }
+    }
+
+    public int connexion() {
+        String[] connexionData = vue_controleur.getConnexionData();
+        if (connexionData != null) {
+            List<String> user = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
+
+            if (user != null) {
+                System.out.println("Connexion réussie.");
+                return 0;
+            } else {
+                System.out.println("Erreur lors de la connexion.");
+                return 1;
+            }
+        }
+        return 2;
     }
 }
