@@ -129,8 +129,17 @@ public class MasterVue {
         else if (bouton.equals("Mon Compte")){
             afficherPrincipaleVue();
         }
-        else if (bouton.equals("Connexion")){
+        else if (bouton.equals("Connexion")) {
             afficherVueLancement();
+        }
+        else if (bouton.equals("Gérer Offre")){
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Gérer Film")){
+            afficherPrincipaleVue();
+        }
+        else if (bouton.equals("Gérer Séance")){
+            afficherPrincipaleVue();
         }
 
         // Revalide la mise en page + redessine le panneau
@@ -163,5 +172,10 @@ public class MasterVue {
         this.lancement_vue = new LancementVue(this);
         afficherVueLancement();
     }
+    // Dans la classe MasterVue
+    public void afficherAccueilVue() {
+        clicsPrincipaleVue("Accueil");
+    }
+
 
 }

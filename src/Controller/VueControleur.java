@@ -2,12 +2,6 @@ package Controller;
 
 /**BIBLIOTHEQUE**/
 import View.*;
-import View.LancementComposant.ConnexionInscription;
-import View.LancementComposant.Skip;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VueControleur {
 
