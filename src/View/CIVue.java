@@ -71,33 +71,12 @@ public class CIVue {
             return null;
         }
     }
-    public String[] getConnextionData(){
-        if (connexion_panel != null) {
-            return connexion_panel.getConnexionData();
-        } else {
-            return null;
-        }
-    }
 
     public String[] getConnexionData() {
         if (inscription_panel != null) {
             return connexion_panel.getConnexionData();
         } else {
             return null; // Retourne null si Inscription n'est pas initialisé
-        }
-    }
-
-    ///méthode des listener
-    public void clicRetour() {
-        master_vue.clicsCIView("Retour");
-    }
-    public void clicValider() {
-        if (current_view.equals("Inscription")) {
-            master_vue.clicsCIView("ValiderInscription");
-        } else if (current_view.equals("Connexion")){
-            master_vue.clicsCIView("ValiderConnexion");
-        } else {
-            System.out.println("Erreur: Vue actuelle non reconnue");
         }
     }
 
