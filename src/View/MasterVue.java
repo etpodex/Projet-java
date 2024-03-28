@@ -50,32 +50,25 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
-    public void clicsLancement(String bouton) {
-        if (bouton.equals("Connexion")) {
+    public void afficherConnexion() {
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            //CI Vue
-            ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
-        } else if (bouton.equals("Inscription")) {
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            //CI Vue
-            ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
-        }
+        ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
     }
 
+    public void afficherInscription() {
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
+
+        ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
+    }
+
+
     public void clicsCIView(String bouton) {
-        if (bouton.equals("Retour")) {
-            afficherVueLancement();
-        }
-        else if (bouton.equals("ValiderInscription")) {
+        if (bouton.equals("ValiderInscription")) {
             app_controleur.inscription();
             afficherPrincipaleVue();
         }
@@ -158,6 +151,4 @@ public class MasterVue {
     public void afficherAccueilVue() {
         clicsPrincipaleVue("Accueil");
     }
-
-
 }

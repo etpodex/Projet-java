@@ -1,7 +1,6 @@
 package Controller;
 
-import Controller.Evenements.FileEvenements;
-import Controller.Evenements.SkipEvenement;
+import Controller.Evenements.*;
 import Model.Film;
 import View.MasterVue;
 import database.UtilisateurDAO;
@@ -32,6 +31,20 @@ public class AppControleur {
     private void evenementControleur(Object objet) {
         if (objet instanceof SkipEvenement) {
             master_vue.afficherPrincipaleVue();
+        } else if (objet instanceof AffConnexionEvenement) {
+            master_vue.afficherConnexion();
+        } else if (objet instanceof AffInscriptionEvenement) {
+            master_vue.afficherInscription();
+        } else if (objet instanceof ConnexionEvenement) {
+            if (connexion() == 0) {
+                master_vue.afficherPrincipaleVue();
+            }
+        } else if (objet instanceof InscriptionEvenement) {
+            if (inscription() == 0) {
+                master_vue.afficherPrincipaleVue();
+            }
+        } else if (objet instanceof RetourCIEvenement) {
+            master_vue.afficherVueLancement();
         }
     }
 
@@ -41,16 +54,19 @@ public class AppControleur {
     }
 
 
-    public void inscription() {
+    public int inscription() {
         String[] inscriptionData = getInscriptionData();
         if (inscriptionData != null) {
             int response = utilisateur_dao.ajouter(inscriptionData);
             if (response == 0) {
                 System.out.println("Inscription réussie.");
+                return 0;
             } else {
                 System.out.println("Erreur lors de l'inscription.");
+                return 1;
             }
         }
+        return 2;
     }
 
     public int connexion() {
