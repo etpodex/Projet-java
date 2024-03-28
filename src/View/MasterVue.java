@@ -84,7 +84,7 @@ public class MasterVue {
 
             afficherVueLancement();
         }
-        else if (bouton.equals("Valider")) {
+        else if (bouton.equals("ValiderInscription")) {
 
             //réinitialiser la frame
             frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
@@ -93,6 +93,20 @@ public class MasterVue {
 
             vue_controleur.inscription();
             afficherPrincipaleVue();
+        }
+        else if (bouton.equals("ValiderConnexion")) {
+
+            //réinitialiser la frame
+
+            int connect_result = vue_controleur.connexion();
+            if (connect_result == 0) {
+
+                frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+                frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+                frame.getContentPane().repaint(); // Redessiner la JFrame
+
+                afficherPrincipaleVue();
+            }
         }
     }
 
@@ -137,6 +151,14 @@ public class MasterVue {
     public String[] getInscriptionData() {
         if (ci_vue != null) {
             return ci_vue.getInscriptionData();
+        } else {
+            return null; // Retourne null si CIVue n'est pas initialisé
+        }
+    }
+
+    public String[] getConnexionData() {
+        if (ci_vue != null) {
+            return ci_vue.getConnexionData();
         } else {
             return null; // Retourne null si CIVue n'est pas initialisé
         }

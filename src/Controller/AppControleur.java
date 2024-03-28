@@ -38,4 +38,20 @@ public class AppControleur {
             }
         }
     }
+
+    public int connexion() {
+        String[] connexionData = vue_controleur.getConnexionData();
+        if (connexionData != null) {
+            List<String> user = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
+
+            if (user != null) {
+                System.out.println("Connexion réussie.");
+                return 0;
+            } else {
+                System.out.println("Erreur lors de la connexion.");
+                return 1;
+            }
+        }
+        return 2;
+    }
 }

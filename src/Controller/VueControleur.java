@@ -26,7 +26,15 @@ public class VueControleur {
         app_controleur.inscription();
     }
 
+    public int connexion() {
+        return app_controleur.connexion();
+    }
+
     public String[] getInscriptionData() {
         return master_vue.getInscriptionData();
+    }
+
+    public String[] getConnexionData() {
+        return master_vue.getConnexionData();
     }
 }
