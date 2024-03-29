@@ -1,10 +1,13 @@
 package View;
 
+import Controller.Evenements.ConnexionEvenement;
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.InscriptionEvenement;
+import Controller.Evenements.RetourCIEvenement;
+
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 public class CIVue {
@@ -68,13 +71,6 @@ public class CIVue {
             return null;
         }
     }
-    public String[] getConnextionData(){
-        if (connexion_panel != null) {
-            return connexion_panel.getConnexionData();
-        } else {
-            return null;
-        }
-    }
 
     public String[] getConnexionData() {
         if (inscription_panel != null) {
@@ -84,18 +80,8 @@ public class CIVue {
         }
     }
 
-    ///méthode des listener
-    public void clicRetour() {
-        master_vue.clicsCIView("Retour");
-    }
-    public void clicValider() {
-        if (current_view.equals("Inscription")) {
-            master_vue.clicsCIView("ValiderInscription");
-        } else if (current_view.equals("Connexion")){
-            master_vue.clicsCIView("ValiderConnexion");
-        } else {
-            System.out.println("Erreur: Vue actuelle non reconnue");
-        }
+    public String getCurrentView(){
+        return current_view;
     }
 }
 
@@ -212,29 +198,24 @@ class Footer extends JPanel{
     private JButton bouton_retour;
 
     public Footer(int frame_width, int frame_height, CIVue ci_vue){
+
+
         //couleur pour voir
         setBackground(new Color(186, 230, 187));
 
         setLayout(new GridBagLayout());
 
         bouton_valider = new JButton("Valider");
-        bouton_valider.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Valider\" a été cliqué!");
-                ci_vue.clicValider();
+        bouton_valider.addActionListener(e -> {
+            if (ci_vue.getCurrentView().equals("Inscription")) {
+                FileEvenements.getInstance().publier(new InscriptionEvenement());
+            } else if (ci_vue.getCurrentView().equals("Connexion")){
+                FileEvenements.getInstance().publier(new ConnexionEvenement());
             }
         });
 
         bouton_retour = new JButton("Retour");
-        bouton_retour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Retour\" a été cliqué!");
-                ci_vue.clicRetour();
-            }
-        });
-        ///action listener
+        bouton_retour.addActionListener(e -> {FileEvenements.getInstance().publier(new RetourCIEvenement());});
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();

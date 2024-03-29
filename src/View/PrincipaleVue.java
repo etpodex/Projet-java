@@ -1,9 +1,7 @@
 package View;
 
-import Controller.VueControleur;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.*;
-import View.Onglets.LesFilmsComposant.Films;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +70,15 @@ public class PrincipaleVue extends JPanel {
         repaint();
     }
 
+    public void afficherLesFilms() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(les_films_vue);
+        panneau_contenu.revalidate();
+        panneau_contenu.repaint();
+    }
+
     public void clicsBarreNavigation(String boutonBarre) {
+
         // Supprime tout contenu précédent
         panneau_contenu.removeAll();
 
