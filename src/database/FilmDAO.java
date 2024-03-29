@@ -94,7 +94,7 @@ public class FilmDAO implements IfilmDAO{
     @Override
     public List<String> rechercher(String critere) {
         List<String> films = new ArrayList<>();
-        String query = "SELECT * FROM Films WHERE nom LIKE ?";
+        String query = "SELECT * FROM Films WHERE nom LIKE ? order by nom ASC";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
