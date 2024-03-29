@@ -83,20 +83,16 @@ public class MasterVue {
 
     public void afficherOnglet(Object objet) {
         System.out.println(objet.getClass());
-        if (objet instanceof AffAccueilEvenement) {
-            principale_vue.afficherAccueil();
-        } else if (objet instanceof AffGererFilmEvenement) {
-            principale_vue.afficherLesFilms();
-        } else if (objet instanceof AffGererOffreEvenement) {
-            principale_vue.afficherLesFilms();
-        } else if (objet instanceof AffGererSeanceEvenement) {
-            principale_vue.afficherLesFilms();
-        } else if (objet instanceof AffLesFilmsEvenement) {
-            principale_vue.afficherLesFilms();
-        } else if (objet instanceof AffMesBilletsEvenement) {
-            principale_vue.afficherMesBillets();
-        } else if (objet instanceof AffMonCompteEvenement) {
-            principale_vue.afficherMonCompte();
+        switch (objet) {
+            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
+            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherLesFilms();
+            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherLesFilms();
+            case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherLesFilms();
+            case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms();
+            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets();
+            case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte();
+            default -> {
+            }
         }
     }
 

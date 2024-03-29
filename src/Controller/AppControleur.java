@@ -47,20 +47,10 @@ public class AppControleur {
             }
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
-        } else if (objet instanceof AffLesFilmsEvenement) {
-            master_vue.afficherPVLesFilms();
-        } else if (objet instanceof AffAccueilEvenement) {
-            master_vue.afficherPVAccueil();
-        } else if (objet instanceof AffGererFilmEvenement) {
-            master_vue.afficherPVGererFilm();
-        } else if (objet instanceof AffGererOffreEvenement) {
-            master_vue.afficherPVGererOffre();
-        } else if (objet instanceof AffGererSeanceEvenement) {
-            master_vue.afficherPVGererSeance();
-        } else if (objet instanceof AffMesBilletsEvenement) {
-            master_vue.afficherPVMesBillets();
-        } else if (objet instanceof AffMonCompteEvenement) {
-            master_vue.afficherPVMonCompte();
+        }
+
+        else if (objet instanceof AffPVEvenement) {
+            master_vue.afficherOnglet(objet);
         }
     }
 
