@@ -91,29 +91,16 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
+    public void afficherPVLesFilms() {
+        principale_vue.afficherLesFilms();
+    }
+
     public void clicsPrincipaleVue(String bouton) {
-        if (bouton.equals("LesFilms")) {
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("MesBillets")) {
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Accueil")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Mon Compte")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Connexion")) {
+
+        if (bouton.equals("Connexion")) {
             afficherVueLancement();
         }
-        else if (bouton.equals("Gérer Offre")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Gérer Film")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Gérer Séance")){
+        else {
             afficherPrincipaleVue();
         }
 

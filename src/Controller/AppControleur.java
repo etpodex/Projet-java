@@ -1,7 +1,11 @@
 package Controller;
 
 import Controller.Evenements.*;
+import Controller.Evenements.Affichage.AffConnexionEvenement;
+import Controller.Evenements.Affichage.AffInscriptionEvenement;
+import Controller.Evenements.Affichage.AffLesFilms;
 import Model.Film;
+import Model.Utilisateur;
 import View.MasterVue;
 import database.UtilisateurDAO;
 
@@ -45,6 +49,8 @@ public class AppControleur {
             }
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
+        } else if (objet instanceof AffLesFilms) {
+            master_vue.afficherPVLesFilms();
         }
     }
 
