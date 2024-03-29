@@ -1,9 +1,12 @@
 package View;
 
+import Controller.Evenements.Affichage.AffConnexionEvenement;
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.Affichage.AffInscriptionEvenement;
+import Controller.Evenements.SkipEvenement;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LancementVue {
 
@@ -37,22 +40,6 @@ public class LancementVue {
         // Ajout du grand panneau au JFrame
         frame.getContentPane().add(grand_panneau);
     }
-
-    // Méthode pour obtenir le composant ConnexionInscription
-    public static ConnexionInscription getConnexionInscriptionComposant() {
-        return connexion_inscription_panel;
-    }
-
-    public void clicSkip(){
-        master_vue.clicsLancement("Skip");
-    }
-    public void clicConnexion() {
-        master_vue.clicsLancement("Connexion");
-    }
-    public void clicInscription() {
-        master_vue.clicsLancement("Inscription");
-    }
-
 }
 
 class Skip extends JPanel {
@@ -69,13 +56,7 @@ class Skip extends JPanel {
 
         //Bouton skip
         bouton_skip = new JButton ("Skip");
-        bouton_skip.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Skip\" a été cliqué!");
-                lancement_vue.clicSkip();
-            }
-        });
+        bouton_skip.addActionListener(e -> {FileEvenements.getInstance().publier(new SkipEvenement());} );
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -119,23 +100,11 @@ class ConnexionInscription extends JPanel {
 
         //Bouton connexion
         bouton_connexion = new JButton("Connexion");
-        bouton_connexion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Connexion\" a été cliqué!");
-                lancement_vue.clicConnexion();
-            }
-        });
+        bouton_connexion.addActionListener(e -> FileEvenements.getInstance().publier(new AffConnexionEvenement()));
 
         //Bouton Inscription
         bouton_inscription = new JButton ("Inscription");
-        bouton_inscription.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Inscription\" a été cliqué!");
-                lancement_vue.clicInscription();
-            }
-        });
+        bouton_inscription.addActionListener(e -> FileEvenements.getInstance().publier(new AffInscriptionEvenement()));
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -150,26 +119,5 @@ class ConnexionInscription extends JPanel {
         add(bouton_inscription, gbc);
 
         setPreferredSize(new Dimension(frame_width,frame_height));
-    }
-
-    /**METHODE**/
-
-    // POUR BOUTON CONNEXION
-
-    //-->pour le moment cette methode est inutile
-    public void addConnexionBoutonListener(ActionListener listener){
-        bouton_connexion.addActionListener(listener);
-    }
-
-    // Méthode pour obtenir le bouton "Skip"
-    public JButton getConnexionBouton() {
-        return bouton_connexion;
-    }
-
-    // POUR BOUTON INSCRIPTION
-
-    // Méthode pour obtenir le bouton "Skip"
-    public JButton getInscriptionBouton() {
-        return bouton_inscription;
     }
 }

@@ -1,6 +1,5 @@
 package View.Onglets;
 
-import Controller.VueControleur;
 import View.PrincipaleVue;
 import View.Onglets.BarreNavigationComposant.*;
 

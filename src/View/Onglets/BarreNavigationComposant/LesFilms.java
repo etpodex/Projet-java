@@ -1,5 +1,7 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.Affichage.AffLesFilms;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
@@ -16,12 +18,8 @@ public class LesFilms extends JButton{
         setFocusPainted(false);
         setText("Les Films");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Les Films\" a été cliqué!");
-                barre_navigation.clicLesFilms();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffLesFilms());
         });
     }
 }
