@@ -2,7 +2,7 @@ package View.Onglets.BarreNavigationComposant;
 
 /**BIBLIOTHEQUE**/
 
-import Controller.Evenements.Affichage.AffMesBilletsEvenement;
+import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
 import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 

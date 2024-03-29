@@ -1,6 +1,6 @@
 package View.Onglets.BarreNavigationComposant;
 
-import Controller.Evenements.Affichage.AffGererFilmEvenement;
+import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
 import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 

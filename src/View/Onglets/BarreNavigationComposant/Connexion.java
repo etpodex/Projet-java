@@ -1,6 +1,6 @@
 package View.Onglets.BarreNavigationComposant;
 
-import Controller.Evenements.Affichage.AffConnexionEvenement;
+import Controller.Evenements.AffConnexionEvenement;
 import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 

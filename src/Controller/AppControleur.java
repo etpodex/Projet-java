@@ -1,7 +1,7 @@
 package Controller;
 
 import Controller.Evenements.*;
-import Controller.Evenements.Affichage.*;
+import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
 import View.MasterVue;
 import database.UtilisateurDAO;
@@ -15,7 +15,7 @@ public class AppControleur {
     //private final List<BilletInfo> billets;
 
     public AppControleur() {
-        this.master_vue = new MasterVue(this);
+        this.master_vue = new MasterVue();
         utilisateur_dao = new UtilisateurDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
@@ -28,6 +28,7 @@ public class AppControleur {
 
         this.master_vue.afficherVueLancement();
     }
+
 
     private void evenementControleur(Object objet) {
         if (objet instanceof SkipEvenement) {

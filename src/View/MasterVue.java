@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AppControleur;
+import Controller.Evenements.AffichageOnglet.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ public class MasterVue {
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
 
-    public MasterVue(AppControleur app_controleur) {
+    public MasterVue() {
         initialiserFrame();
         this.lancement_vue = new LancementVue(this);
         this.ci_vue = new CIVue(this);
@@ -36,46 +37,31 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
-    //LancementVue
-    public void afficherVueLancement() {
-
+    private void resetFrame() {
         frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
         frame.getContentPane().revalidate(); // Recalculer la disposition des composants
         frame.getContentPane().repaint(); // Redessiner la JFrame
+    }
 
+    public void afficherVueLancement() {
+        resetFrame();
         lancement_vue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
-        // Autres configurations de la JFrame
-        frame.setVisible(true);
     }
 
     public void afficherConnexion() {
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
     }
 
     public void afficherInscription() {
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
     }
 
     public void afficherPrincipaleVue(){
-
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
-    }
-
-    public void afficherPVLesFilms() {
-        principale_vue.afficherLesFilms();
     }
 
     // Méthode pour récupérer les données d'inscription à partir de CIVue
@@ -95,30 +81,23 @@ public class MasterVue {
         }
     }
 
-    // Dans la classe MasterVue
-    public void afficherPVAccueil() {
-        principale_vue.afficherAccueil();
+    public void afficherOnglet(Object objet) {
+        System.out.println(objet.getClass());
+        if (objet instanceof AffAccueilEvenement) {
+            principale_vue.afficherAccueil();
+        } else if (objet instanceof AffGererFilmEvenement) {
+            principale_vue.afficherLesFilms();
+        } else if (objet instanceof AffGererOffreEvenement) {
+            principale_vue.afficherLesFilms();
+        } else if (objet instanceof AffGererSeanceEvenement) {
+            principale_vue.afficherLesFilms();
+        } else if (objet instanceof AffLesFilmsEvenement) {
+            principale_vue.afficherLesFilms();
+        } else if (objet instanceof AffMesBilletsEvenement) {
+            principale_vue.afficherMesBillets();
+        } else if (objet instanceof AffMonCompteEvenement) {
+            principale_vue.afficherMonCompte();
+        }
     }
-
-    public void afficherPVGererFilm() {
-        principale_vue.afficherGererFilm();
-    }
-
-    public void afficherPVGererOffre() {
-        principale_vue.afficherGererOffre();
-    }
-
-    public void afficherPVGererSeance() {
-        principale_vue.afficherGererSeance();
-    }
-
-    public void afficherPVMesBillets() {
-        principale_vue.afficherMesBillets();
-    }
-
-    public void afficherPVMonCompte() {
-        principale_vue.afficherMonCompte();
-    }
-
 
 }
