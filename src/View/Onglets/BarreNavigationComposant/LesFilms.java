@@ -1,13 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
-import Controller.Evenements.Affichage.AffLesFilms;
+import Controller.Evenements.Affichage.AffLesFilmsEvenement;
 import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LesFilms extends JButton{
 
@@ -19,7 +17,7 @@ public class LesFilms extends JButton{
         setText("Les Films");
 
         addActionListener(e -> {
-            FileEvenements.getInstance().publier(new AffLesFilms());
+            FileEvenements.getInstance().publier(new AffLesFilmsEvenement());
         });
     }
 }

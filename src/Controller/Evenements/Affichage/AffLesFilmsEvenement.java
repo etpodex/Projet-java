@@ -1,4 +1,4 @@
 package Controller.Evenements.Affichage;
 
-public class AffLesFilms {
+public class AffLesFilmsEvenement {
 }

@@ -1,11 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.Affichage.AffMonCompteEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MonCompte extends JButton {
 
@@ -16,12 +16,8 @@ public class MonCompte extends JButton {
         setFocusPainted(false);
         setText("Mon Compte");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Mon Compte\" a été cliqué!");
-                barre_navigation.clicMonCompte();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffMonCompteEvenement());
         });
     }
 

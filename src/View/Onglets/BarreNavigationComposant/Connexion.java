@@ -1,11 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.Affichage.AffConnexionEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Connexion extends JButton{
 
@@ -16,12 +16,8 @@ public class Connexion extends JButton{
         setFocusPainted(false);
         setText("Connexion");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Connexion\" a été cliqué!");
-                barre_navigation.clicConnexion();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffConnexionEvenement());
         });
     }
 

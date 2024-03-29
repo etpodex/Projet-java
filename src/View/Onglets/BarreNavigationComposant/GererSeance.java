@@ -1,11 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.Affichage.AffGererSeanceEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GererSeance extends JButton {
 
@@ -16,12 +16,8 @@ public class GererSeance extends JButton {
         setFocusPainted(false);
         setText("Gerer Seance");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Gerer Seance\" a été cliqué!");
-                barre_navigation.clicGererSeance();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffGererSeanceEvenement());
         });
     }
 }
