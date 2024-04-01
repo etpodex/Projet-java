@@ -1,5 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
+import Controller.Evenements.FileEvenements;
 import View.MasterVue;
 import View.Onglets.AccueilVue;
 
@@ -13,6 +15,9 @@ public class PaiementEnCoursVue extends JPanel {
     private MasterVue masterVue;
     private JButton accueilButton; // Déclaration du bouton en tant que variable membre pour y accéder ultérieurement
 
+    private ImageIcon chargement_icon;
+    private JLabel chargement_label;
+
     public PaiementEnCoursVue(MasterVue masterVue) {
         this.masterVue = masterVue;
 
@@ -22,10 +27,16 @@ public class PaiementEnCoursVue extends JPanel {
         JLabel message_label = new JLabel("Nous vérifions vos informations bancaires, merci de patienter !");
         message_label.setHorizontalAlignment(SwingConstants.CENTER);
 
-        ImageIcon chargement_icon = new ImageIcon("gear.png");
-        JLabel chargement_label = new JLabel(chargement_icon);
+        chargement_icon = new ImageIcon("gear.png");
+        chargement_label = new JLabel(chargement_icon);
+
         chargement_label.setHorizontalAlignment(SwingConstants.CENTER);
 
+        add(message_label, BorderLayout.NORTH);
+        add(chargement_label, BorderLayout.CENTER);
+    }
+
+    public void startPaiementTimer() {
         Timer timer = new Timer(100, new ActionListener() {
             double angle = 0;
             int count = 0;
@@ -45,9 +56,6 @@ public class PaiementEnCoursVue extends JPanel {
             }
         });
         timer.start();
-
-        add(message_label, BorderLayout.NORTH);
-        add(chargement_label, BorderLayout.CENTER);
     }
 
     private void clearAndDisplayMessage() {
@@ -60,13 +68,8 @@ public class PaiementEnCoursVue extends JPanel {
 
         // Crée le bouton de retour à l'accueil
         accueilButton = new JButton("Retour à l'accueil");
-        accueilButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                masterVue.afficherAccueilVue();
-                // Nettoyer le contenu de la page
-                clearContent();
-            }
+        accueilButton.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffAccueilEvenement());
         });
 
 

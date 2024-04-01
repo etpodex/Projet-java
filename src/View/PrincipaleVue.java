@@ -2,6 +2,8 @@ package View;
 
 import Controller.Evenements.FileEvenements;
 import View.Onglets.*;
+import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
+import View.Onglets.ReservationVueComposant.PaiementVue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +24,9 @@ public class PrincipaleVue extends JPanel {
     private AccueilVue accueil_vue; // La vue d'accueil
     private MonCompteVue mon_compte_vue; // La vue de mon compte
     private ConnexionVue connexion_vue; // La vue de connexion
+    private ReservationVue reservation_vue; // La vue de réservation
+    private PaiementEnCoursVue paiement_en_cours_vue; // La vue de paiement en cours
+    private PaiementVue paiement_vue; // La vue de paiement
 
     private GererOffreVue gerer_offre;
     private GererFilmVue gerer_film;
@@ -48,6 +53,10 @@ public class PrincipaleVue extends JPanel {
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
 
+        this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
+        this.paiement_en_cours_vue = new PaiementEnCoursVue(master_vue);
+        this.paiement_vue = new PaiementVue(panneau_contenu_width, frame_height);
+
 
         Dimension barreNavDim = new Dimension(panel_navigation_width, frame_height);
         this.barre_navigation.setPreferredSize(barreNavDim);
@@ -57,6 +66,7 @@ public class PrincipaleVue extends JPanel {
         setLayout(new BorderLayout());
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_contenu, BorderLayout.CENTER);
+        panneau_contenu.setLayout(new BorderLayout());
 
         // Revalide la mise en page + Redessine le panneau
         refresh();
@@ -64,7 +74,7 @@ public class PrincipaleVue extends JPanel {
 
     public void afficherLesFilms() {
         panneau_contenu.removeAll();
-        panneau_contenu.add(les_films_vue);
+        panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
         refresh();
     }
 
@@ -100,6 +110,25 @@ public class PrincipaleVue extends JPanel {
     public void afficherMonCompte() {
         panneau_contenu.removeAll();
         panneau_contenu.add(mon_compte_vue);
+        refresh();
+    }
+
+    public void afficherReservation() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(reservation_vue);
+        refresh();
+    }
+
+    public void afficherPaiementEnCours() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(paiement_en_cours_vue);
+        paiement_en_cours_vue.startPaiementTimer();
+        refresh();
+    }
+
+    public void afficherPaiement() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(paiement_vue);
         refresh();
     }
 

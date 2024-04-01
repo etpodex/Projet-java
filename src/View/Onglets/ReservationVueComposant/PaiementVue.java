@@ -1,5 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
+import Controller.Evenements.AffichageOnglet.AffPaiementEnCoursEvenement;
+import Controller.Evenements.FileEvenements;
 import View.MasterVue;
 
 import javax.swing.*;
@@ -8,13 +10,11 @@ import java.awt.event.*;
 
 public class PaiementVue extends JPanel {
 
-    private MasterVue masterVue;
-
-    public PaiementVue(MasterVue masterVue) {
-        this.masterVue = masterVue;
+    public PaiementVue(int panneau_contenu_width, int frame_height) {
 
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(panneau_contenu_width, frame_height));
 
         // En-tête de la page de paiement
         JLabel titreLabel = new JLabel("Paiement par carte de crédit");
@@ -195,20 +195,14 @@ public class PaiementVue extends JPanel {
         bouton_paiement.setFont(new Font("Arial", Font.BOLD, 16));
 
         // Action lorsque le bouton de paiement est cliqué
-        bouton_paiement.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Basculer vers la page de paiement en cours
-                removeAll();
-                add(new PaiementEnCoursVue(masterVue), BorderLayout.CENTER);
-                revalidate();
-                repaint();
-            }
-        });
+        bouton_paiement.addActionListener(e -> {FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());});
 
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
         add(detail_carte_panel, BorderLayout.CENTER);
         add(bouton_paiement, BorderLayout.SOUTH);
+
+        revalidate();
+        repaint();
     }
 }
