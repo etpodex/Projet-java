@@ -91,13 +91,17 @@ public class MasterVue {
         System.out.println(objet.getClass());
         switch (objet) {
             case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
-            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherLesFilms();
-            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherLesFilms();
-            case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherLesFilms();
+            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
+            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
+            case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();
             case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms();
             case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets();
             case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte();
+            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation();
+            case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();
+            case AffPaiementEnCoursEvenement affPaiementEnCoursEvenement -> principale_vue.afficherPaiementEnCours();
             default -> {
+                System.out.println("Erreur: Onglet non reconnu.");
             }
         }
     }

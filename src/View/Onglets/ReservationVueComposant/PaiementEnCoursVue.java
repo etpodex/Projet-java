@@ -1,5 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
+import Controller.Evenements.FileEvenements;
 import View.MasterVue;
 import View.Onglets.AccueilVue;
 
@@ -60,13 +62,8 @@ public class PaiementEnCoursVue extends JPanel {
 
         // Crée le bouton de retour à l'accueil
         accueilButton = new JButton("Retour à l'accueil");
-        accueilButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                masterVue.afficherAccueilVue();
-                // Nettoyer le contenu de la page
-                clearContent();
-            }
+        accueilButton.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffAccueilEvenement());
         });
 
 

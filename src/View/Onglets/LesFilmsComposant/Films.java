@@ -1,5 +1,7 @@
 package View.Onglets.LesFilmsComposant;
 
+import Controller.Evenements.AffichageOnglet.AffReservationEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Film;
 import View.MasterVue;
 import View.Onglets.ReservationVue;
@@ -57,11 +59,7 @@ public class Films extends JPanel {
 
         JButton reserverButton = new JButton("Réserver"); // Bouton Réserver
         reserverButton.addActionListener(e -> {
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(Films.this);
-            frame.getContentPane().removeAll(); // Supprime le contenu actuel de la fenêtre
-            frame.getContentPane().add(new ReservationVue(masterVue)); // Ajoute la page de réservation à la fenêtre avec la référence à MasterVue
-            frame.revalidate(); // Rafraîchit la fenêtre pour afficher la nouvelle page
-            frame.repaint();
+            FileEvenements.getInstance().publier(new AffReservationEvenement());
         });
 
         detailsPanel.add(titreLabel);
