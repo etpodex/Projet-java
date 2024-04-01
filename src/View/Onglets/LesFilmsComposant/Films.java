@@ -32,9 +32,9 @@ public class Films extends JPanel {
 
     // Méthode
     private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur, MasterVue masterVue) {
-        JPanel panel_film = new JPanel();
-        panel_film.setBorder(new EmptyBorder(25, 5, 5, 5));
-        panel_film.setBackground(new Color(255, 200, 0));
+        JPanel panel_image = new JPanel();
+        panel_image.setBorder(new EmptyBorder(25, 5, 5, 5));
+        panel_image.setBackground(new Color(255, 200, 0));
 
         gbc.gridx = 0;
         gbc.weightx = poids_panels[0]; // Utilisation du poids pour le premier panel
@@ -43,9 +43,9 @@ public class Films extends JPanel {
         // Affichage de l'image dans le premier panel
         ImageIcon imageIcon = new ImageIcon(film.getUrlImage());
         JLabel imageLabel = new JLabel(imageIcon);
-        panel_film.add(imageLabel);
+        panel_image.add(imageLabel);
 
-        add(panel_film, gbc);
+        add(panel_image, gbc);
 
         // Affichage des détails dans le deuxième panel
         JPanel detailsPanel = new JPanel(new GridLayout(5, 1)); // Ajout d'une rangée pour le bouton Réserver
