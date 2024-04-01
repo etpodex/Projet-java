@@ -59,7 +59,6 @@ public class SceanceDAO implements ISceanceDAO {
                 sceance.setIdFilm(rs.getInt("id_film"));
                 sceance.setHoraire(rs.getString("horaire"));
                 sceance.setIdSalle(rs.getInt("id_salle"));
-                // For date, you'll need to convert the SQL date to java.util.Date or java.time.LocalDate
                 sceance.setDate(rs.getString("date"));
                 sceance.setNbPlaceRestante(rs.getInt("nb_place_restante"));
 

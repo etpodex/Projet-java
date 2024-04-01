@@ -1,6 +1,8 @@
 package database;
 
 
+import Model.Film;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +12,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Arrays;
 
-public class FilmDAO implements IfilmDAO{
+public class FilmDAO implements IfilmDAO {
     @Override
-    public List<String> ajouter(String... details) {
+    public int ajouter(String... details) {
         String nom = details[0];
         String synopsis = details[1];
-        float note =Float.parseFloat(details[2]);
+        float note = Float.parseFloat(details[2]);
         String URL_image = details[3];
         int PrixFilm = Integer.parseInt(details[4]);
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
@@ -33,23 +35,22 @@ public class FilmDAO implements IfilmDAO{
             recupdonne.setInt(6, PrixFilm);
 
 
-
             int affectedRows = recupdonne.executeUpdate();
             if (affectedRows > 0) {
                 List<String> successResponse = new ArrayList<>();
                 successResponse.add("film ajoute !");
-                return successResponse;
+                return 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         List<String> failureResponse = new ArrayList<>();
         failureResponse.add("Échec de l'ajout.");
-        return failureResponse;
+        return 1;
     }
 
     @Override
-    public void retirer(String identifiant) {
+    public int retirer(String identifiant) {
         String query = "DELETE FROM Films WHERE uuid = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
@@ -63,14 +64,16 @@ public class FilmDAO implements IfilmDAO{
             } else {
                 System.out.println("Aucun film trouvé avec cet identifiant.");
             }
+            return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return 1;
         }
     }
 
 
     @Override
-    public void modifier(String identifiant, String champ, String nouvelleValeur) {
+    public int modifier(String identifiant, String champ, String nouvelleValeur) {
         String query = "UPDATE Films SET " + champ + " = ? WHERE uuid = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
@@ -85,16 +88,18 @@ public class FilmDAO implements IfilmDAO{
             } else {
                 System.out.println("Aucun film trouvé avec cet identifiant.");
             }
+            return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return 1;
         }
     }
 
 
     @Override
-    public List<String> rechercher(String critere) {
-        List<String> films = new ArrayList<>();
-        String query = "SELECT * FROM Films WHERE nom LIKE ? order by nom ASC";
+    public Film[] rechercher(String critere) {
+        List<Film> filmList = new ArrayList<>();
+        String query = "SELECT * FROM Films WHERE nom LIKE ? ORDER BY nom ASC";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -103,13 +108,22 @@ public class FilmDAO implements IfilmDAO{
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                films.add("ID: " + rs.getInt("id") + ", Nom: " + rs.getString("nom") + ", Synopsis: " + rs.getString("Synopsis") + ", Note: " + rs.getFloat("note"));
+                Film film = new Film();
+                film.setId(rs.getInt("id"));
+                film.setNom(rs.getString("nom"));
+                film.setSynopsis(rs.getString("Synopsis"));
+                film.setNote(rs.getFloat("note"));
+
+                filmList.add(film);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return films;
-    }
+        // Convert List to Array
+        Film[] filmsArray = new Film[filmList.size()];
+        filmsArray = filmList.toArray(filmsArray);
 
+        return filmsArray;
+    }
 }
