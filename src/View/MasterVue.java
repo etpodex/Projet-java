@@ -46,6 +46,7 @@ public class MasterVue {
     public void afficherVueLancement() {
         resetFrame();
         lancement_vue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
+        frame.setVisible(true);
     }
 
     public void afficherConnexion() {

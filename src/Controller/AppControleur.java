@@ -12,8 +12,6 @@ public class AppControleur {
     private MasterVue master_vue;
     private UtilisateurDAO utilisateur_dao;
 
-    //private final List<BilletInfo> billets;
-
     public AppControleur() {
         this.master_vue = new MasterVue();
         utilisateur_dao = new UtilisateurDAO();
@@ -28,7 +26,6 @@ public class AppControleur {
 
         this.master_vue.afficherVueLancement();
     }
-
 
     private void evenementControleur(Object objet) {
         if (objet instanceof SkipEvenement) {
@@ -90,7 +87,6 @@ public class AppControleur {
         }
         return 2;
     }
-
 
     /**METHODE**/
     //recevoir les datas d'inscriptions
