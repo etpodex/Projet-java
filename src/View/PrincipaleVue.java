@@ -66,6 +66,7 @@ public class PrincipaleVue extends JPanel {
         setLayout(new BorderLayout());
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_contenu, BorderLayout.CENTER);
+        panneau_contenu.setLayout(new BorderLayout());
 
         // Revalide la mise en page + Redessine le panneau
         refresh();
@@ -73,7 +74,7 @@ public class PrincipaleVue extends JPanel {
 
     public void afficherLesFilms() {
         panneau_contenu.removeAll();
-        panneau_contenu.add(les_films_vue);
+        panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
         refresh();
     }
 
