@@ -65,6 +65,11 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
+    public void afficherAccueilVue() {
+        resetFrame();
+        principale_vue.afficherAccueil();
+    }
+
     // Méthode pour récupérer les données d'inscription à partir de CIVue
     public String[] getInscriptionData() {
         if (ci_vue != null) {
