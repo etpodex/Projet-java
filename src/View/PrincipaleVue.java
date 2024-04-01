@@ -122,6 +122,7 @@ public class PrincipaleVue extends JPanel {
     public void afficherPaiementEnCours() {
         panneau_contenu.removeAll();
         panneau_contenu.add(paiement_en_cours_vue);
+        paiement_en_cours_vue.startPaiementTimer();
         refresh();
     }
 
