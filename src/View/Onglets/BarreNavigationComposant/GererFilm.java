@@ -1,11 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GererFilm extends JButton {
 
@@ -16,12 +16,8 @@ public class GererFilm extends JButton {
         setFocusPainted(false);
         setText("Gerer Film");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Gerer Film\" a été cliqué!");
-                barre_navigation.clicGererFilm();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffGererFilmEvenement());
         });
     }
 }

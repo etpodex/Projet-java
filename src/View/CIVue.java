@@ -232,14 +232,6 @@ class Footer extends JPanel{
         add(bouton_retour, gbc);
     }
 
-
-    // Méthode pour obtenir les boutons
-    public JButton getValiderBouton() {
-        return bouton_valider;
-    }
-    public JButton getRetourBouton() {
-        return bouton_retour;
-    }
 }
 
 class Connexion extends JPanel {

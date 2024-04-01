@@ -1,8 +1,8 @@
 package View;
 
-import Controller.Evenements.Affichage.AffConnexionEvenement;
+import Controller.Evenements.AffConnexionEvenement;
 import Controller.Evenements.FileEvenements;
-import Controller.Evenements.Affichage.AffInscriptionEvenement;
+import Controller.Evenements.AffInscriptionEvenement;
 import Controller.Evenements.SkipEvenement;
 
 import javax.swing.*;

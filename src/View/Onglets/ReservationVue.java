@@ -1,5 +1,7 @@
 package View.Onglets;
 
+import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
+import Controller.Evenements.FileEvenements;
 import View.MasterVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
 
@@ -10,29 +12,23 @@ import java.awt.event.ActionListener;
 
 public class ReservationVue extends JPanel {
 
-    private MasterVue masterVue;
 
-    public ReservationVue(MasterVue masterVue) {
-        this.masterVue = masterVue;
+    public ReservationVue(int panneau_contenu_width, int frame_height) {
 
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(panneau_contenu_width, frame_height));
 
         // Création du bouton "Payer"
         JButton payerButton = new JButton("Payer");
-        payerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Code pour ouvrir la page de paiement
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(ReservationVue.this);
-                frame.getContentPane().removeAll(); // Supprime le contenu actuel de la fenêtre
-                frame.getContentPane().add(new PaiementVue(masterVue)); // Ajoute la page de paiement à la fenêtre avec la référence à MasterVue
-                frame.revalidate(); // Rafraîchit la fenêtre pour afficher la nouvelle page
-                frame.repaint();
-            }
+        payerButton.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffPaiementEvenement());
         });
 
         // Ajout du bouton "Payer" au centre de la page
         add(payerButton, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
     }
 }
