@@ -106,6 +106,7 @@ public class Billet {
     public void setMailClient(String mailClient) {
         this.mailClient = mailClient;
     }
+
     public void setsiegeBillet(String siegeBillet) {
         this.siegeBillet = siegeBillet;
     }

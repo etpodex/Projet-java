@@ -1,6 +1,6 @@
 package View;
 
-import Controller.VueControleur;
+import Controller.AppControleur;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +11,14 @@ public class MasterVue {
     private LancementVue lancement_vue;
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
-    private VueControleur vue_controleur;
+    private AppControleur app_controleur;
 
-    public MasterVue(VueControleur vue_controleur) {
+    public MasterVue(AppControleur app_controleur) {
         initialiserFrame();
         this.lancement_vue = new LancementVue(this);
         this.ci_vue = new CIVue(this);
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
-        this.vue_controleur = vue_controleur;
+        this.app_controleur = app_controleur;
     }
 
     private void initialiserFrame() {
@@ -40,83 +40,68 @@ public class MasterVue {
 
     //LancementVue
     public void afficherVueLancement() {
+
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
+
         lancement_vue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
         // Autres configurations de la JFrame
         frame.setVisible(true);
     }
 
-    public void clicsLancement(String bouton) {
-        if (bouton.equals("Skip")) {
+    public void afficherConnexion() {
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
 
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            afficherPrincipaleVue();
-
-        } else if (bouton.equals("Connexion")) {
-
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            //CI Vue
-            ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
-        } else if (bouton.equals("Inscription")) {
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            //CI Vue
-            ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
-        }
+        ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
     }
 
+    public void afficherInscription() {
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
+
+        ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
+    }
+
+
     public void clicsCIView(String bouton) {
-        if (bouton.equals("Retour")) {
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            afficherVueLancement();
-        }
-        else if (bouton.equals("Valider")) {
-
-            //réinitialiser la frame
-            frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-            frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-            frame.getContentPane().repaint(); // Redessiner la JFrame
-
-            vue_controleur.inscription();
+        if (bouton.equals("ValiderInscription")) {
+            app_controleur.inscription();
             afficherPrincipaleVue();
+        }
+        else if (bouton.equals("ValiderConnexion")) {
+
+            int connect_result = app_controleur.connexion();
+            if (connect_result == 0) {
+                afficherPrincipaleVue();
+            }
         }
     }
 
     public void afficherPrincipaleVue(){
 
+        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
+        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
+        frame.getContentPane().repaint(); // Redessiner la JFrame
+
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
     }
 
+    public void afficherPVLesFilms() {
+        principale_vue.afficherLesFilms();
+    }
+
     public void clicsPrincipaleVue(String bouton) {
-        if (bouton.equals("LesFilms")) {
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("MesBillets")) {
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Accueil")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Mon Compte")){
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("Connexion")){
+
+        if (bouton.equals("Connexion")) {
             afficherVueLancement();
+        }
+        else {
+            afficherPrincipaleVue();
         }
 
         // Revalide la mise en page + redessine le panneau
@@ -133,6 +118,14 @@ public class MasterVue {
         }
     }
 
+    public String[] getConnexionData() {
+        if (ci_vue != null) {
+            return ci_vue.getConnexionData();
+        } else {
+            return null; // Retourne null si CIVue n'est pas initialisé
+        }
+    }
+
     public void resetLancementVue() {
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
@@ -141,5 +134,8 @@ public class MasterVue {
         this.lancement_vue = new LancementVue(this);
         afficherVueLancement();
     }
-
+    // Dans la classe MasterVue
+    public void afficherAccueilVue() {
+        clicsPrincipaleVue("Accueil");
+    }
 }
