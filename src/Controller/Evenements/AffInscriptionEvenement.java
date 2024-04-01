@@ -1,4 +1,4 @@
-package Controller.Evenements.Affichage;
+package Controller.Evenements;
 
 public class AffInscriptionEvenement {
 }

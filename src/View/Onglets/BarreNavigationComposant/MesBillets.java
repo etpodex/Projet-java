@@ -2,12 +2,12 @@ package View.Onglets.BarreNavigationComposant;
 
 /**BIBLIOTHEQUE**/
 
+import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class MesBillets extends JButton{
@@ -19,12 +19,8 @@ public class MesBillets extends JButton{
         setFocusPainted(false);
         setText("Mes Billets");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Mes Billets\" a été cliqué!");
-                barre_navigation.clicMesBillets();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffMesBilletsEvenement());
         });
     }
 

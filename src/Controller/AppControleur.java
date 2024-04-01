@@ -1,11 +1,8 @@
 package Controller;
 
 import Controller.Evenements.*;
-import Controller.Evenements.Affichage.AffConnexionEvenement;
-import Controller.Evenements.Affichage.AffInscriptionEvenement;
-import Controller.Evenements.Affichage.AffLesFilms;
+import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
-import Model.Utilisateur;
 import View.MasterVue;
 import database.UtilisateurDAO;
 
@@ -15,10 +12,8 @@ public class AppControleur {
     private MasterVue master_vue;
     private UtilisateurDAO utilisateur_dao;
 
-    //private final List<BilletInfo> billets;
-
     public AppControleur() {
-        this.master_vue = new MasterVue(this);
+        this.master_vue = new MasterVue();
         utilisateur_dao = new UtilisateurDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
@@ -49,8 +44,10 @@ public class AppControleur {
             }
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
-        } else if (objet instanceof AffLesFilms) {
-            master_vue.afficherPVLesFilms();
+        }
+
+        else if (objet instanceof AffPVEvenement) {
+            master_vue.afficherOnglet(objet);
         }
     }
 
@@ -90,7 +87,6 @@ public class AppControleur {
         }
         return 2;
     }
-
 
     /**METHODE**/
     //recevoir les datas d'inscriptions

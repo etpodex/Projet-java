@@ -37,7 +37,7 @@ public class PrincipaleVue extends JPanel {
         this.master_vue = master_vue;
         this.panneau_contenu = new JPanel();
 
-        this.barre_navigation = new BarreNavigation(this);
+        this.barre_navigation = new BarreNavigation();
 
         this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
         this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height, master_vue);
@@ -47,13 +47,6 @@ public class PrincipaleVue extends JPanel {
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
-
-
-        this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
-        this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height, master_vue); // Passer la référence à MasterVue
-        this.accueil_vue = new AccueilVue(panneau_contenu_width, frame_height);
-        this.mon_compte_vue = new MonCompteVue(panel_navigation_width, frame_height);
-        this.connexion_vue = new ConnexionVue(panel_navigation_width, frame_height);
 
 
         Dimension barreNavDim = new Dimension(panel_navigation_width, frame_height);
@@ -66,78 +59,55 @@ public class PrincipaleVue extends JPanel {
         add(panneau_contenu, BorderLayout.CENTER);
 
         // Revalide la mise en page + Redessine le panneau
-        revalidate();
-        repaint();
+        refresh();
     }
 
     public void afficherLesFilms() {
         panneau_contenu.removeAll();
         panneau_contenu.add(les_films_vue);
-        panneau_contenu.revalidate();
-        panneau_contenu.repaint();
+        refresh();
     }
 
-    public void clicsBarreNavigation(String boutonBarre) {
-
-        // Supprime tout contenu précédent
+    public void afficherAccueil() {
         panneau_contenu.removeAll();
-
-        BorderLayout layout = new BorderLayout();
-        layout.setVgap(0);
-
-        panneau_contenu.setLayout(layout);
-        if (boutonBarre.equals("LesFilms")) {
-            master_vue.clicsPrincipaleVue("LesFilms");
-            panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("MesBillets")) {
-            master_vue.clicsPrincipaleVue("MesBillets");
-            panneau_contenu.add(mes_billets_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("Accueil")){
-            master_vue.clicsPrincipaleVue("Accueil");
-            panneau_contenu.add(accueil_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("MonCompte")){
-            master_vue.clicsPrincipaleVue("MonCompte");
-            panneau_contenu.add(mon_compte_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("Connexion")){
-            master_vue.clicsPrincipaleVue("Connexion");
-            panneau_contenu.add(connexion_vue, BorderLayout.CENTER);
-        }else if (boutonBarre.equals("GererOffre")){
-            master_vue.clicsPrincipaleVue("GererOffre");
-            panneau_contenu.add(gerer_offre, BorderLayout.CENTER);
-        }else if (boutonBarre.equals("GererFilm")){
-            master_vue.clicsPrincipaleVue("GererFilm");
-            panneau_contenu.add(gerer_film, BorderLayout.CENTER);
-        }else if (boutonBarre.equals("GererSeance")){
-            master_vue.clicsPrincipaleVue("GererSeance");
-            panneau_contenu.add(gerer_seance, BorderLayout.CENTER);
-        }
-
-        /**panneau_contenu.setLayout(layout);
-        if (boutonBarre.equals("LesFilms")) {
-            master_vue.clicsPrincipaleVue("LesFilms");
-            panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("MesBillets")) {
-            master_vue.clicsPrincipaleVue("MesBillets");
-            panneau_contenu.add(mes_billets_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("Accueil")) {
-            master_vue.clicsPrincipaleVue("Accueil");
-            panneau_contenu.add(accueil_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("MonCompte")) {
-            master_vue.clicsPrincipaleVue("MonCompte");
-            panneau_contenu.add(mon_compte_vue, BorderLayout.CENTER);
-        } else if (boutonBarre.equals("Connexion")) {
-            master_vue.clicsPrincipaleVue("Connexion");
-            panneau_contenu.add(connexion_vue, BorderLayout.CENTER);
-        }**/
-
-        // Revalide la mise en page + Redessine le panneau
-        panneau_contenu.revalidate();
-        panneau_contenu.repaint();
+        panneau_contenu.add(accueil_vue);
+        refresh();
     }
 
-    public MasterVue getMasterVue(){
-        return this.master_vue;
+    public void afficherGererFilm() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(gerer_film);
+        refresh();
     }
+
+    public void afficherGererOffre() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(gerer_offre);
+        refresh();
+    }
+
+    public void afficherGererSeance() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(gerer_seance);
+        refresh();
+    }
+    public void afficherMesBillets() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(mes_billets_vue);
+        refresh();
+    }
+
+    public void afficherMonCompte() {
+        panneau_contenu.removeAll();
+        panneau_contenu.add(mon_compte_vue);
+        refresh();
+    }
+
+    private void refresh() {
+        revalidate();
+        repaint();
+    }
+
 }
 
 
