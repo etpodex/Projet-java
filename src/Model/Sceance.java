@@ -5,9 +5,9 @@ import java.util.Date;
 public class Sceance {
     private int idSceance;
     private int idFilm;
-    private String horaire; // Assuming this is a time represented as a String. Consider using java.time.LocalTime for actual time operations.
+    private String horaire;
     private int idSalle;
-    private String date; // Utilizing java.util.Date, but consider using java.time.LocalDate for date-only values in Java 8 and above.
+    private String date;
     private int nbPlaceRestante;
 
     // Getters
