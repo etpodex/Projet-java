@@ -58,6 +58,9 @@ public class AppControleur {
         else if (objet instanceof AffLesFilmsEvenement) {
             ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher(""));
             master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffMonCompteEvenement) {
+            ((AffMonCompteEvenement) objet).setUtilisateur(utilisateur_connecte);
+            master_vue.afficherOnglet(objet);
         }
 
         // The rest of the events (just to be displayed for now)

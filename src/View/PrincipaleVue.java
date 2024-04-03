@@ -2,9 +2,11 @@ package View;
 
 import Controller.Evenements.FileEvenements;
 import Model.Film;
+import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
+import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,8 +108,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherMonCompte() {
+    public void afficherMonCompte(Utilisateur utilisateur) {
         panneau_contenu.removeAll();
+        mon_compte_vue.updateMonCompte(utilisateur);
         panneau_contenu.add(mon_compte_vue);
         refresh();
     }
