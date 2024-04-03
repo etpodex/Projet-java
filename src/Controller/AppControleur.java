@@ -6,6 +6,7 @@ import Controller.Evenements.*;
 import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
 import View.MasterVue;
+import database.FilmDAO;
 import database.UtilisateurDAO;
 import java.util.List;
 
@@ -16,13 +17,17 @@ import java.util.Scanner;
 
 public class AppControleur {
     private MasterVue master_vue;
+
     private UtilisateurDAO utilisateur_dao;
+    private FilmDAO film_dao;
 
     private Utilisateur utilisateur_connecte = null;
 
     public AppControleur() {
         this.master_vue = new MasterVue();
+
         utilisateur_dao = new UtilisateurDAO();
+        film_dao = new FilmDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
 
@@ -49,6 +54,13 @@ public class AppControleur {
             master_vue.afficherVueLancement();
         }
 
+        // Implemented AffPVEvenement events
+        else if (objet instanceof AffLesFilmsEvenement) {
+            ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher(""));
+            master_vue.afficherOnglet(objet);
+        }
+
+        // The rest of the events (just to be displayed for now)
         else if (objet instanceof AffPVEvenement) {
             master_vue.afficherOnglet(objet);
         }

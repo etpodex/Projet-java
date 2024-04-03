@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Evenements.FileEvenements;
+import Model.Film;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
@@ -42,7 +43,7 @@ public class PrincipaleVue extends JPanel {
         this.barre_navigation = new BarreNavigation();
 
         this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
-        this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height, master_vue);
+        this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height);
         this.accueil_vue = new AccueilVue(panneau_contenu_width, frame_height);
         this.mon_compte_vue = new MonCompteVue();
         this.connexion_vue = new ConnexionVue(panel_navigation_width, frame_height);
@@ -69,8 +70,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherLesFilms() {
+    public void afficherLesFilms(Film[] films) {
         panneau_contenu.removeAll();
+        les_films_vue.updateFilms(films);
         panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
         refresh();
     }
