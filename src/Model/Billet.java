@@ -107,6 +107,10 @@ public class Billet {
         this.mailClient = mailClient;
     }
 
+    public void setsiegeBillet(String siegeBillet) {
+        this.siegeBillet = siegeBillet;
+    }
+
     public void setUrlImageFilm(String urlImageFilm) {
         this.urlImageFilm = urlImageFilm;
     }

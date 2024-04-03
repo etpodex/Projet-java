@@ -1,12 +1,16 @@
 package Controller;
 
+import database.BilletDAO;
+
 import Controller.Evenements.*;
 import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
 import View.MasterVue;
 import database.UtilisateurDAO;
-
 import java.util.List;
+
+import Model.Utilisateur;
+import java.util.Scanner;
 
 public class AppControleur {
     private MasterVue master_vue;

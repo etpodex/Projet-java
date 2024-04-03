@@ -3,6 +3,7 @@ package Model;
 public class Film {
     private String uuid;
     private String nom;
+
     private String acteur;
     private String synopsis;
     private float note;
@@ -23,7 +24,6 @@ public class Film {
         this.note = note;
         this.urlImage = urlImage;
         this.prixFilm = prixFilm;
-
     }
 
     // Getters et Setters

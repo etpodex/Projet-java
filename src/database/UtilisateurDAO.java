@@ -136,6 +136,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
             while (rs.next()) {
                 Utilisateur utilisateur = new Utilisateur();
+
                 utilisateur.setUuid(rs.getString("uuid"));
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setNom(rs.getString("nom"));
