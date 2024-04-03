@@ -2,7 +2,7 @@ package database;
 import Model.Utilisateur;
 import java.util.List;
 public interface IUtilisateurDAO {
-    abstract List<String> connecter(String email, String motDePasse);
+    abstract Utilisateur connecter(String email, String motDePasse);
     int ajouter(String... details);
     void retirer(String email);
     void modifier(String email, String champ, String nouvelleValeur);
