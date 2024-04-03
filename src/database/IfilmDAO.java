@@ -1,4 +1,6 @@
 package database;
+import Model.Film;
+
 import java.util.List;
 
 public interface IfilmDAO {
