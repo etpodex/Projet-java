@@ -4,6 +4,8 @@ import Controller.Evenements.ConnexionEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.InscriptionEvenement;
 import Controller.Evenements.RetourCIEvenement;
+import Model.Utilisateur;
+import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -64,7 +66,7 @@ public class CIVue {
     }
 
     /// Méthode pour récupérer les données d'inscription à partir de Inscription
-    public String[] getInscriptionData() {
+    public Utilisateur getInscriptionData() {
         if (inscription_panel != null) {
             return inscription_panel.getInscriptionData();
         } else {
@@ -158,23 +160,9 @@ class Inscription extends JPanel {
     }
 
     // Méthode pour récupérer les données d'inscription
-    public String[] getInscriptionData() {
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        String age = ageField.getText(); // Récupération de l'âge depuis le champ de texte
-        String mail = mailField.getText();
-        String password = new String(passwordField.getPassword());
-
-        return new String[]{mail, password, nom, prenom, age, "1"};
-
-        //pour change convertir le string d'age en int plus tard
-        /**
-         * // Récupération de l'âge depuis le champ de texte
-         * String ageStr = ageField.getText();
-         *
-         * // Conversion de la chaîne de caractères en un entier
-         * int age = Integer.parseInt(ageStr);
-         */
+    public Utilisateur getInscriptionData() {
+        Utilisateur utilisateur = new Utilisateur(null, mailField.getText(), nomField.getText(), prenomField.getText(), Integer.parseInt(ageField.getText()), 1, passwordField.getText());
+        return utilisateur;
     }
 }
 
@@ -208,7 +196,7 @@ class Footer extends JPanel{
         bouton_valider = new JButton("Valider");
         bouton_valider.addActionListener(e -> {
             if (ci_vue.getCurrentView().equals("Inscription")) {
-                FileEvenements.getInstance().publier(new InscriptionEvenement());
+                FileEvenements.getInstance().publier(new InscriptionEvenement(ci_vue.getInscriptionData()));
             } else if (ci_vue.getCurrentView().equals("Connexion")){
                 FileEvenements.getInstance().publier(new ConnexionEvenement());
             }

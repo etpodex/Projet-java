@@ -82,14 +82,6 @@ public class Utilisateur {
 
     @Override
     public String toString() {//affiche info utilisateur
-        return "Utilisateur{" +
-                "uuid='" + uuid + '\'' +
-                ", email='" + email + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", age=" + age +
-                ", nvAvantage=" + nvAvantage +
-                ", password='" + password + '\'' +
-                '}';
+        return STR."UUID: \{uuid}\nEmail: \{email}\nNom: \{nom}\nPrenom: \{prenom}\nAge: \{age}\nNiveau d'avantage: \{nvAvantage}\n";
     }
 }

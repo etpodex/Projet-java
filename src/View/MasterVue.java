@@ -70,15 +70,6 @@ public class MasterVue {
         principale_vue.afficherAccueil();
     }
 
-    // Méthode pour récupérer les données d'inscription à partir de CIVue
-    public String[] getInscriptionData() {
-        if (ci_vue != null) {
-            return ci_vue.getInscriptionData();
-        } else {
-            return null; // Retourne null si CIVue n'est pas initialisé
-        }
-    }
-
     public String[] getConnexionData() {
         if (ci_vue != null) {
             return ci_vue.getConnexionData();

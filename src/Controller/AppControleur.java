@@ -47,7 +47,7 @@ public class AppControleur {
                 master_vue.afficherPrincipaleVue();
             }
         } else if (objet instanceof InscriptionEvenement) {
-            if (inscription() == 0) {
+            if (inscription(((InscriptionEvenement) objet).getUtilisateur()) == 0) {
                 master_vue.afficherPrincipaleVue();
             }
         } else if (objet instanceof RetourCIEvenement) {
@@ -65,10 +65,10 @@ public class AppControleur {
     }
 
 
-    public int inscription() {
-        String[] inscriptionData = master_vue.getInscriptionData();
-        if (inscriptionData != null) {
-            int response = utilisateur_dao.ajouter(inscriptionData);
+    public int inscription(Utilisateur nouv_utilisateur) {
+
+        if (nouv_utilisateur != null) {
+            int response = utilisateur_dao.ajouter(nouv_utilisateur);
             if (response == 0) {
                 System.out.println("Inscription réussie.");
                 return 0;
