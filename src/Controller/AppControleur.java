@@ -62,7 +62,7 @@ public class AppControleur {
 
 
     public int inscription() {
-        String[] inscriptionData = getInscriptionData();
+        String[] inscriptionData = master_vue.getInscriptionData();
         if (inscriptionData != null) {
             int response = utilisateur_dao.ajouter(inscriptionData);
             if (response == 0) {
@@ -77,7 +77,7 @@ public class AppControleur {
     }
 
     public int connexion() {
-        String[] connexionData = getConnexionData();
+        String[] connexionData = master_vue.getConnexionData();
         if (connexionData != null) {
             List<String> user = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
 
@@ -91,15 +91,5 @@ public class AppControleur {
         }
         return 2;
     }
-
-    /**METHODE**/
-    //recevoir les datas d'inscriptions
-
-    public String[] getInscriptionData() {
-        return master_vue.getInscriptionData();
-    }
-
-    public String[] getConnexionData() {
-        return master_vue.getConnexionData();
-    }
+    
 }
