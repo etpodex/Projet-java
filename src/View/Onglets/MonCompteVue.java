@@ -13,7 +13,7 @@ public class MonCompteVue extends JPanel {
     private JScrollPane modification_information_utilisateur_scroll_panel;
     private Footer footer_panel;
 
-    public MonCompteVue(int barre_navigation_panel_width, int frame_height) {
+    public MonCompteVue() {
         setBackground(new Color(194, 156, 255));
         setLayout(new BorderLayout());
 

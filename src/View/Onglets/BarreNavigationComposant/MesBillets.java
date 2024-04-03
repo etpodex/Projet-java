@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class MesBillets extends JButton{
 
-    public MesBillets(BarreNavigation barre_navigation){
+    public MesBillets(){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

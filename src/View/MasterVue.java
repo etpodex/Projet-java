@@ -15,8 +15,8 @@ public class MasterVue {
 
     public MasterVue() {
         initialiserFrame();
-        this.lancement_vue = new LancementVue(this);
-        this.ci_vue = new CIVue(this);
+        this.lancement_vue = new LancementVue();
+        this.ci_vue = new CIVue();
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
     }
 

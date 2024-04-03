@@ -30,7 +30,7 @@ public class LesFilmsVue extends JPanel {
         film_panel_liste.setLayout(new BoxLayout(film_panel_liste, BoxLayout.Y_AXIS));
 
         for (int i = 0; i < nombre_de_film; i++) {
-            Films film_panel = new Films(barre_navigation_panel_width * 2 / 3, 200, films[i], master_vue); // Passer la référence à MasterVue
+            Films film_panel = new Films(barre_navigation_panel_width * 2 / 3, 200, films[i]); // Passer la référence à MasterVue
             film_panel_liste.add(film_panel);
         }
 

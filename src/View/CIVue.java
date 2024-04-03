@@ -15,15 +15,12 @@ import java.text.ParseException;
 public class CIVue {
     /**ATTRIBUT**/
 
-    private MasterVue master_vue;
     private Inscription inscription_panel; // Ajout de la référence à Inscription
     private Connexion connexion_panel;
     private String current_view;
 
 
-    public CIVue(MasterVue master_vue) {
-        this.master_vue = master_vue;
-    }
+    public CIVue() {}
 
 
     public void creationCIPanel(JFrame frame, int frame_width, int frame_height, int choix){
@@ -32,13 +29,12 @@ public class CIVue {
         //structure
         int header_panel_height = (int) (frame_height * 0.1);
         int mid_panel_height = (int) (frame_height * 0.8);
-        int footer_panel_height = (int) (frame_height * 0.1);
 
         //création des panels
         Header header_panel = new Header(frame_width, header_panel_height);
-        Connexion connexion_panel = new Connexion(frame_width, mid_panel_height);
+        Connexion connexion_panel = new Connexion();
         Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
-        Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
+        Footer footer_panel = new Footer(this);
 
         this.inscription_panel = inscription_panel;
         this.connexion_panel = connexion_panel;
@@ -185,7 +181,7 @@ class Footer extends JPanel{
     private JButton bouton_valider;
     private JButton bouton_retour;
 
-    public Footer(int frame_width, int frame_height, CIVue ci_vue){
+    public Footer(CIVue ci_vue){
 
 
         //couleur pour voir
@@ -227,7 +223,7 @@ class Connexion extends JPanel {
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    public Connexion(int frame_width, int frame_height) {
+    public Connexion() {
         setLayout(new BorderLayout());
 
         // Création du panneau pour le formulaire de connexion

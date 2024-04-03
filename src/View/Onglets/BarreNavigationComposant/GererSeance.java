@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class GererSeance extends JButton {
 
-    public GererSeance (BarreNavigation barre_navigation){
+    public GererSeance (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

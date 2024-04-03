@@ -11,15 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PaiementEnCoursVue extends JPanel {
-
-    private MasterVue masterVue;
+    ;
     private JButton accueilButton; // Déclaration du bouton en tant que variable membre pour y accéder ultérieurement
 
     private ImageIcon chargement_icon;
     private JLabel chargement_label;
 
-    public PaiementEnCoursVue(MasterVue masterVue) {
-        this.masterVue = masterVue;
+    public PaiementEnCoursVue() {
 
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
@@ -76,13 +74,6 @@ public class PaiementEnCoursVue extends JPanel {
         add(accueilButton, BorderLayout.SOUTH);
 
         // Valide les changements et redessine la fenêtre
-        revalidate();
-        repaint();
-    }
-
-    // Méthode pour nettoyer le contenu de la page
-    public void clearContent() {
-        removeAll();
         revalidate();
         repaint();
     }

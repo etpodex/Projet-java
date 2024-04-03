@@ -12,8 +12,6 @@ public class PrincipaleVue extends JPanel {
 
     // ATTRIBUTS //
 
-    private MasterVue master_vue; // Instance de la vue principale
-
     // Instance des panels qui composent la vue principale
     private BarreNavigation barre_navigation; // La barre de navigation à gauche
     private JPanel panneau_contenu; // Le panneau de contenu à droite
@@ -39,7 +37,6 @@ public class PrincipaleVue extends JPanel {
         int panneau_contenu_width = (int) (frame_width * 0.8);
 
         // Initialisations des attributs
-        this.master_vue = master_vue;
         this.panneau_contenu = new JPanel();
 
         this.barre_navigation = new BarreNavigation();
@@ -47,14 +44,14 @@ public class PrincipaleVue extends JPanel {
         this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
         this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height, master_vue);
         this.accueil_vue = new AccueilVue(panneau_contenu_width, frame_height);
-        this.mon_compte_vue = new MonCompteVue(panel_navigation_width, frame_height);
+        this.mon_compte_vue = new MonCompteVue();
         this.connexion_vue = new ConnexionVue(panel_navigation_width, frame_height);
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
 
         this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
-        this.paiement_en_cours_vue = new PaiementEnCoursVue(master_vue);
+        this.paiement_en_cours_vue = new PaiementEnCoursVue();
         this.paiement_vue = new PaiementVue(panneau_contenu_width, frame_height);
 
 

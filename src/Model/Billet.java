@@ -66,9 +66,7 @@ public class Billet {
         return nombreBilletSenior;
     }
 
-    public String getMailClient() {
-        return mailClient;
-    }
+    public String getMailClient() {return mailClient;}
 
     public String getUrlImageFilm() {
         return urlImageFilm;

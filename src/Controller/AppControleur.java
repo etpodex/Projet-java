@@ -26,12 +26,6 @@ public class AppControleur {
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
 
-
-        Film[] films = new Film[]{
-                new Film("idfilm1", "titre1", "acteur1", "synopsis1", 9.0f, "image1.jpg", 10),
-                new Film("idfilm2", "titre2", "acteur2","synopsis2", 8.5f, "image2.jpg", 15),
-        };
-
         this.master_vue.afficherVueLancement();
     }
 

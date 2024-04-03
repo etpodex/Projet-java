@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class GererOffre extends JButton {
 
-    public GererOffre (BarreNavigation barre_navigation){
+    public GererOffre (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
