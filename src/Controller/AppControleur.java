@@ -10,11 +10,15 @@ import database.UtilisateurDAO;
 import java.util.List;
 
 import Model.Utilisateur;
+import jdk.jshell.execution.Util;
+
 import java.util.Scanner;
 
 public class AppControleur {
     private MasterVue master_vue;
     private UtilisateurDAO utilisateur_dao;
+
+    private Utilisateur utilisateur_connecte = null;
 
     public AppControleur() {
         this.master_vue = new MasterVue();
@@ -79,10 +83,11 @@ public class AppControleur {
     public int connexion() {
         String[] connexionData = getConnexionData();
         if (connexionData != null) {
-            List<String> user = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
+            this.utilisateur_connecte = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
 
-            if (user != null) {
-                System.out.println("Connexion réussie.");
+            if (this.utilisateur_connecte != null) {
+                System.out.println("Connexion réussie:");
+                System.out.println(this.utilisateur_connecte.toString());
                 return 0;
             } else {
                 System.out.println("Erreur lors de la connexion.");
