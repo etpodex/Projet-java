@@ -43,13 +43,13 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         return null;
     }
     @Override
-    public int ajouter(String... details) {
-        String email = details[0];
-        String password = details[1];
-        String nom = details[2];
-        String prenom = details[3];
-        int age = Integer.parseInt(details[4]);
-        int nvAvantage = Integer.parseInt(details[5]);
+    public int ajouter(Utilisateur nouv_utilisateur) {
+        String email = nouv_utilisateur.getEmail();
+        String password = nouv_utilisateur.getPassword();
+        String nom = nouv_utilisateur.getNom();
+        String prenom = nouv_utilisateur.getPrenom();
+        int age = nouv_utilisateur.getAge();
+        int nvAvantage = nouv_utilisateur.getNvAvantage();
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
         if (outildatabase.emailExists(email)) {
