@@ -1,5 +1,6 @@
 package database;
 import Model.Utilisateur;
+import jdk.jshell.execution.Util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +15,8 @@ import java.util.Arrays;
 public class UtilisateurDAO implements IUtilisateurDAO {
     // Implémentation des méthodes de GestionUtilisateur pour les clients
     @Override
-    public List<String> connecter(String email, String password) {
-        List<String> listeinfo = new ArrayList<>();
+    public Utilisateur connecter(String email, String password) {
+        Utilisateur utilisateur = new Utilisateur();
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM utilisateur WHERE email = ? AND password = ?")) {
@@ -26,13 +27,14 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
             // Si l'utilisateur existe, ajouter ses informations à la liste
             if (rs.next()) {
-                listeinfo.add("UUID: " + rs.getString("uuid")); // Utiliser getString pour l'UUID
-                listeinfo.add("Email: " + rs.getString("email"));
-                listeinfo.add("Nom: " + rs.getString("nom"));
-                listeinfo.add("Prénom: " + rs.getString("prenom"));
-                listeinfo.add("Age: " + rs.getInt("age"));
-                listeinfo.add("Niveau Avantage: " + rs.getInt("nvAvantage"));
-                return listeinfo; // Renvoyer la liste des informations
+                utilisateur.setUuid(rs.getString("uuid"));
+                utilisateur.setEmail(rs.getString("email"));
+                utilisateur.setNom(rs.getString("nom"));
+                utilisateur.setPrenom(rs.getString("prenom"));
+                utilisateur.setAge(rs.getInt("age"));
+                utilisateur.setNvAvantage(rs.getInt("nvAvantage"));
+
+                return utilisateur;
             }
         } catch (SQLException e) {
             e.printStackTrace();

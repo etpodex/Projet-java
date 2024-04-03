@@ -31,9 +31,7 @@ public class Film {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
+    public void setUuid(String uuid) {this.uuid = uuid;}
 
     public String getNom() {
         return nom;
