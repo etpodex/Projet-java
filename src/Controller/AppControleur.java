@@ -30,6 +30,7 @@ public class AppControleur {
     }
 
     private void evenementControleur(Object objet) {
+        System.out.println(objet.getClass());
         if (objet instanceof SkipEvenement) {
             master_vue.afficherPrincipaleVue();
         } else if (objet instanceof AffConnexionEvenement) {

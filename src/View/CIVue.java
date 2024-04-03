@@ -55,7 +55,7 @@ public class CIVue {
             CIPanel.add(inscription_panel);
             CIPanel.add(footer_panel);
 
-            this.current_view = "Insription";
+            this.current_view = "Inscription";
 
             frame.getContentPane().add(CIPanel);
         }
@@ -191,6 +191,7 @@ class Footer extends JPanel{
 
         bouton_valider = new JButton("Valider");
         bouton_valider.addActionListener(e -> {
+            System.out.println(ci_vue.getCurrentView());
             if (ci_vue.getCurrentView().equals("Inscription")) {
                 FileEvenements.getInstance().publier(new InscriptionEvenement(ci_vue.getInscriptionData()));
             } else if (ci_vue.getCurrentView().equals("Connexion")){

@@ -71,7 +71,6 @@ public class MasterVue {
     }
 
     public void afficherOnglet(Object objet) {
-        System.out.println(objet.getClass());
         switch (objet) {
             case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
             case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
