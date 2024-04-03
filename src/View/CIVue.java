@@ -194,7 +194,8 @@ class Footer extends JPanel{
             if (ci_vue.getCurrentView().equals("Inscription")) {
                 FileEvenements.getInstance().publier(new InscriptionEvenement(ci_vue.getInscriptionData()));
             } else if (ci_vue.getCurrentView().equals("Connexion")){
-                FileEvenements.getInstance().publier(new ConnexionEvenement());
+                String[] data = ci_vue.getConnexionData();
+                FileEvenements.getInstance().publier(new ConnexionEvenement(data[0], data[1]));
             }
         });
 

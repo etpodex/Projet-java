@@ -70,14 +70,6 @@ public class MasterVue {
         principale_vue.afficherAccueil();
     }
 
-    public String[] getConnexionData() {
-        if (ci_vue != null) {
-            return ci_vue.getConnexionData();
-        } else {
-            return null; // Retourne null si CIVue n'est pas initialisé
-        }
-    }
-
     public void afficherOnglet(Object objet) {
         System.out.println(objet.getClass());
         switch (objet) {

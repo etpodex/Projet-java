@@ -37,7 +37,7 @@ public class AppControleur {
         } else if (objet instanceof AffInscriptionEvenement) {
             master_vue.afficherInscription();
         } else if (objet instanceof ConnexionEvenement) {
-            if (connexion() == 0) {
+            if (connexion(((ConnexionEvenement) objet).getEmail(), ((ConnexionEvenement) objet).getMotDePasse()) == 0) {
                 master_vue.afficherPrincipaleVue();
             }
         } else if (objet instanceof InscriptionEvenement) {
@@ -74,10 +74,9 @@ public class AppControleur {
         return 2;
     }
 
-    public int connexion() {
-        String[] connexionData = master_vue.getConnexionData();
-        if (connexionData != null) {
-            this.utilisateur_connecte = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
+    public int connexion(String email, String mot_de_passe) {
+        if (email != null && mot_de_passe != null) {
+            this.utilisateur_connecte = utilisateur_dao.connecter(email, mot_de_passe);
 
             if (this.utilisateur_connecte != null) {
                 System.out.println("Connexion réussie:");
