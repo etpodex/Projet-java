@@ -80,6 +80,9 @@ public class Film {
     public void setPrixFilm(int prixFilm) {
         this.prixFilm = prixFilm;
     }
+    public void setIdFilm (String uuidFilm){
+        this.uuid = uuidFilm;
+    }
 
     // Méthode toString pour afficher les informations du film
     @Override
