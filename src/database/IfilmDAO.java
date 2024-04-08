@@ -1,5 +1,6 @@
 package database;
 import java.util.List;
+import Model.Film;
 
 public interface IfilmDAO {
     public int ajouter(String... details);
