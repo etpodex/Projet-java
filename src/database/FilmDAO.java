@@ -109,7 +109,8 @@ public class FilmDAO implements IfilmDAO {
 
             while (rs.next()) {
                 Film film = new Film();
-                film.setIdFilm(rs.getString("id"));
+
+                film.setUuid(rs.getString("uuid"));
                 film.setNom(rs.getString("nom"));
                 film.setSynopsis(rs.getString("Synopsis"));
                 film.setNote(rs.getFloat("note"));
