@@ -1,24 +1,27 @@
 package Controller;
 
+import database.BilletDAO;
+
 import Controller.Evenements.*;
-import Controller.Evenements.Affichage.AffConnexionEvenement;
-import Controller.Evenements.Affichage.AffInscriptionEvenement;
-import Controller.Evenements.Affichage.AffLesFilms;
+import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
-import Model.Utilisateur;
 import View.MasterVue;
 import database.UtilisateurDAO;
-
 import java.util.List;
+
+import Model.Utilisateur;
+import jdk.jshell.execution.Util;
+
+import java.util.Scanner;
 
 public class AppControleur {
     private MasterVue master_vue;
     private UtilisateurDAO utilisateur_dao;
 
-    //private final List<BilletInfo> billets;
+    private Utilisateur utilisateur_connecte = null;
 
     public AppControleur() {
-        this.master_vue = new MasterVue(this);
+        this.master_vue = new MasterVue();
         utilisateur_dao = new UtilisateurDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
@@ -54,6 +57,10 @@ public class AppControleur {
         } else if (objet instanceof EffacerFilmEvenement){
             System.out.println("bouton sup cliqué");
         }
+
+        else if (objet instanceof AffPVEvenement) {
+            master_vue.afficherOnglet(objet);
+        }
     }
 
 
@@ -80,10 +87,11 @@ public class AppControleur {
     public int connexion() {
         String[] connexionData = getConnexionData();
         if (connexionData != null) {
-            List<String> user = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
+            this.utilisateur_connecte = utilisateur_dao.connecter(connexionData[0], connexionData[1]);
 
-            if (user != null) {
-                System.out.println("Connexion réussie.");
+            if (this.utilisateur_connecte != null) {
+                System.out.println("Connexion réussie:");
+                System.out.println(this.utilisateur_connecte.toString());
                 return 0;
             } else {
                 System.out.println("Erreur lors de la connexion.");
@@ -92,7 +100,6 @@ public class AppControleur {
         }
         return 2;
     }
-
 
     /**METHODE**/
     //recevoir les datas d'inscriptions

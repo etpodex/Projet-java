@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AppControleur;
+import Controller.Evenements.AffichageOnglet.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +12,12 @@ public class MasterVue {
     private LancementVue lancement_vue;
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
-    private AppControleur app_controleur;
 
-    public MasterVue(AppControleur app_controleur) {
+    public MasterVue() {
         initialiserFrame();
         this.lancement_vue = new LancementVue(this);
         this.ci_vue = new CIVue(this);
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
-        this.app_controleur = app_controleur;
     }
 
     private void initialiserFrame() {
@@ -38,75 +37,37 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
-    //LancementVue
-    public void afficherVueLancement() {
-
+    private void resetFrame() {
         frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
         frame.getContentPane().revalidate(); // Recalculer la disposition des composants
         frame.getContentPane().repaint(); // Redessiner la JFrame
+    }
 
+    public void afficherVueLancement() {
+        resetFrame();
         lancement_vue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
-        // Autres configurations de la JFrame
         frame.setVisible(true);
     }
 
     public void afficherConnexion() {
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
     }
 
     public void afficherInscription() {
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
     }
 
-
-    public void clicsCIView(String bouton) {
-        if (bouton.equals("ValiderInscription")) {
-            app_controleur.inscription();
-            afficherPrincipaleVue();
-        }
-        else if (bouton.equals("ValiderConnexion")) {
-
-            int connect_result = app_controleur.connexion();
-            if (connect_result == 0) {
-                afficherPrincipaleVue();
-            }
-        }
-    }
-
     public void afficherPrincipaleVue(){
-
-        frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
-        frame.getContentPane().revalidate(); // Recalculer la disposition des composants
-        frame.getContentPane().repaint(); // Redessiner la JFrame
-
+        resetFrame();
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
     }
 
-    public void afficherPVLesFilms() {
-        principale_vue.afficherLesFilms();
-    }
-
-    public void clicsPrincipaleVue(String bouton) {
-
-        if (bouton.equals("Connexion")) {
-            afficherVueLancement();
-        }
-        else {
-            afficherPrincipaleVue();
-        }
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
+    public void afficherAccueilVue() {
+        resetFrame();
+        principale_vue.afficherAccueil();
     }
 
     // Méthode pour récupérer les données d'inscription à partir de CIVue
@@ -126,16 +87,23 @@ public class MasterVue {
         }
     }
 
-    public void resetLancementVue() {
-        frame.getContentPane().removeAll();
-        frame.getContentPane().revalidate();
-        frame.getContentPane().repaint();
+    public void afficherOnglet(Object objet) {
+        System.out.println(objet.getClass());
+        switch (objet) {
+            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
+            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
+            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
+            case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();
+            case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms();
+            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets();
+            case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte();
+            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation();
+            case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();
+            case AffPaiementEnCoursEvenement affPaiementEnCoursEvenement -> principale_vue.afficherPaiementEnCours();
+            default -> {
+                System.out.println("Erreur: Onglet non reconnu.");
+            }
+        }
+    }
 
-        this.lancement_vue = new LancementVue(this);
-        afficherVueLancement();
-    }
-    // Dans la classe MasterVue
-    public void afficherAccueilVue() {
-        clicsPrincipaleVue("Accueil");
-    }
 }

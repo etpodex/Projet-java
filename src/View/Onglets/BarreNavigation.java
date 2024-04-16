@@ -17,10 +17,7 @@ public class BarreNavigation extends JPanel {
     private GererOffre gerer_offre;
     private GererFilm gerer_film;
     private GererSeance gerer_seance;
-    private PrincipaleVue principale_vue;
-
-    public BarreNavigation(PrincipaleVue principale_vue){
-        this.principale_vue = principale_vue;
+    public BarreNavigation() {
         this.compte = new Compte();
         this.les_films = new LesFilms(this);
         this.mes_billets = new MesBillets(this);
@@ -51,66 +48,5 @@ public class BarreNavigation extends JPanel {
         add(panel_boutons);
 
         compte.setPreferredSize(new Dimension(200, 20));
-    }
-
-    public void clicMesBillets(){
-        principale_vue.clicsBarreNavigation("MesBillets");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-
-    public void clicLesFilms(){
-        principale_vue.clicsBarreNavigation("LesFilms");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-
-    public void clicAccueil(){
-        principale_vue.clicsBarreNavigation("Accueil");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-
-    public void clicMonCompte(){
-        principale_vue.clicsBarreNavigation("MonCompte");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-
-    public void clicConnexion(){
-        principale_vue.getMasterVue().resetLancementVue();
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-    public void clicGererOffre(){
-        principale_vue.clicsBarreNavigation("GererOffre");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-    public void clicGererFilm(){
-        principale_vue.clicsBarreNavigation("GererFilm");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
-    }
-    public void clicGererSeance(){
-        principale_vue.clicsBarreNavigation("GererSeance");
-
-        // Revalide la mise en page + redessine le panneau
-        principale_vue.revalidate();
-        principale_vue.repaint();
     }
 }

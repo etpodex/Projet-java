@@ -1,11 +1,11 @@
 package View.Onglets.BarreNavigationComposant;
 
+import Controller.Evenements.AffichageOnglet.AffGererOffreEvenement;
+import Controller.Evenements.FileEvenements;
 import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GererOffre extends JButton {
 
@@ -16,12 +16,8 @@ public class GererOffre extends JButton {
         setFocusPainted(false);
         setText("Gerer Offre");
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Le bouton \"Gerer Offre\" a été cliqué!");
-                barre_navigation.clicGererOffre();
-            }
+        addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffGererOffreEvenement());
         });
     }
 }

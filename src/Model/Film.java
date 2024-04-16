@@ -3,6 +3,7 @@ package Model;
 public class Film {
     private String uuid;
     private String nom;
+
     private String acteur;
     private String synopsis;
     private String temps;
@@ -25,7 +26,6 @@ public class Film {
         this.temps = temps;
         this.urlImage = urlImage;
         this.prixFilm = prixFilm;
-
     }
 
     // Getters et Setters
@@ -33,9 +33,7 @@ public class Film {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
+    public void setUuid(String uuid) {this.uuid = uuid;}
 
     public String getNom() {
         return nom;
@@ -91,6 +89,9 @@ public class Film {
 
     public void setPrixFilm(int prixFilm) {
         this.prixFilm = prixFilm;
+    }
+    public void setIdFilm (String uuidFilm){
+        this.uuid = uuidFilm;
     }
 
     // Méthode toString pour afficher les informations du film

@@ -1,9 +1,10 @@
 package database;
 
+import Model.Billet;
+
 import java.util.List;
 
 public interface IBilletDAO {
     public List<String> ajouter(String... details);
-    public List<String> rechercher(String critere);
-
+    public Billet[] rechercher(String id_client);
 }
