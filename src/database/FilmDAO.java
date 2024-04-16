@@ -22,7 +22,7 @@ public class FilmDAO implements IfilmDAO {
         int PrixFilm = Integer.parseInt(details[4]);
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
-        String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm,) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm) VALUES (?,?,?,?,?,?)";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement recupdonne = conn.prepareStatement(query)) {
