@@ -1,11 +1,13 @@
 package View.Onglets;
 
-import Controller.Evenements.EffacerFilmEvenement;
-import Controller.Evenements.FileEvenements;
 import Model.Film;
+import View.Onglets.GererFilmVueComposant.FormulaireAjoutFilmVue;
+import View.Onglets.GererFilmVueComposant.Grille;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GererFilmVue extends JPanel {
 
@@ -15,102 +17,70 @@ public class GererFilmVue extends JPanel {
             new Film("idfilm3", "titre3", "acteur3", "synopsis3", "2h45", 7.5f, "image3.jpg", 15),
     };
 
+    private JPanel panel_grille;
+    private JButton boutonAfficher;
+    private boolean formulaireAffiche = false;
+
     public GererFilmVue(int barre_navigation_panel_width, int frame_height) {
         setBackground(new Color(50, 100, 50));
-        setPreferredSize(new Dimension(barre_navigation_panel_width, frame_height));
+        setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
 
-        // Création d'un panneau pour contenir la grille
-        JPanel grillePanel = new JPanel();
-        grillePanel.setLayout(new GridLayout(films.length + 1, 1)); // Une colonne pour chaque ligne
-        grillePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        // Création des sous-panneaux
+        panel_grille = new JPanel();
+        JPanel panel_bouton = new JPanel();
 
-        String[] columnNames = {"Titre", "Acteur", "Temps", "Note", "Synopsis", "Affiche", "Supprimer"};
+        // Définition des couleurs de fond pour les sous-panneaux (juste pour illustrer)
+        panel_grille.setBackground(Color.RED);
+        panel_bouton.setBackground(Color.BLUE);
 
-        // Ajouter les en-têtes de colonne
-        JPanel headerPanel = new JPanel(new GridLayout(1, 7));
-        headerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        for (String columnName : columnNames) {
-            JLabel label = new JLabel(columnName);
-            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            headerPanel.add(label);
-        }
-        grillePanel.add(headerPanel);
+        // Calcul des hauteurs pour chaque sous-panneau
+        int height85 = (int) (frame_height * 0.86);
+        int height15 = (int) (frame_height * 0.08);
 
-        // Ajouter chaque film à la grille
-        for (int i = 0; i < films.length; i++) {
-            Film film = films[i];
-            JPanel filmPanel = new JPanel(new GridLayout(1, 7));
-            filmPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        // Définition des dimensions pour chaque sous-panneau
+        Dimension dimension85 = new Dimension(barre_navigation_panel_width, height85);
+        Dimension dimension15 = new Dimension(barre_navigation_panel_width, height15);
 
-            JLabel titreLabel = new JLabel(film.getNom());
-            titreLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            titreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(titreLabel);
+        panel_grille.setPreferredSize(dimension85);
+        panel_bouton.setPreferredSize(dimension15);
 
-            JLabel acteurLabel = new JLabel(film.getActeur());
-            acteurLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            acteurLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(acteurLabel);
+        // Ajout des sous-panneaux au JPanel principal
+        add(panel_grille, BorderLayout.NORTH);
+        add(panel_bouton, BorderLayout.SOUTH);
 
-            JLabel tempsLabel = new JLabel(film.getTemps());
-            tempsLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            tempsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(tempsLabel);
+        // Création de la grille des films et ajout dans le panneau de la grille dès le départ
+        Grille grilleFilms = new Grille();
+        panel_grille.add(grilleFilms);
 
-            JLabel noteLabel = new JLabel(String.valueOf(film.getNote()));
-            noteLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            noteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(noteLabel);
+        // Création du bouton "Afficher"
+        boutonAfficher = new JButton("Afficher");
+        panel_bouton.add(boutonAfficher);
 
-            JLabel synopsisLabel = new JLabel(film.getSynopsis());
-            synopsisLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            synopsisLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(synopsisLabel);
+        // Ajout d'un écouteur d'événements pour le bouton "Afficher"
+        boutonAfficher.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!formulaireAffiche) {
+                    boutonAfficher.setText("Valider");
+                    formulaireAffiche = true;
+                    // Dans la classe GererFilmVue
+                    panel_grille.removeAll();
+                    panel_grille.add(new FormulaireAjoutFilmVue(GererFilmVue.this)); // Passer une référence à GererFilmVue
+                    panel_grille.revalidate();
+                    panel_grille.repaint();
 
-            JLabel afficheLabel = new JLabel(film.getUrlImage());
-            afficheLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            afficheLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            filmPanel.add(afficheLabel);
-
-            JButton supprimer = new JButton("X");
-            supprimer.setForeground(Color.RED);
-            supprimer.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-            supprimer.setContentAreaFilled(false);
-            supprimer.setFocusPainted(false);
-            supprimer.setOpaque(false);
-            supprimer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-            // Ajouter un action listener pour supprimer le film
-            int finalI = i; // Utilisé dans l'action listener
-            supprimer.addActionListener(e -> {
-                // Supprimer le film de la liste films
-                films = removeFilmAtIndex(films, finalI);
-                // Retirer le panneau du film de la grille
-                grillePanel.remove(finalI + 1); // +1 pour compenser l'en-tête
-                // Rafraîchir l'affichage
-                revalidate();
-                repaint();
-                // Publier un événement pour informer les abonnés
-                FileEvenements.getInstance().publier(new EffacerFilmEvenement());
-            });
-
-            filmPanel.add(supprimer);
-
-            grillePanel.add(filmPanel);
-        }
-
-        add(grillePanel);
-
-        revalidate();
-        repaint();
+                } else {
+                    boutonAfficher.setText("Ajouter");
+                    formulaireAffiche = false;
+                    // Afficher à nouveau la grille des films en utilisant la classe Grille
+                    panel_grille.removeAll();
+                    panel_grille.add(grilleFilms); // Ajout de la grille des films déjà créée
+                    panel_grille.revalidate();
+                    panel_grille.repaint();
+                }
+            }
+        });
     }
 
-    // Méthode pour supprimer un film à un index donné dans un tableau de films
-    private Film[] removeFilmAtIndex(Film[] films, int index) {
-        Film[] newFilms = new Film[films.length - 1];
-        System.arraycopy(films, 0, newFilms, 0, index);
-        System.arraycopy(films, index + 1, newFilms, index, films.length - index - 1);
-        return newFilms;
-    }
 }
+

@@ -3,7 +3,6 @@ package View.Onglets.GererFilmVueComposant;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Grille extends JPanel{
 
     // constructeur
@@ -18,6 +17,10 @@ public class Grille extends JPanel{
             grillePanel.add(label);
         }
 
-    }
+        // Créer un JScrollPane avec le panneau grillePanel à l'intérieur
+        JScrollPane scrollPane = new JScrollPane(grillePanel);
 
+        // Ajouter le JScrollPane au centre de ce panneau
+        add(scrollPane, BorderLayout.CENTER);
+    }
 }
