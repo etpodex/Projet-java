@@ -5,6 +5,7 @@ public class Film {
     private String nom;
     private String acteur;
     private String synopsis;
+    private String temps;
     private float note;
     private String urlImage;
     private int prixFilm;
@@ -15,12 +16,13 @@ public class Film {
     }
 
     // Constructeur avec tous les paramètres
-    public Film(String uuid, String nom, String acteur, String synopsis, float note, String urlImage, int prixFilm) {
+    public Film(String uuid, String nom, String acteur, String synopsis, String temps, float note, String urlImage, int prixFilm) {
         this.uuid = uuid;
         this.nom = nom;
         this.acteur = acteur;
         this.synopsis = synopsis;
         this.note = note;
+        this.temps = temps;
         this.urlImage = urlImage;
         this.prixFilm = prixFilm;
 
@@ -59,6 +61,14 @@ public class Film {
         this.synopsis = synopsis;
     }
 
+    public String getTemps(){
+        return temps;
+    }
+
+    public void setTemps(String temps){
+        this.temps = temps;
+    }
+
     public float getNote() {
         return note;
     }
@@ -90,6 +100,7 @@ public class Film {
                 "uuid='" + uuid + '\'' +
                 ", nom='" + nom + '\'' +
                 ", synopsis='" + synopsis + '\'' +
+                ", temps='" + temps + '\'' +
                 ", note=" + note +
                 ", urlImage='" + urlImage + '\'' +
                 ", prixFilm=" + prixFilm +

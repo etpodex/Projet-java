@@ -25,8 +25,8 @@ public class AppControleur {
 
 
         Film[] films = new Film[]{
-                new Film("idfilm1", "titre1", "acteur1", "synopsis1", 9.0f, "image1.jpg", 10),
-                new Film("idfilm2", "titre2", "acteur2","synopsis2", 8.5f, "image2.jpg", 15),
+                new Film("idfilm1", "titre1", "acteur1", "synopsis1","1h20", 9.0f, "image1.jpg", 10),
+                new Film("idfilm2", "titre2", "acteur2","synopsis2", "1h20",8.5f, "image2.jpg", 15),
         };
 
         this.master_vue.afficherVueLancement();
@@ -51,6 +51,8 @@ public class AppControleur {
             master_vue.afficherVueLancement();
         } else if (objet instanceof AffLesFilms) {
             master_vue.afficherPVLesFilms();
+        } else if (objet instanceof EffacerFilmEvenement){
+            System.out.println("bouton sup cliqué");
         }
     }
 
