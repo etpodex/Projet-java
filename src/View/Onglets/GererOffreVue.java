@@ -22,11 +22,17 @@ public class GererOffreVue extends JPanel {
         setBackground(new Color(100, 50, 50));
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight));
 
+        // Initialisation des offres
+        offres = new ArrayList<>();
+        offres.add(new Offre("Offre1", "10%", "CODE1"));
+        offres.add(new Offre("Offre2", "20%", "CODE2"));
+        offres.add(new Offre("Offre3", "15%", "CODE3"));
+
         // Création des composants
         panelGrille = new JPanel(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(panelGrille);
         boutonAfficher = new JButton("Ajouter");
-        grilleOffres = new Grille(new Offre[0]); // Initialisation de la grille
+        grilleOffres = new Grille(offres.toArray(new Offre[0])); // Initialisation de la grille avec les offres
         formulaireAjoutOffreVue = new FormulaireAjoutOffreVue();
 
         // Mise en page du panneau principal
@@ -34,9 +40,8 @@ public class GererOffreVue extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(boutonAfficher, BorderLayout.SOUTH);
 
-        // Initialisation de la liste des offres avec quelques offres
-        offres = new ArrayList<>();
-        initialiserOffres();
+        // Affichage initial des offres dans la grille
+        panelGrille.add(grilleOffres);
 
         // Action du bouton pour afficher/masquer le formulaire ou ajouter une offre
         boutonAfficher.addActionListener(e -> {
@@ -70,18 +75,6 @@ public class GererOffreVue extends JPanel {
             panelGrille.repaint();
         } else {
             JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void initialiserOffres() {
-        // Initialisez quelques offres ici
-        offres.add(new Offre("Offre1", "10%", "CODE1"));
-        offres.add(new Offre("Offre2", "20%", "CODE2"));
-        offres.add(new Offre("Offre3", "15%", "CODE3"));
-
-        // Ajoutez-les également à la grille
-        for (Offre offre : offres) {
-            grilleOffres.ajouterOffre(offre.getNom_promo(), offre.getReduction(), offre.getCode_promo());
         }
     }
 }
