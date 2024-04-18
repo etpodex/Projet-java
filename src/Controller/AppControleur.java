@@ -20,6 +20,7 @@ public class AppControleur {
 
     private UtilisateurDAO utilisateur_dao;
     private FilmDAO film_dao;
+    private BilletDAO billet_dao;
 
     private Utilisateur utilisateur_connecte = null;
 
@@ -28,6 +29,7 @@ public class AppControleur {
 
         utilisateur_dao = new UtilisateurDAO();
         film_dao = new FilmDAO();
+        billet_dao = new BilletDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
 
@@ -61,6 +63,8 @@ public class AppControleur {
         } else if (objet instanceof AffMonCompteEvenement) {
             ((AffMonCompteEvenement) objet).setUtilisateur(utilisateur_connecte);
             master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffMesBilletsEvenement) {
+            ((AffMesBilletsEvenement) objet).setBillets(billet_dao.rechercher(utilisateur_connecte.getUuid()));
         }
 
         // The rest of the events (just to be displayed for now)

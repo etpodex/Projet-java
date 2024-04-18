@@ -77,7 +77,7 @@ public class MasterVue {
             case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();
             case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms(affLesFilmsEvenement.getFilms());
-            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets();
+            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets(affMesBilletsEvenement.getBillets());
             case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte(affMonCompteEvenement.getUtilisateur());
             case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation();
             case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();

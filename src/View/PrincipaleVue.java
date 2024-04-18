@@ -1,6 +1,9 @@
 package View;
 
+import Controller.Evenements.AffConnexionEvenement;
+import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Billet;
 import Model.Film;
 import Model.Utilisateur;
 import View.Onglets.*;
@@ -102,8 +105,9 @@ public class PrincipaleVue extends JPanel {
         panneau_contenu.add(gerer_seance);
         refresh();
     }
-    public void afficherMesBillets() {
+    public void afficherMesBillets(Billet[] billets) {
         panneau_contenu.removeAll();
+        mes_billets_vue.updateBillets(billets);
         panneau_contenu.add(mes_billets_vue);
         refresh();
     }

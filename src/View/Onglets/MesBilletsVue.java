@@ -1,11 +1,12 @@
 package View.Onglets;
 
+import Model.Billet;
 import View.Onglets.MesBilletsComposant.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MesBilletsVue extends JPanel {
+public class MesBilletsVue extends JScrollPane {
 
     public MesBilletsVue(int panneau_contenu_width, int frame_height) {
         setBackground(new Color(40, 25, 125));
@@ -25,13 +26,15 @@ public class MesBilletsVue extends JPanel {
         contentPanel.add(billet);
 
         // Création d'un JScrollPane qui contient le contentPanel
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Cacher la barre de défilement verticale
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(null);
+        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Cacher la barre de défilement verticale
+        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        setBorder(null);
 
         // Ajout du JScrollPane au panneau
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
+        setLayout(new ScrollPaneLayout());
+    }
+
+    public void updateBillets(Billet[] billets) {
+        // Mettre à jour les billets
     }
 }
