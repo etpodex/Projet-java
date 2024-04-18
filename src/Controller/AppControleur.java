@@ -32,7 +32,6 @@ public class AppControleur {
         billet_dao = new BilletDAO();
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
-
         this.master_vue.afficherVueLancement();
     }
 
@@ -54,6 +53,10 @@ public class AppControleur {
             }
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
+        } /**else if (objet instanceof AffLesFilms) {
+            master_vue.afficherPVLesFilms();
+        }**/ else if (objet instanceof EffacerFilmEvenement){
+            System.out.println("bouton sup cliqué");
         }
 
         // Implemented AffPVEvenement events
@@ -77,7 +80,6 @@ public class AppControleur {
     public static void main(String[] args) {
         new AppControleur();
     }
-
 
     public int inscription(Utilisateur nouv_utilisateur) {
 

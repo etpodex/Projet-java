@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class BilletDAO implements IBilletDAO{
     @Override
-    public List<String> ajouter(String... details) {
+    public int ajouter(String... details) {
         String id_utilisateur = details[0];
         String id_sceance = details[1];
         String id_film = details[2];
@@ -45,14 +45,13 @@ public class BilletDAO implements IBilletDAO{
             if (affectedRows > 0) {
                 List<String> successResponse = new ArrayList<>();
                 successResponse.add("Billet ajoute !");
-                return successResponse;
+                return 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List<String> failureResponse = new ArrayList<>();
-        failureResponse.add("Échec billet non ajouté.");
-        return failureResponse;
+
+        return 1;
     }
 
 
@@ -60,7 +59,7 @@ public class BilletDAO implements IBilletDAO{
     public Billet[] rechercher(String id_client) {
         List<Billet> billetsList = new ArrayList<>();
 
-        String query = "SELECT id_sceance, id_film, id_utilisateur, nombreBilletAdulte, nombreBilletEnfant, nombreBilletSenior, prixcommande,siegeBillet FROM billet WHERE id_client = ?";
+        String query = "SELECT id_sceance, id_film, id_utilisateur,id_billet, nombreBilletAdulte, nombreBilletEnfant, nombreBilletSenior, prixcommande,siegeBillet FROM billet WHERE id_utilisateur = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -70,6 +69,7 @@ public class BilletDAO implements IBilletDAO{
 
             while (rsCommande.next()) {
                 String id_film = rsCommande.getString("id_film");
+                String id_billet = rsCommande.getString("id_billet");
                 int id_sceance = rsCommande.getInt("id_sceance");
                 String id_utilisateur = rsCommande.getString("id_utilisateur");
                 int nombreBilletAdulte = rsCommande.getInt("nombreBilletAdulte");

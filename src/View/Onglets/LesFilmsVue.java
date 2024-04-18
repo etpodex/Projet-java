@@ -13,6 +13,7 @@ public class LesFilmsVue extends JPanel {
     Film[] films;
     private int nombre_de_film;
 
+
     private JPanel film_panel_liste;
     private JScrollPane scrollPane;
     private JPanel wrapperPanel;
