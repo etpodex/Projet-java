@@ -16,7 +16,7 @@ public class Films extends JPanel {
     private double[] poids_panels = {0.2, 0.8};
 
     // Constructeur
-    public Films(int barre_navigation_panel_width, int hauteur, Film film, MasterVue masterVue) {
+    public Films(int barre_navigation_panel_width, int hauteur, Film film) {
         this.film = film; // Initialiser le film actuel
 
         setBackground(new Color(0, 255, 127));
@@ -27,11 +27,11 @@ public class Films extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
-        creerEtAjouterPanels(gbc, hauteur, masterVue);
+        creerEtAjouterPanels(gbc);
     }
 
     // Méthode
-    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur, MasterVue masterVue) {
+    private void creerEtAjouterPanels(GridBagConstraints gbc) {
         JPanel panel_image = new JPanel();
         panel_image.setBorder(new EmptyBorder(25, 5, 5, 5));
         panel_image.setBackground(new Color(255, 200, 0));

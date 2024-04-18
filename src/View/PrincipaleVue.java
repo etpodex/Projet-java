@@ -1,9 +1,15 @@
 package View;
 
+import Controller.Evenements.AffConnexionEvenement;
+import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Billet;
+import Model.Film;
+import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
+import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +17,6 @@ import java.awt.*;
 public class PrincipaleVue extends JPanel {
 
     // ATTRIBUTS //
-
-    private MasterVue master_vue; // Instance de la vue principale
 
     // Instance des panels qui composent la vue principale
     private BarreNavigation barre_navigation; // La barre de navigation à gauche
@@ -39,22 +43,21 @@ public class PrincipaleVue extends JPanel {
         int panneau_contenu_width = (int) (frame_width * 0.8);
 
         // Initialisations des attributs
-        this.master_vue = master_vue;
         this.panneau_contenu = new JPanel();
 
         this.barre_navigation = new BarreNavigation();
 
         this.mes_billets_vue = new MesBilletsVue(panneau_contenu_width, frame_height);
-        this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height, master_vue);
+        this.les_films_vue = new LesFilmsVue(panneau_contenu_width, frame_height);
         this.accueil_vue = new AccueilVue(panneau_contenu_width, frame_height);
-        this.mon_compte_vue = new MonCompteVue(panel_navigation_width, frame_height);
+        this.mon_compte_vue = new MonCompteVue();
         this.connexion_vue = new ConnexionVue(panel_navigation_width, frame_height);
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
 
         this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
-        this.paiement_en_cours_vue = new PaiementEnCoursVue(master_vue);
+        this.paiement_en_cours_vue = new PaiementEnCoursVue();
         this.paiement_vue = new PaiementVue(panneau_contenu_width, frame_height);
 
 
@@ -72,8 +75,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherLesFilms() {
+    public void afficherLesFilms(Film[] films) {
         panneau_contenu.removeAll();
+        les_films_vue.updateFilms(films);
         panneau_contenu.add(les_films_vue, BorderLayout.CENTER);
         refresh();
     }
@@ -101,14 +105,16 @@ public class PrincipaleVue extends JPanel {
         panneau_contenu.add(gerer_seance);
         refresh();
     }
-    public void afficherMesBillets() {
+    public void afficherMesBillets(Billet[] billets) {
         panneau_contenu.removeAll();
+        mes_billets_vue.updateBillets(billets);
         panneau_contenu.add(mes_billets_vue);
         refresh();
     }
 
-    public void afficherMonCompte() {
+    public void afficherMonCompte(Utilisateur utilisateur) {
         panneau_contenu.removeAll();
+        mon_compte_vue.updateMonCompte(utilisateur);
         panneau_contenu.add(mon_compte_vue);
         refresh();
     }

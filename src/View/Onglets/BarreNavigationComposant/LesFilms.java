@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class LesFilms extends JButton{
 
-    public LesFilms (BarreNavigation barre_navigation){
+    public LesFilms (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

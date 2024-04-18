@@ -17,7 +17,7 @@ public class Texte extends JPanel {
     private JLabel enfant_billet;
     private JLabel senior_billet;
 
-    public Texte(int barre_navigation_panel_width, int hauteur){
+    public Texte(){
         setBackground(new Color(100,100,100));
         //int longueur_texte = barre_navigation_panel_width*3/4;
         //setPreferredSize(new Dimension(longueur_texte, hauteur));

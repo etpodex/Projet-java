@@ -15,8 +15,8 @@ public class MasterVue {
 
     public MasterVue() {
         initialiserFrame();
-        this.lancement_vue = new LancementVue(this);
-        this.ci_vue = new CIVue(this);
+        this.lancement_vue = new LancementVue();
+        this.ci_vue = new CIVue();
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
     }
 
@@ -70,33 +70,15 @@ public class MasterVue {
         principale_vue.afficherAccueil();
     }
 
-    // Méthode pour récupérer les données d'inscription à partir de CIVue
-    public String[] getInscriptionData() {
-        if (ci_vue != null) {
-            return ci_vue.getInscriptionData();
-        } else {
-            return null; // Retourne null si CIVue n'est pas initialisé
-        }
-    }
-
-    public String[] getConnexionData() {
-        if (ci_vue != null) {
-            return ci_vue.getConnexionData();
-        } else {
-            return null; // Retourne null si CIVue n'est pas initialisé
-        }
-    }
-
     public void afficherOnglet(Object objet) {
-        System.out.println(objet.getClass());
         switch (objet) {
             case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
             case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
             case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();
-            case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms();
-            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets();
-            case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte();
+            case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms(affLesFilmsEvenement.getFilms());
+            case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets(affMesBilletsEvenement.getBillets());
+            case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte(affMonCompteEvenement.getUtilisateur());
             case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation();
             case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();
             case AffPaiementEnCoursEvenement affPaiementEnCoursEvenement -> principale_vue.afficherPaiementEnCours();

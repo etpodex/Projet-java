@@ -19,14 +19,14 @@ public class BarreNavigation extends JPanel {
     private GererSeance gerer_seance;
     public BarreNavigation() {
         this.compte = new Compte();
-        this.les_films = new LesFilms(this);
-        this.mes_billets = new MesBillets(this);
-        this.accueil = new Accueil(this);
-        this.mon_compte = new MonCompte(this);
-        this.connexion = new Connexion(this);
-        this.gerer_offre = new GererOffre(this);
-        this.gerer_film = new GererFilm(this);
-        this.gerer_seance = new GererSeance(this);
+        this.les_films = new LesFilms();
+        this.mes_billets = new MesBillets();
+        this.accueil = new Accueil();
+        this.mon_compte = new MonCompte();
+        this.connexion = new Connexion();
+        this.gerer_offre = new GererOffre();
+        this.gerer_film = new GererFilm();
+        this.gerer_seance = new GererSeance();
 
         setBackground(new Color(186, 230, 187));
 

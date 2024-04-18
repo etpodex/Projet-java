@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class GererFilm extends JButton {
 
-    public GererFilm (BarreNavigation barre_navigation){
+    public GererFilm (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

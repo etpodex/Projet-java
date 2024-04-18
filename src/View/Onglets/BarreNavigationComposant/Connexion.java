@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Connexion extends JButton{
 
-    public Connexion (BarreNavigation barre_navigation){
+    public Connexion (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

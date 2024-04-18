@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class MonCompte extends JButton {
 
-    public MonCompte (BarreNavigation barre_navigation){
+    public MonCompte (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

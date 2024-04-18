@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Accueil extends JButton {
 
-    public Accueil (BarreNavigation barre_navigation){
+    public Accueil (){
         setBackground(Color.WHITE);
         setForeground(Color.GRAY);
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));

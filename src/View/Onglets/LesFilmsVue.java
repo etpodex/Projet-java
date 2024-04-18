@@ -10,14 +10,17 @@ import java.awt.*;
 
 public class LesFilmsVue extends JPanel {
 
-    Film[] films = new Film[]{
-            new Film("idfilm1", "titre1", "acteur1", "synopsis1","1h30", 9.0f, "image1.jpg", 10),
-            new Film("idfilm2", "titre2", "acteur2", "synopsis2", "2h10", 8.5f, "image2.jpg", 15),
-            new Film("idfilm2", "titre2", "acteur2", "synopsis3", "2h45", 7.5f, "image3.jpg", 15),
-    };
-    private int nombre_de_film = films.length;
+    Film[] films;
+    private int nombre_de_film;
 
-    public LesFilmsVue(int barre_navigation_panel_width, int frame_height, MasterVue master_vue) {
+
+    private JPanel film_panel_liste;
+    private JScrollPane scrollPane;
+    private JPanel wrapperPanel;
+
+    private int barre_navigation_panel_width;
+
+    public LesFilmsVue(int barre_navigation_panel_width, int frame_height) {
 
         setBackground(new Color(125, 125, 255));
         setBorder(new EmptyBorder(20, 80, 20, 80));
@@ -26,22 +29,34 @@ public class LesFilmsVue extends JPanel {
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
 
-        JPanel film_panel_liste = new JPanel();
-        film_panel_liste.setLayout(new BoxLayout(film_panel_liste, BoxLayout.Y_AXIS));
+        this.film_panel_liste = new JPanel();
+        this.film_panel_liste.setLayout(new BoxLayout(this.film_panel_liste, BoxLayout.Y_AXIS));
 
-        for (int i = 0; i < nombre_de_film; i++) {
-            Films film_panel = new Films(barre_navigation_panel_width * 2 / 3, 200, films[i], master_vue); // Passer la référence à MasterVue
-            film_panel_liste.add(film_panel);
-        }
+        this.barre_navigation_panel_width = barre_navigation_panel_width;
 
-        JScrollPane scrollPane = new JScrollPane();
+        this.scrollPane = new JScrollPane();
         scrollPane.setViewportView(film_panel_liste);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Cacher la barre de défilement verticale
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Cacher la barre de défilement horizontale
 
-        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.add(scrollPane, BorderLayout.CENTER);
 
         add(wrapperPanel, BorderLayout.CENTER);
+    }
+
+    public void updateFilms(Film[] films) {
+        this.films = films;
+        this.nombre_de_film = films.length;
+
+        film_panel_liste.removeAll();
+
+        for (int i = 0; i < nombre_de_film; i++) {
+            Films film_panel = new Films(barre_navigation_panel_width * 2 / 3, 200, films[i]); // Passer la référence à MasterVue
+            film_panel_liste.add(film_panel);
+        }
+
+        film_panel_liste.revalidate();
+        film_panel_liste.repaint();
     }
 }

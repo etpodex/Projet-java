@@ -4,6 +4,8 @@ import Controller.Evenements.ConnexionEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.InscriptionEvenement;
 import Controller.Evenements.RetourCIEvenement;
+import Model.Utilisateur;
+import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -13,15 +15,12 @@ import java.text.ParseException;
 public class CIVue {
     /**ATTRIBUT**/
 
-    private MasterVue master_vue;
     private Inscription inscription_panel; // Ajout de la référence à Inscription
     private Connexion connexion_panel;
     private String current_view;
 
 
-    public CIVue(MasterVue master_vue) {
-        this.master_vue = master_vue;
-    }
+    public CIVue() {}
 
 
     public void creationCIPanel(JFrame frame, int frame_width, int frame_height, int choix){
@@ -30,13 +29,12 @@ public class CIVue {
         //structure
         int header_panel_height = (int) (frame_height * 0.1);
         int mid_panel_height = (int) (frame_height * 0.8);
-        int footer_panel_height = (int) (frame_height * 0.1);
 
         //création des panels
         Header header_panel = new Header(frame_width, header_panel_height);
-        Connexion connexion_panel = new Connexion(frame_width, mid_panel_height);
+        Connexion connexion_panel = new Connexion();
         Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
-        Footer footer_panel = new Footer(frame_width, footer_panel_height, this);
+        Footer footer_panel = new Footer(this);
 
         this.inscription_panel = inscription_panel;
         this.connexion_panel = connexion_panel;
@@ -57,14 +55,14 @@ public class CIVue {
             CIPanel.add(inscription_panel);
             CIPanel.add(footer_panel);
 
-            this.current_view = "Insription";
+            this.current_view = "Inscription";
 
             frame.getContentPane().add(CIPanel);
         }
     }
 
     /// Méthode pour récupérer les données d'inscription à partir de Inscription
-    public String[] getInscriptionData() {
+    public Utilisateur getInscriptionData() {
         if (inscription_panel != null) {
             return inscription_panel.getInscriptionData();
         } else {
@@ -158,23 +156,9 @@ class Inscription extends JPanel {
     }
 
     // Méthode pour récupérer les données d'inscription
-    public String[] getInscriptionData() {
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        String age = ageField.getText(); // Récupération de l'âge depuis le champ de texte
-        String mail = mailField.getText();
-        String password = new String(passwordField.getPassword());
-
-        return new String[]{mail, password, nom, prenom, age, "1"};
-
-        //pour change convertir le string d'age en int plus tard
-        /**
-         * // Récupération de l'âge depuis le champ de texte
-         * String ageStr = ageField.getText();
-         *
-         * // Conversion de la chaîne de caractères en un entier
-         * int age = Integer.parseInt(ageStr);
-         */
+    public Utilisateur getInscriptionData() {
+        Utilisateur utilisateur = new Utilisateur(null, mailField.getText(), nomField.getText(), prenomField.getText(), Integer.parseInt(ageField.getText()), 1, passwordField.getText());
+        return utilisateur;
     }
 }
 
@@ -197,7 +181,7 @@ class Footer extends JPanel{
     private JButton bouton_valider;
     private JButton bouton_retour;
 
-    public Footer(int frame_width, int frame_height, CIVue ci_vue){
+    public Footer(CIVue ci_vue){
 
 
         //couleur pour voir
@@ -207,10 +191,12 @@ class Footer extends JPanel{
 
         bouton_valider = new JButton("Valider");
         bouton_valider.addActionListener(e -> {
+            System.out.println(ci_vue.getCurrentView());
             if (ci_vue.getCurrentView().equals("Inscription")) {
-                FileEvenements.getInstance().publier(new InscriptionEvenement());
+                FileEvenements.getInstance().publier(new InscriptionEvenement(ci_vue.getInscriptionData()));
             } else if (ci_vue.getCurrentView().equals("Connexion")){
-                FileEvenements.getInstance().publier(new ConnexionEvenement());
+                String[] data = ci_vue.getConnexionData();
+                FileEvenements.getInstance().publier(new ConnexionEvenement(data[0], data[1]));
             }
         });
 
@@ -239,7 +225,7 @@ class Connexion extends JPanel {
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    public Connexion(int frame_width, int frame_height) {
+    public Connexion() {
         setLayout(new BorderLayout());
 
         // Création du panneau pour le formulaire de connexion
