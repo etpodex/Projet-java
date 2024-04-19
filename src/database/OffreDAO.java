@@ -71,4 +71,25 @@ public class OffreDAO implements IOffreDAO{
         return offreList.toArray(offresArrays);
     }
 
+    @Override
+    public int retirer(String id_promo) {
+        String query = "DELETE FROM offre WHERE code_promo = ?";
+
+        try (Connection conn = Databaseconnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, id_promo);
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("offre supprimé avec succès.");
+            } else {
+                System.out.println("Aucun offre trouvé avec cet identifiant.");
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
 }
