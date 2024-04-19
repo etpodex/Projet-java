@@ -8,17 +8,21 @@ import java.awt.*;
 
 public class BarreNavigation extends JPanel {
 
-    private Compte compte;
-    private LesFilms les_films;
-    private MesBillets mes_billets;
-    private Accueil accueil;
-    private MonCompte mon_compte;
-    private Connexion connexion;
-    private GererOffre gerer_offre;
-    private GererFilm gerer_film;
-    private GererSeance gerer_seance;
+    LesFilms les_films;
+    MesBillets mes_billets;
+    Accueil accueil;
+    MonCompte mon_compte;
+    Connexion connexion;
+    GererOffre gerer_offre;
+    GererFilm gerer_film;
+    GererSeance gerer_seance;
+
+    JPanel panel_boutons;
+
     public BarreNavigation() {
-        this.compte = new Compte();
+
+        this.panel_boutons = new JPanel();
+
         this.les_films = new LesFilms();
         this.mes_billets = new MesBillets();
         this.accueil = new Accueil();
@@ -30,23 +34,46 @@ public class BarreNavigation extends JPanel {
 
         setBackground(new Color(186, 230, 187));
 
-        JPanel panel_boutons = new JPanel();
-        panel_boutons.setLayout(new GridLayout(8,1));
-        panel_boutons.add(les_films);
-        panel_boutons.add(mes_billets);
-        panel_boutons.add(accueil);
-        panel_boutons.add(mon_compte);
-        panel_boutons.add(connexion);
-        panel_boutons.add(gerer_offre);
-        panel_boutons.add(gerer_film);
-        panel_boutons.add(gerer_seance);
+        set_current_view(0);
 
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
 
-        //add(compte);
-        add(panel_boutons);
+        // Ajout du panel invité par défaut
+        add(this.panel_boutons);
+    }
 
-        compte.setPreferredSize(new Dimension(200, 20));
+    /**
+     * Change la vue actuelle
+     * @param vue_nb 0 pour invite 1 pour client 2 pour employe
+     */
+    public void set_current_view(int vue_nb) {
+        panel_boutons.removeAll();
+        if (vue_nb == 0) {
+            panel_boutons.setLayout(new GridLayout(3,1));
+            panel_boutons.add(les_films);
+            panel_boutons.add(accueil);
+            panel_boutons.add(connexion);
+        } else if (vue_nb == 1) {
+            panel_boutons.setLayout(new GridLayout(4,1));
+            panel_boutons.add(les_films);
+            panel_boutons.add(mes_billets);
+            panel_boutons.add(accueil);
+            panel_boutons.add(mon_compte);
+        } else if (vue_nb == 2) {
+            panel_boutons.setLayout(new GridLayout(6,1));
+            panel_boutons.add(les_films);
+            panel_boutons.add(accueil);
+            panel_boutons.add(mon_compte);
+            panel_boutons.add(gerer_offre);
+            panel_boutons.add(gerer_film);
+            panel_boutons.add(gerer_seance);
+        }
+
+        panel_boutons.revalidate();
+        panel_boutons.repaint();
+
+        revalidate();
+        repaint();
     }
 }

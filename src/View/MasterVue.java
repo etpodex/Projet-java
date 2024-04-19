@@ -88,4 +88,8 @@ public class MasterVue {
         }
     }
 
+    public void modif_statut_utilisateur(int statut) {
+        principale_vue.modif_statut_utilisateur(statut);
+    }
+
 }
