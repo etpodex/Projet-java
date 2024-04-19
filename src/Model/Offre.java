@@ -5,6 +5,12 @@ public class Offre {
     private int reduction;
     private String code_promo;
 
+    public Offre() {
+        this.nom_promo = null;
+        this.reduction = 0;
+        this.code_promo = null;
+    }
+
     public Offre(String nom_promo, int reduction, String code_promo) {
         this.nom_promo = nom_promo;
         this.reduction = reduction;
