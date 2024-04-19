@@ -18,13 +18,11 @@ public class Texte extends JPanel {
     private JLabel senior_billet;
 
     public Texte(){
-        setBackground(new Color(100,100,100));
-        //int longueur_texte = barre_navigation_panel_width*3/4;
-        //setPreferredSize(new Dimension(longueur_texte, hauteur));
+        setBackground(new Color(100,100,100)); // Définition de la couleur de fond du panneau
+        setBorder(new EmptyBorder(0, 5, 5, 5)); // Définition des marges autour du panneau
+        setLayout(new GridLayout(0, 1)); // Utilisation d'un GridLayout avec une seule colonne et un nombre de lignes dynamique
 
-        setBorder(new EmptyBorder(0, 5, 5, 5));
-        setLayout(new GridLayout(0, 1));
-
+        // Initialisation des labels
         title_billet = new JLabel();
         date_billet = new JLabel();
         horaire_billet = new JLabel();
@@ -35,16 +33,16 @@ public class Texte extends JPanel {
         enfant_billet = new JLabel();
         senior_billet = new JLabel();
 
+        // Ajout des labels au panneau
         add(title_billet);
         add(createDateHorairePanel());
         add(createSalleSiegePanel());
         add(createBilletsPanel());
-
     }
 
-    //Methode :
+    // Méthodes privées :
 
-
+    // Crée un panneau pour les labels de date et d'horaire
     private JPanel createDateHorairePanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(date_billet);
@@ -52,7 +50,7 @@ public class Texte extends JPanel {
         return panel;
     }
 
-    // Create panel for Salle and Siège labels
+    // Crée un panneau pour les labels de salle et de siège
     private JPanel createSalleSiegePanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(salle_billet);
@@ -60,7 +58,7 @@ public class Texte extends JPanel {
         return panel;
     }
 
-    // Create panel for Nombre de billets labels
+    // Crée un panneau pour les labels de nombre de billets
     private JPanel createBilletsPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 4));
         panel.add(acheter_billet);
@@ -69,6 +67,8 @@ public class Texte extends JPanel {
         panel.add(senior_billet);
         return panel;
     }
+
+    // Méthodes publiques pour définir le texte des labels :
 
     public void setTitreFilm(String titre) {
         title_billet.setText("Titre: " + titre);

@@ -6,24 +6,22 @@ import java.awt.*;
 
 public class QRCode extends JPanel {
 
-    //Attributs
+    // Attributs
     private JLabel qrcode_billet;
 
     public QRCode(){
-        setBackground(new Color(150,100,100));
-        //int longueur_qrcode = barre_navigation_panel_width*1/4;
-        //setPreferredSize(new Dimension(longueur_qrcode, hauteur));
+        setBackground(new Color(150,100,100)); // Définition de la couleur de fond du panneau
+        setBorder(new EmptyBorder(5, 35, 5, 5)); // Définition des marges autour du panneau
+        setLayout(new GridLayout(0, 1)); // Utilisation d'un GridLayout avec une seule colonne et un nombre de lignes dynamique
 
-        setBorder(new EmptyBorder(5, 35, 5, 5));
-        setLayout(new GridLayout(0, 1));
-
+        // Initialisation du label pour afficher le QRCode
         qrcode_billet = new JLabel();
 
-        add(qrcode_billet);
+        add(qrcode_billet); // Ajout du label au panneau
     }
 
+    // Méthode publique pour définir le QRCode à afficher
     public void setQRCode(String qrCodePath) {
         qrcode_billet.setIcon(new ImageIcon(qrCodePath)); // Définit l'icône du JLabel avec l'image QRCode
     }
-
 }

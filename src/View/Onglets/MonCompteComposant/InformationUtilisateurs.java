@@ -6,6 +6,7 @@ import Model.Utilisateur; // Importation de la classe Utilisateur depuis le pack
 
 public class InformationUtilisateurs extends JPanel {
 
+    // Attributs
     private JTextField prenomField;
     private JTextField nomField;
     private JTextField ageField;
@@ -22,7 +23,7 @@ public class InformationUtilisateurs extends JPanel {
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5); // Marge autour des composants
 
         // Création des étiquettes pour les champs de texte
         JLabel prenomLabel = new JLabel("Prénom: ");

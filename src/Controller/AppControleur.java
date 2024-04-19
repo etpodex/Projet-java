@@ -27,6 +27,8 @@ public class AppControleur {
 
     private Utilisateur utilisateur_connecte = null;
 
+    private ChartController chartController; // estelle pour point bonus projet
+
     public AppControleur() {
         this.master_vue = new MasterVue();
 
@@ -34,6 +36,8 @@ public class AppControleur {
         film_dao = new FilmDAO();
         billet_dao = new BilletDAO();
         offre_dao = new OffreDAO(); // estelle
+
+        chartController = new ChartController(); // estelle pour point bonus projet
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
         this.master_vue.afficherVueLancement();
