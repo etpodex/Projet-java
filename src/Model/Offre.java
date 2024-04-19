@@ -2,10 +2,10 @@ package Model;
 
 public class Offre {
     private String nom_promo;
-    private String reduction;
+    private int reduction;
     private String code_promo;
 
-    public Offre(String nom_promo, String reduction, String code_promo) {
+    public Offre(String nom_promo, int reduction, String code_promo) {
         this.nom_promo = nom_promo;
         this.reduction = reduction;
         this.code_promo = code_promo;
@@ -19,11 +19,11 @@ public class Offre {
         this.nom_promo = nom_promo;
     }
 
-    public String getReduction() {
+    public int getReduction() {
         return reduction;
     }
 
-    public void setReduction(String reduction) {
+    public void setReduction(int reduction) {
         this.reduction = reduction;
     }
 

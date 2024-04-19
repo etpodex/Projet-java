@@ -3,9 +3,7 @@ package View.Onglets.GererOffreVueComposant;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableCellEditor;
 import java.awt.*;
-import java.awt.event.*;
 
 import Model.Offre;
 
@@ -41,7 +39,7 @@ public class Grille extends JPanel {
         }
     }
 
-    public void ajouterOffre(String nomPromo, String reduction, String codePromo) {
+    public void ajouterOffre(String nomPromo, int reduction, String codePromo) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{nomPromo, reduction, codePromo, "Supprimer"});
     }
@@ -67,11 +65,7 @@ public class Grille extends JPanel {
             super(checkBox);
             button = new JButton();
             button.setOpaque(true);
-            button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    fireEditingStopped();
-                }
-            });
+            button.addActionListener(e -> fireEditingStopped());
         }
 
         public Component getTableCellEditorComponent(JTable table, Object value,

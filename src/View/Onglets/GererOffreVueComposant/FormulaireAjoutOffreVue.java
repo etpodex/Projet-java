@@ -45,7 +45,7 @@ public class FormulaireAjoutOffreVue extends JPanel {
             int reduction = Integer.parseInt(reductionField.getText());
             return new Offre(
                     nomPromoField.getText(),
-                    String.valueOf(reduction),
+                    reduction,
                     codePromoField.getText()
             );
         } catch (NumberFormatException e) {

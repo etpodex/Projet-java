@@ -6,12 +6,16 @@ import View.Onglets.GererOffreVueComposant.Grille;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class GererOffreVue extends JPanel {
 
-    private List<Offre> offres;
+    private Offre[] offres = new Offre[]{
+            new Offre("Offre1", 10, "CODE1"),
+            new Offre("Offre2", 20, "CODE2"),
+            new Offre("Offre3", 15, "CODE3")
+    };
+
     private JPanel panelGrille;
     private JButton boutonAfficher;
     private Grille grilleOffres;
@@ -22,17 +26,11 @@ public class GererOffreVue extends JPanel {
         setBackground(new Color(100, 50, 50));
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight));
 
-        // Initialisation des offres
-        offres = new ArrayList<>();
-        offres.add(new Offre("Offre1", "10%", "CODE1"));
-        offres.add(new Offre("Offre2", "20%", "CODE2"));
-        offres.add(new Offre("Offre3", "15%", "CODE3"));
-
         // Création des composants
         panelGrille = new JPanel(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(panelGrille);
         boutonAfficher = new JButton("Ajouter");
-        grilleOffres = new Grille(offres.toArray(new Offre[0])); // Initialisation de la grille avec les offres
+        grilleOffres = new Grille(offres); // Initialisation de la grille avec les offres
         formulaireAjoutOffreVue = new FormulaireAjoutOffreVue();
 
         // Mise en page du panneau principal
@@ -65,7 +63,9 @@ public class GererOffreVue extends JPanel {
     private void ajouterOffre() {
         Offre nouvelleOffre = formulaireAjoutOffreVue.createOffreFromFields();
         if (nouvelleOffre != null) {
-            offres.add(nouvelleOffre);
+            Offre[] nouvellesOffres = Arrays.copyOf(offres, offres.length + 1);
+            nouvellesOffres[nouvellesOffres.length - 1] = nouvelleOffre;
+            offres = nouvellesOffres;
             grilleOffres.ajouterOffre(nouvelleOffre.getNom_promo(), nouvelleOffre.getReduction(), nouvelleOffre.getCode_promo());
             boutonAfficher.setText("Ajouter");
             formulaireAffiche = false;
