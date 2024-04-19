@@ -15,7 +15,7 @@ public class FormulaireAjoutOffreVue extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         nomPromoField = addFormField("Nom de la Promo:", gbc);
-        reductionField = addFormField("Réduction (%):", gbc);
+        reductionField = addFormField("Réduction:", gbc);
         codePromoField = addFormField("Code Promo:", gbc);
     }
 

@@ -4,6 +4,7 @@ import Model.Film;
 
 public class AffLesFilmsEvenement extends AffPVEvenement {
 
+    // estelle
     Film[] films;
     public AffLesFilmsEvenement() {
 

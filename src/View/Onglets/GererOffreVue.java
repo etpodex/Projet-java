@@ -73,8 +73,17 @@ public class GererOffreVue extends JPanel {
             panelGrille.add(grilleOffres);
             panelGrille.revalidate();
             panelGrille.repaint();
+
+            for (int i = 0; i < offres.length; i++) {
+                Offre offre = offres[i];
+                System.out.println("\tnew Offre(\"" + offre.getNom_promo() + "\", " + offre.getReduction() + ", \"" + offre.getCode_promo() + "\")" + (i < offres.length - 1 ? "," : ""));
+            }
+
+
         } else {
             JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
 }
