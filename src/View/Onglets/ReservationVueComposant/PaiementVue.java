@@ -10,6 +10,11 @@ import java.awt.event.*;
 
 public class PaiementVue extends JPanel {
 
+    private JTextField nom_sur_carte_field;
+    private JTextField numero_carte_field;
+    private JTextField date_expiration_field;
+    private JTextField cvv_field;
+
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
         setBackground(Color.WHITE);
@@ -30,13 +35,13 @@ public class PaiementVue extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel nom_sur_carte_label = new JLabel("Nom sur la carte:");
-        JTextField nom_sur_carte_field = new JTextField(10);
+        nom_sur_carte_field = new JTextField(10);
         JLabel numero_carte_label = new JLabel("Numéro de carte:");
-        JTextField numero_carte_field = new JTextField(15);
+        numero_carte_field = new JTextField(15);
         JLabel date_expiration_label = new JLabel("Date d'expiration:");
-        JTextField date_expiration_field = new JTextField(5);
+        date_expiration_field = new JTextField(5);
         JLabel cvv_label = new JLabel("CVV:");
-        JTextField cvv_field = new JTextField(3);
+        cvv_field = new JTextField(3);
         JLabel code_promo_label = new JLabel("Code promo:");
         JTextField code_promo_field = new JTextField(5);
 
@@ -195,7 +200,13 @@ public class PaiementVue extends JPanel {
         bouton_paiement.setFont(new Font("Arial", Font.BOLD, 16));
 
         // Action lorsque le bouton de paiement est cliqué
-        bouton_paiement.addActionListener(e -> {FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());});
+        bouton_paiement.addActionListener(e -> {
+            if (areAllFieldsFilled()) {
+                FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());
+            } else {
+                JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
@@ -204,5 +215,12 @@ public class PaiementVue extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    private boolean areAllFieldsFilled() {
+        return !nom_sur_carte_field.getText().isEmpty() &&
+                !numero_carte_field.getText().isEmpty() &&
+                !date_expiration_field.getText().isEmpty() &&
+                !cvv_field.getText().isEmpty();
     }
 }
