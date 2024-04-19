@@ -16,6 +16,7 @@ public class BarreNavigation extends JPanel {
     GererOffre gerer_offre;
     GererFilm gerer_film;
     GererSeance gerer_seance;
+    Deconnexion deconnexion;
 
     JPanel panel_boutons;
 
@@ -31,6 +32,7 @@ public class BarreNavigation extends JPanel {
         this.gerer_offre = new GererOffre();
         this.gerer_film = new GererFilm();
         this.gerer_seance = new GererSeance();
+        this.deconnexion = new Deconnexion();
 
         setBackground(new Color(186, 230, 187));
 
@@ -55,19 +57,21 @@ public class BarreNavigation extends JPanel {
             panel_boutons.add(accueil);
             panel_boutons.add(connexion);
         } else if (vue_nb == 1) {
-            panel_boutons.setLayout(new GridLayout(4,1));
+            panel_boutons.setLayout(new GridLayout(5,1));
             panel_boutons.add(les_films);
             panel_boutons.add(mes_billets);
             panel_boutons.add(accueil);
             panel_boutons.add(mon_compte);
+            panel_boutons.add(deconnexion);
         } else if (vue_nb == 2) {
-            panel_boutons.setLayout(new GridLayout(6,1));
+            panel_boutons.setLayout(new GridLayout(7,1));
             panel_boutons.add(les_films);
             panel_boutons.add(accueil);
             panel_boutons.add(mon_compte);
             panel_boutons.add(gerer_offre);
             panel_boutons.add(gerer_film);
             panel_boutons.add(gerer_seance);
+            panel_boutons.add(deconnexion);
         }
 
         panel_boutons.revalidate();

@@ -52,6 +52,9 @@ public class AppControleur {
             if (inscription(((InscriptionEvenement) objet).getUtilisateur()) == 0) {
                 master_vue.afficherPrincipaleVue();
             }
+        } else if (objet instanceof DeconnexionEvenement) {
+            master_vue.afficherConnexion();
+            master_vue.modif_statut_utilisateur(0);
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
         } /**else if (objet instanceof AffLesFilms) {
