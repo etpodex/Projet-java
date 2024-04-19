@@ -3,6 +3,7 @@ package View.Onglets;
 import Model.Film;
 import View.Onglets.GererFilmVueComposant.Grille;
 import View.Onglets.GererFilmVueComposant.FormulaireAjoutFilmVue;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -52,6 +53,8 @@ public class GererFilmVue extends JPanel {
             if (formulaireAjoutFilmVue.areAllFieldsFilled()) {
                 Film newFilm = formulaireAjoutFilmVue.createFilmFromFields();
                 addFilm(newFilm);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
             boutonAfficher.setText("Afficher");
             formulaireAffiche = false;
