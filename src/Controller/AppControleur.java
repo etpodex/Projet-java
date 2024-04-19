@@ -7,6 +7,7 @@ import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
 import View.MasterVue;
 import database.FilmDAO;
+import database.OffreDAO;
 import database.UtilisateurDAO;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class AppControleur {
     private FilmDAO film_dao;
     private BilletDAO billet_dao;
 
+    private OffreDAO offre_dao; // estelle
+
     private Utilisateur utilisateur_connecte = null;
 
     public AppControleur() {
@@ -30,6 +33,7 @@ public class AppControleur {
         utilisateur_dao = new UtilisateurDAO();
         film_dao = new FilmDAO();
         billet_dao = new BilletDAO();
+        offre_dao = new OffreDAO(); // estelle
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
         this.master_vue.afficherVueLancement();
@@ -61,7 +65,7 @@ public class AppControleur {
             master_vue.afficherPVLesFilms();
         }**/ else if (objet instanceof EffacerFilmEvenement){
             System.out.println("bouton sup cliqué");
-        }
+        }//il faut supprimer les infos
 
         // Implemented AffPVEvenement events
         else if (objet instanceof AffLesFilmsEvenement) {
