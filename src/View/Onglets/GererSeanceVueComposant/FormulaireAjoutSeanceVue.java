@@ -1,14 +1,12 @@
 package View.Onglets.GererSeanceVueComposant;
 
-import javax.swing.*;
-import java.awt.*;
 import Model.Sceance;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class FormulaireAjoutSeanceVue extends JPanel {
-    private JTextField nomFilmField;
-    private JComboBox<String> salleComboBox;
-    private JTextField heureField;
-    private JTextField dateField;
+    private JTextField idFilmField, idSalleField, horaireField, dateField;
 
     public FormulaireAjoutSeanceVue() {
         setLayout(new GridBagLayout());
@@ -16,56 +14,41 @@ public class FormulaireAjoutSeanceVue extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        JLabel nomFilmLabel = new JLabel("Nom du film:");
-        nomFilmField = new JTextField(20);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(nomFilmLabel, gbc);
-        gbc.gridx = 1;
-        add(nomFilmField, gbc);
+        idFilmField = addFormField("ID du film:", gbc);
+        idSalleField = addFormField("ID de la salle:", gbc);
+        horaireField = addFormField("Horaire:", gbc);
+        dateField = addFormField("Date:", gbc);
+    }
 
-        JLabel salleLabel = new JLabel("Salle:");
-        salleComboBox = new JComboBox<>();
-        salleComboBox.addItem("1");
-        salleComboBox.addItem("2");
-        salleComboBox.addItem("3");
+    private JTextField addFormField(String labelText, GridBagConstraints gbc) {
+        JLabel label = new JLabel(labelText);
+        JTextField textField = new JTextField(20);
         gbc.gridx = 0;
         gbc.gridy++;
-        add(salleLabel, gbc);
-        gbc.gridx = 1;
-        add(salleComboBox, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(label, gbc);
 
-        JLabel heureLabel = new JLabel("Heure:");
-        heureField = new JTextField(10);
-        gbc.gridx = 0;
-        gbc.gridy++;
-        add(heureLabel, gbc);
         gbc.gridx = 1;
-        add(heureField, gbc);
-
-        JLabel dateLabel = new JLabel("Date (JJ/MM/AAAA):");
-        dateField = new JTextField(10);
-        gbc.gridx = 0;
-        gbc.gridy++;
-        add(dateLabel, gbc);
-        gbc.gridx = 1;
-        add(dateField, gbc);
+        gbc.anchor = GridBagConstraints.EAST;
+        add(textField, gbc);
+        return textField;
     }
 
     public boolean areAllFieldsFilled() {
-        return !nomFilmField.getText().trim().isEmpty() &&
-                !heureField.getText().trim().isEmpty() &&
+        return !idFilmField.getText().trim().isEmpty() &&
+                !idSalleField.getText().trim().isEmpty() &&
+                !horaireField.getText().trim().isEmpty() &&
                 !dateField.getText().trim().isEmpty();
     }
 
     public Sceance createSeanceFromFields() {
         try {
-            String nomFilm = nomFilmField.getText();
-            int salle = Integer.parseInt((String) salleComboBox.getSelectedItem());
-            String heure = heureField.getText();
+            int idFilm = Integer.parseInt(idFilmField.getText());
+            int idSalle = Integer.parseInt(idSalleField.getText());
+            String horaire = horaireField.getText();
             String date = dateField.getText();
-
-            return new Sceance(0, 0, heure, salle, date, 0);
+            return new Sceance(0, idFilm, horaire, idSalle, date, 0);
         } catch (NumberFormatException e) {
             // Gérer l'erreur de conversion
             e.printStackTrace();
