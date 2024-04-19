@@ -46,6 +46,7 @@ public class AppControleur {
         } else if (objet instanceof ConnexionEvenement) {
             if (connexion(((ConnexionEvenement) objet).getEmail(), ((ConnexionEvenement) objet).getMotDePasse()) == 0) {
                 master_vue.afficherPrincipaleVue();
+                master_vue.modif_statut_utilisateur(utilisateur_connecte.getNvAvantage());
             }
         } else if (objet instanceof InscriptionEvenement) {
             if (inscription(((InscriptionEvenement) objet).getUtilisateur()) == 0) {

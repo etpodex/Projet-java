@@ -143,6 +143,10 @@ public class PrincipaleVue extends JPanel {
         repaint();
     }
 
+    public void modif_statut_utilisateur(int statut) {
+        barre_navigation.set_current_view(statut);
+    }
+
 }
 
 
