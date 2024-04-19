@@ -41,7 +41,7 @@ public class Grille extends JPanel {
         }
     }
 
-    public void ajouterOffre(String nomPromo, String reduction, String codePromo) {
+    public void ajouterOffre(String nomPromo, int reduction, String codePromo) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{nomPromo, reduction, codePromo, "Supprimer"});
     }

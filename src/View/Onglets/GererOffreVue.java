@@ -24,9 +24,9 @@ public class GererOffreVue extends JPanel {
 
         // Initialisation des offres
         offres = new ArrayList<>();
-        offres.add(new Offre("Offre1", "10%", "CODE1"));
-        offres.add(new Offre("Offre2", "20%", "CODE2"));
-        offres.add(new Offre("Offre3", "15%", "CODE3"));
+        offres.add(new Offre("Offre1", 10, "CODE1"));
+        offres.add(new Offre("Offre2", 20, "CODE2"));
+        offres.add(new Offre("Offre3", 15, "CODE3"));
 
         // Création des composants
         panelGrille = new JPanel(new BorderLayout());
