@@ -51,7 +51,7 @@ public class Films extends JPanel {
 
         // Labels pour les détails du film
         JLabel titreLabel = new JLabel("Titre: " + film.getNom());
-        JLabel acteurLabel = new JLabel("Acteur : " + film.getActeur());
+        //JLabel acteurLabel = new JLabel("Acteur : " + film.getActeur());
         JLabel noteLabel = new JLabel("Note: " + film.getNote());
         JLabel synopsisLabel = new JLabel("Synopsis:");
 
@@ -77,10 +77,11 @@ public class Films extends JPanel {
 
         // Ajout des composants au deuxième panel
         detailsPanel.add(titreLabel);
-        detailsPanel.add(acteurLabel);
+        //detailsPanel.add(acteurLabel);
         detailsPanel.add(synopsisLabel);
         detailsPanel.add(synopsisScrollPane);
         detailsPanel.add(noteLabel);
+        detailsPanel.add(Box.createVerticalGlue());
         detailsPanel.add(reserverButton); // Ajout du bouton Réserver
 
         add(detailsPanel);
