@@ -195,9 +195,12 @@ public class PaiementVue extends JPanel {
             }
         });
 
-        // Bouton de paiement
+        // Boutons de paiement et de retour
         JButton bouton_paiement = new JButton("Payer");
         bouton_paiement.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JButton bouton_retour = new JButton("Retour");
+        bouton_retour.setFont(new Font("Arial", Font.BOLD, 16));
 
         // Action lorsque le bouton de paiement est cliqué
         bouton_paiement.addActionListener(e -> {
@@ -208,10 +211,19 @@ public class PaiementVue extends JPanel {
             }
         });
 
+        // Action lorsque le bouton de retour est cliqué
+        bouton_retour.addActionListener(e -> {
+            // Ajoutez ici l'action à effectuer lorsque le bouton de retour est cliqué
+        });
+
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
         add(detail_carte_panel, BorderLayout.CENTER);
-        add(bouton_paiement, BorderLayout.SOUTH);
+
+        JPanel boutonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        boutonsPanel.add(bouton_retour);
+        boutonsPanel.add(bouton_paiement);
+        add(boutonsPanel, BorderLayout.SOUTH);
 
         revalidate();
         repaint();
