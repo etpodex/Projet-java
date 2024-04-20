@@ -2,6 +2,7 @@ package View.Onglets;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Offre;
 import Model.Sceance;
 import View.MasterVue;
 
@@ -17,6 +18,7 @@ public class ReservationVue extends JPanel {
     private JSpinner billetSeniorSpinner;
     private JSpinner billetAdulteSpinner;
     private JSpinner billetMembreSpinner;
+    private JTextField codePromoField; // Champ de saisie du code promo
     private JLabel prixTotalLabel;
 
     // Prix des billets
@@ -24,6 +26,13 @@ public class ReservationVue extends JPanel {
     private static final double REDUCTION_ENFANT = 0.20;
     private static final double REDUCTION_SENIOR = 0.15;
     private static final double REDUCTION_MEMBRE = 0.30;
+
+    // Liste des offres avec leurs codes promo et réductions
+    private Offre[] offres = new Offre[]{
+            new Offre("Offre1", 10, "CODE1"),
+            new Offre("Offre2", 20, "CODE2"),
+            new Offre("Offre3", 15, "CODE3")
+    };
 
     // Constructeur
     public ReservationVue(int panneau_contenu_width, int frame_height) {
@@ -63,6 +72,10 @@ public class ReservationVue extends JPanel {
         billetAdulteSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
         billetMembreSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
+        // Ajout du champ de saisie du code promo
+        JLabel codePromoLabel = new JLabel("Code promo:");
+        codePromoField = new JTextField(10);
+
         // Création de la JLabel pour afficher le prix total
         prixTotalLabel = new JLabel("Prix total : 0.00 €");
         GridBagConstraints gbcPrixTotalLabel = new GridBagConstraints();
@@ -81,7 +94,7 @@ public class ReservationVue extends JPanel {
 
         // Création d'un panneau pour les spinners
         JPanel spinnerPanel = new JPanel();
-        spinnerPanel.setLayout(new GridLayout(4, 2));
+        spinnerPanel.setLayout(new GridLayout(5, 2));
         spinnerPanel.add(new JLabel("Billet Enfant:"));
         spinnerPanel.add(billetEnfantSpinner);
         spinnerPanel.add(new JLabel("Billet Senior:"));
@@ -90,6 +103,8 @@ public class ReservationVue extends JPanel {
         spinnerPanel.add(billetAdulteSpinner);
         spinnerPanel.add(new JLabel("Billet Membre:"));
         spinnerPanel.add(billetMembreSpinner);
+        spinnerPanel.add(codePromoLabel);
+        spinnerPanel.add(codePromoField);
 
         // Ajout des spinners
         GridBagConstraints gbcSpinner = new GridBagConstraints();
@@ -99,6 +114,20 @@ public class ReservationVue extends JPanel {
         gbcSpinner.fill = GridBagConstraints.HORIZONTAL;
         gbcSpinner.insets = new Insets(5, 5, 5, 5);
         add(spinnerPanel, gbcSpinner);
+
+        // Création du bouton "Valider"
+        JButton validerButton = new JButton("Valider code promo");
+        // Ajout d'un écouteur d'événements pour le bouton "Valider"
+        validerButton.addActionListener(e -> validerCodePromo());
+
+        // Ajout du bouton "Valider"
+        GridBagConstraints gbcValiderButton = new GridBagConstraints();
+        gbcValiderButton.gridx = 0;
+        gbcValiderButton.gridy = 2;
+        gbcValiderButton.gridwidth = 3;
+        gbcValiderButton.fill = GridBagConstraints.HORIZONTAL;
+        gbcValiderButton.insets = new Insets(5, 5, 5, 5);
+        add(validerButton, gbcValiderButton);
 
         // Création du bouton "Payer"
         JButton payerButton = new JButton("Payer");
@@ -123,6 +152,34 @@ public class ReservationVue extends JPanel {
         repaint(); // Redessiner le panneau
     }
 
+    // Méthode pour valider et appliquer le code promo
+    // Méthode pour valider et appliquer le code promo
+    private void validerCodePromo() {
+        String codePromo = codePromoField.getText();
+        boolean codePromoValide = false;
+        double tauxReduction = 0.0;
+
+        // Vérifier si le code promo est valide et obtenir le taux de réduction correspondant
+        for (Offre offre : offres) {
+            if (offre.getCode_promo().equals(codePromo)) {
+                codePromoValide = true;
+                tauxReduction = offre.getReduction();
+                break;
+            }
+        }
+
+        // Si le code promo est valide, recalculer le prix total en appliquant la réduction
+        if (codePromoValide) {
+            calculerPrixTotal();
+            JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Sinon, afficher un message d'erreur
+            JOptionPane.showMessageDialog(this, "Code promo invalide", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+
     // Méthode pour calculer le prix total en fonction du nombre de billets de chaque type
     private void calculerPrixTotal() {
         int nbBilletsEnfant = (int) billetEnfantSpinner.getValue();
@@ -135,6 +192,15 @@ public class ReservationVue extends JPanel {
                 (nbBilletsSenior * PRIX_BILLET * (1 - REDUCTION_SENIOR)) +
                 (nbBilletsAdulte * PRIX_BILLET) +
                 (nbBilletsMembre * PRIX_BILLET * (1 - REDUCTION_MEMBRE));
+
+        // Appliquer la réduction du code promo s'il est valide
+        String codePromo = codePromoField.getText();
+        for (Offre offre : offres) {
+            if (offre.getCode_promo().equals(codePromo)) {
+                prixTotal -= (prixTotal * offre.getReduction() / 100);
+                break;
+            }
+        }
 
         // Affichage du prix total
         prixTotalLabel.setText(String.format("Prix total : %.2f €", prixTotal));
@@ -149,6 +215,8 @@ public class ReservationVue extends JPanel {
         billetSeniorSpinner.setValue(0);
         billetAdulteSpinner.setValue(0);
         billetMembreSpinner.setValue(0);
+        // Réinitialiser le champ de saisie du code promo
+        codePromoField.setText("");
         // Réinitialiser le prix total à zéro
         prixTotalLabel.setText("Prix total : 0.00 €");
     }
