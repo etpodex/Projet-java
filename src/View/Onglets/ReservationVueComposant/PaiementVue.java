@@ -1,6 +1,7 @@
 package View.Onglets.ReservationVueComposant;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEnCoursEvenement;
+import Controller.Evenements.AffichageOnglet.AffReservationEvenement;
 import Controller.Evenements.FileEvenements;
 import View.MasterVue;
 
@@ -214,8 +215,10 @@ public class PaiementVue extends JPanel {
 
         // Action lorsque le bouton de retour est cliqué
         bouton_retour.addActionListener(e -> {
-            // Ajoutez ici l'action à effectuer lorsque le bouton de retour est cliqué
+            // Publier un événement pour afficher la vue de réservation
+            FileEvenements.getInstance().publier(new AffReservationEvenement());
         });
+
 
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
