@@ -3,7 +3,6 @@ package View.Onglets.ReservationVueComposant;
 import Controller.Evenements.AffichageOnglet.AffPaiementEnCoursEvenement;
 import Controller.Evenements.AffichageOnglet.AffReservationEvenement;
 import Controller.Evenements.FileEvenements;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,6 @@ public class PaiementVue extends JPanel {
     private JTextField numero_carte_field; // Champ de saisie du numéro de carte
     private JTextField date_expiration_field; // Champ de saisie de la date d'expiration
     private JTextField cvv_field; // Champ de saisie du CVV
-    private JTextField code_promo_field; // Champ de saisie du code promo
 
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
@@ -44,8 +42,6 @@ public class PaiementVue extends JPanel {
         date_expiration_field = new JTextField(5);
         JLabel cvv_label = new JLabel("CVV:");
         cvv_field = new JTextField(3);
-        JLabel code_promo_label = new JLabel("Code promo:");
-        code_promo_field = new JTextField(5);
 
         // Configuration des contraintes de disposition
         gbc.gridx = 0;
@@ -60,8 +56,6 @@ public class PaiementVue extends JPanel {
 
         gbc.gridy = 3;
         detail_carte_panel.add(cvv_label, gbc);
-        gbc.gridy = 4;
-        detail_carte_panel.add(code_promo_label, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -76,8 +70,6 @@ public class PaiementVue extends JPanel {
 
         gbc.gridy = 3;
         detail_carte_panel.add(cvv_field, gbc);
-        gbc.gridy = 4;
-        detail_carte_panel.add(code_promo_field, gbc);
 
         // Ajout du faux numéro de carte en gris clair
         numero_carte_field.setForeground(Color.LIGHT_GRAY);
@@ -234,7 +226,6 @@ public class PaiementVue extends JPanel {
     }
 
     // Vérifie si tous les champs sont remplis et valides
-    // Vérifie si tous les champs sont remplis et valides
     private boolean areAllFieldsFilled() {
         StringBuilder errors = new StringBuilder();
         boolean isValid = true;
@@ -243,8 +234,7 @@ public class PaiementVue extends JPanel {
         if (nom_sur_carte_field.getText().isEmpty() ||
                 numero_carte_field.getText().isEmpty() ||
                 date_expiration_field.getText().isEmpty() ||
-                cvv_field.getText().isEmpty() ||
-                code_promo_field.getText().isEmpty()) {
+                cvv_field.getText().isEmpty()) {
             errors.append("Tous les champs doivent être remplis.\n");
             isValid = false;
         }
@@ -289,23 +279,12 @@ public class PaiementVue extends JPanel {
         return isValid;
     }
 
-    // Vérifie si la date d'expiration est valide
-    private boolean isValidExpirationDate(String date) {
-        String[] parts = date.split("/");
-        int month = Integer.parseInt(parts[0]);
-        int year = Integer.parseInt(parts[1]);
-
-        // Renvoie true si la date est dans le futur
-        return year > 24 || (year == 24 && month >= 4);
-    }
-
     // Réinitialise tous les champs à leur état initial
     public void reinitialiserChamps() {
         nom_sur_carte_field.setText("");
         numero_carte_field.setText("");
         date_expiration_field.setText("");
         cvv_field.setText("");
-        code_promo_field.setText(""); // Réinitialise également le champ du code promo
 
         // Remettre les couleurs par défaut et les textes de faux numéro de carte, CVV et code promo
         numero_carte_field.setForeground(Color.LIGHT_GRAY);
@@ -314,6 +293,5 @@ public class PaiementVue extends JPanel {
         date_expiration_field.setText("MM/AA");
         cvv_field.setForeground(Color.LIGHT_GRAY);
         cvv_field.setText("000");
-        code_promo_field.setForeground(Color.BLACK); // Assurez-vous que le texte du champ du code promo est noir
     }
 }
