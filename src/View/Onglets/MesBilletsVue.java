@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class MesBilletsVue extends JScrollPane {
 
+    private AffichageBillet affichageBillet;
+
     // Constructeur
     public MesBilletsVue(int panneau_contenu_width, int frame_height) {
         setBackground(new Color(40, 25, 125)); // Définir la couleur de fond du JScrollPane
@@ -17,14 +19,14 @@ public class MesBilletsVue extends JScrollPane {
         panneau_contenu_width = panneau_contenu_width * 14 / 15;
 
         // Création des composants
-        AffichageBillet billet = new AffichageBillet(panneau_contenu_width, frame_height); // Créer un nouvel affichage de billet
+        this.affichageBillet = new AffichageBillet(panneau_contenu_width, frame_height); // Créer un nouvel affichage de affichageBillet
 
         // Création d'un panel interne pour le contenu défilable
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS)); // Utiliser un BoxLayout vertical pour organiser les composants
 
-        // Ajout du composant billet au panel interne
-        contentPanel.add(billet);
+        // Ajout du composant affichageBillet au panel interne
+        contentPanel.add(affichageBillet);
 
         // Création d'un JScrollPane qui contient le contentPanel
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Cacher la barre de défilement verticale
@@ -40,6 +42,6 @@ public class MesBilletsVue extends JScrollPane {
 
     // Méthode pour mettre à jour les billets
     public void updateBillets(Billet[] billets) {
-        // Mettre à jour les billets (cette méthode peut être complétée pour mettre à jour l'affichage des billets en fonction des nouvelles données)
+        this.affichageBillet.updateBillets(billets); // Mettre à jour les billets dans l'affichage de billets
     }
 }

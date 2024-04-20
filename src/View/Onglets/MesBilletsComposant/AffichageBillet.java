@@ -10,33 +10,23 @@ import java.awt.*;
 
 public class AffichageBillet extends JPanel {
 
-    // Attribut
-    // Déclaration d'un tableau de billets
-    Billet[] billets = new Billet[]{
-            new Billet("Titre du film 1", "12/03/2023", "14:00", "Salle 1", "7H",
-                    2, 3, 1, "client@example1.com", "image1.jpg"),
-            new Billet("Titre du film 2", "12/04/2023", "15:00", "Salle 2", "7G",
-                    2, 3, 1, "client@example2.com", "image2.jpg"),
-            new Billet("Titre du film 3", "12/05/2023", "16:00", "Salle 3", "7F",
-                    2, 3, 1, "client@example3.com", "image3.jpg"),
-            new Billet("Titre du film 4", "12/06/2023", "17:00", "Salle 4", "7E",
-                    2, 3, 1, "client@example4.com", "image4.jpg")
-    };
-
-    // texte
-    // Initialisation du nombre de panneaux de billets avec la longueur du tableau de billets
-    private int nombre_de_panel_billet = billets.length;
+    // Attributs
+    private int barre_navigation_panel_width; // Largeur de la barre de navigation
+    private int hauteur; // Hauteur des panneaux de billets
 
     public AffichageBillet(int barre_navigation_panel_width, int frame_height) {
 
-        int hauteur = frame_height / 3 - 30; // Calcul de la hauteur des panneaux de billets
+        this.barre_navigation_panel_width = barre_navigation_panel_width; // Initialisation de la largeur de la barre de navigation
+        this.hauteur = frame_height / 3 - 30; // Calcul de la hauteur des panneaux de billets
         setBackground(new Color(0, 255, 127)); // Définition de la couleur de fond
         setBorder(new EmptyBorder(10, 10, 10, 10)); // Définition des marges autour des panneaux de billets
+    }
 
-        setLayout(new GridLayout(nombre_de_panel_billet, 1, 0, 10)); // Utilisation d'un GridLayout avec 1 colonne et un espacement vertical de 10 pixels entre les panneaux
 
+    // Méthode pour mettre à jour les billets
+    public void updateBillets(Billet[] billets) {
         // Boucle pour créer et ajouter les panneaux de billets
-        for (int i = 0; i < nombre_de_panel_billet; i++) {
+        for (int i = 0; i < billets.length; i++) {
             JPanel billetPanel = new JPanel(new GridBagLayout()); // Création d'un panneau de billet avec un GridBagLayout pour organiser les composants
 
             GridBagConstraints gbc = new GridBagConstraints();
@@ -70,6 +60,8 @@ public class AffichageBillet extends JPanel {
             add(billetPanel); // Ajout du panneau de billet à la grille
         }
 
-        setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur * nombre_de_panel_billet)); // Définition de la taille préférée du panneau de billet
+        setLayout(new GridLayout(billets.length, 1, 0, 10)); // Utilisation d'un GridLayout avec 1 colonne et un espacement vertical de 10 pixels entre les panneaux
+        setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur * billets.length)); // Définition de la taille préférée du panneau de billet
+
     }
 }
