@@ -1,6 +1,5 @@
 package View.Onglets;
 
-import View.PrincipaleVue;
 import View.Onglets.BarreNavigationComposant.*;
 
 import javax.swing.*;

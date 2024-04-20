@@ -1,6 +1,5 @@
 package View;
 
-import Controller.AppControleur;
 import Controller.Evenements.AffichageOnglet.*;
 
 import javax.swing.*;

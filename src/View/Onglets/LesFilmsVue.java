@@ -1,7 +1,6 @@
 package View.Onglets;
 
 import Model.Film;
-import View.MasterVue;
 import View.Onglets.LesFilmsComposant.Films;
 
 import javax.swing.*;

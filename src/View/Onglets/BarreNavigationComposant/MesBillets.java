@@ -4,7 +4,6 @@ package View.Onglets.BarreNavigationComposant;
 
 import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
 import Controller.Evenements.FileEvenements;
-import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,6 @@ package View.Onglets.BarreNavigationComposant;
 
 import Controller.Evenements.AffConnexionEvenement;
 import Controller.Evenements.FileEvenements;
-import View.Onglets.BarreNavigation;
 
 import javax.swing.*;
 import java.awt.*;

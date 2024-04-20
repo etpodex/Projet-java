@@ -1,15 +1,12 @@
 package View;
 
-import Controller.Evenements.AffConnexionEvenement;
-import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
-import Controller.Evenements.FileEvenements;
+
 import Model.Billet;
 import Model.Film;
 import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
-import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;

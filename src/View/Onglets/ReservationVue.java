@@ -4,7 +4,6 @@ import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Offre;
 import Model.Sceance;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;

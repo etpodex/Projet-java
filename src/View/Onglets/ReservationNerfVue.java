@@ -3,11 +3,9 @@ package View.Onglets;
 import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Sceance;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class ReservationNerfVue extends JPanel {
 
