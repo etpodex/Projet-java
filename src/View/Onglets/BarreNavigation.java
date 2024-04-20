@@ -58,24 +58,24 @@ public class BarreNavigation extends JPanel {
         // Sélection de la vue en fonction du numéro passé en paramètre
         if (vue_nb == 0) {
             panel_boutons.setLayout(new GridLayout(3,1));
-            panel_boutons.add(les_films);
             panel_boutons.add(accueil);
+            panel_boutons.add(les_films);
             panel_boutons.add(connexion);
-        } else if (vue_nb == 1) {
+        } else if (vue_nb == 1 || vue_nb == 3 || vue_nb == 4) {
             panel_boutons.setLayout(new GridLayout(5,1));
+            panel_boutons.add(accueil);
             panel_boutons.add(les_films);
             panel_boutons.add(mes_billets);
-            panel_boutons.add(accueil);
             panel_boutons.add(mon_compte);
             panel_boutons.add(deconnexion);
         } else if (vue_nb == 2) {
             panel_boutons.setLayout(new GridLayout(7,1));
-            panel_boutons.add(les_films);
             panel_boutons.add(accueil);
-            panel_boutons.add(mon_compte);
+            panel_boutons.add(les_films);
             panel_boutons.add(gerer_offre);
             panel_boutons.add(gerer_film);
             panel_boutons.add(gerer_seance);
+            panel_boutons.add(mon_compte);
             panel_boutons.add(deconnexion);
         }
 
