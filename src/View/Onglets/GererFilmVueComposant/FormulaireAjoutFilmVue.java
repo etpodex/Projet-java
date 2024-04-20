@@ -55,13 +55,29 @@ public class FormulaireAjoutFilmVue extends JPanel {
 
     // Méthode pour créer un objet Film à partir des champs de texte
     public Film createFilmFromFields() {
+        // Vérifier si la note est valide
+        float note;
+        try {
+            note = Float.parseFloat(noteField.getText());
+            if (note < 0 || note > 10) {
+                // Afficher un message d'erreur si la note est invalide
+                JOptionPane.showMessageDialog(this, "La note doit être comprise entre 0 et 10.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+                return null; // Retourner null pour indiquer une erreur
+            }
+        } catch (NumberFormatException e) {
+            // Afficher un message d'erreur si la saisie n'est pas un nombre
+            JOptionPane.showMessageDialog(this, "Veuillez saisir une valeur numérique pour la note.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+            return null; // Retourner null pour indiquer une erreur
+        }
+
+        // Si la note est valide, créer et retourner l'objet Film
         return new Film(
                 "", // Laisser l'ID vide pour le moment
                 titreField.getText(), // Titre du film
                 acteurField.getText(), // Acteur principal
                 synopsisField.getText(), // Synopsis
                 tempsField.getText(), // Durée
-                Float.parseFloat(noteField.getText()), // Note
+                note, // Note
                 afficheField.getText(), // URL de l'affiche
                 0 // Le stock initial peut être défini ici (0 par défaut)
         );
