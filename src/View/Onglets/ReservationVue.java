@@ -116,7 +116,7 @@ public class ReservationVue extends JPanel {
         add(spinnerPanel, gbcSpinner);
 
         // Création du bouton "Valider"
-        JButton validerButton = new JButton("Valider");
+        JButton validerButton = new JButton("Valider code promo");
         // Ajout d'un écouteur d'événements pour le bouton "Valider"
         validerButton.addActionListener(e -> validerCodePromo());
 
