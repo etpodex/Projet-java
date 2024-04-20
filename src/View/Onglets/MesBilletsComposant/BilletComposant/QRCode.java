@@ -10,7 +10,7 @@ public class QRCode extends JPanel {
     private JLabel qrcode_billet;
 
     public QRCode(){
-        setBackground(new Color(150,100,100)); // Définition de la couleur de fond du panneau
+        setBackground(new Color(255,200,0)); // Définition de la couleur de fond du panneau
         setBorder(new EmptyBorder(5, 35, 5, 5)); // Définition des marges autour du panneau
         setLayout(new GridLayout(0, 1)); // Utilisation d'un GridLayout avec une seule colonne et un nombre de lignes dynamique
 

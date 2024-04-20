@@ -15,7 +15,7 @@ public class Offre extends JPanel {
         int hauteur = frame_height * 1 / 3 - 30;
 
         // Configuration de l'apparence du JPanel Offre
-        setBackground(new Color(0, 255, 127)); // Couleur de fond
+        setBackground(new Color(238, 238, 238)); // Couleur de fond
         setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur)); // Taille préférée
         setBorder(new EmptyBorder(5, 5, 5, 5)); // Bordure
 

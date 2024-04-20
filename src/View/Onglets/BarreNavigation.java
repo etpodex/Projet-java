@@ -37,7 +37,7 @@ public class BarreNavigation extends JPanel {
         this.gerer_seance = new GererSeance();
         this.deconnexion = new Deconnexion();
 
-        setBackground(new Color(186, 230, 187));  // Définition de la couleur de fond
+        setBackground(new Color(238, 238, 238));  // Définition de la couleur de fond
 
         set_current_view(0);  // Définition de la vue par défaut
 

@@ -9,7 +9,7 @@ public class Calendrier extends JPanel {
 
     // Constructeur prenant la largeur de la barre de navigation et la hauteur du frame comme paramètres
     public Calendrier(int barre_navigation_panel_width, int frame_height) {
-        setBackground(new Color(100, 149, 237));  // Définir la couleur de fond
+        setBackground(new Color(238, 238, 238));  // Définir la couleur de fond
         // Définir la taille préférée du panneau en fonction des paramètres
         setPreferredSize(new Dimension(barre_navigation_panel_width, frame_height * 2 / 3 - 70));
 

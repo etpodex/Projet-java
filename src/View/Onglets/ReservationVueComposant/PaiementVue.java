@@ -18,7 +18,7 @@ public class PaiementVue extends JPanel {
 
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
-        setBackground(Color.WHITE);
+        setBackground(new Color(238,238,238));
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(panneau_contenu_width, frame_height));
 

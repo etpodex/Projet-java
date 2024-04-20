@@ -25,7 +25,7 @@ public class GererOffreVue extends JPanel {
 
     // Constructeur
     public GererOffreVue(int barreNavigationPanelWidth, int frameHeight) {
-        setBackground(new Color(100, 50, 50)); // Définition de la couleur de fond
+        setBackground(new Color(238, 238, 238)); // Définition de la couleur de fond
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight)); // Définition de la taille préférée
 
         // Création des composants

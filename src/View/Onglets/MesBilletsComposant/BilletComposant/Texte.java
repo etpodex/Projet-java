@@ -18,7 +18,7 @@ public class Texte extends JPanel {
     private JLabel senior_billet;
 
     public Texte(){
-        setBackground(new Color(100,100,100)); // Définition de la couleur de fond du panneau
+        setBackground(new Color(255,255,255)); // Définition de la couleur de fond du panneau
         setBorder(new EmptyBorder(0, 5, 5, 5)); // Définition des marges autour du panneau
         setLayout(new GridLayout(0, 1)); // Utilisation d'un GridLayout avec une seule colonne et un nombre de lignes dynamique
 

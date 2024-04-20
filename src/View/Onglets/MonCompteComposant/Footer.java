@@ -12,7 +12,7 @@ public class Footer extends JPanel {
 
     public Footer() {
         setLayout(new BorderLayout()); // Utilisation d'un BorderLayout pour organiser les composants
-        setBackground(Color.WHITE); // Définition de la couleur de fond du panneau
+        setBackground(new Color(238,238,238)); // Définition de la couleur de fond du panneau
 
         // Initialisation du bouton "Modifier"
         boutonModifier = new JButton("Modifier");

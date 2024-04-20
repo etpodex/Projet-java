@@ -14,7 +14,7 @@ public class MesBillets extends JButton {
     // Constructeur
     public MesBillets() {
         // Configuration de l'apparence du bouton
-        setBackground(Color.WHITE); // Couleur de fond
+        setBackground(new Color(255,255,255)); // Couleur de fond
         setForeground(Color.GRAY); // Couleur du texte
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Bordure
         setFocusPainted(false); // Désactiver la mise en évidence du focus

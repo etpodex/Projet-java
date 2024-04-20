@@ -23,7 +23,7 @@ public class LesFilmsVue extends JPanel {
     // Constructeur
     public LesFilmsVue(int barre_navigation_panel_width, int frame_height) {
 
-        setBackground(new Color(125, 125, 255)); // Définir la couleur de fond
+        setBackground(new Color(238, 238, 238)); // Définir la couleur de fond
         setBorder(new EmptyBorder(20, 80, 20, 80)); // Définir les marges intérieures
         setPreferredSize(new Dimension(barre_navigation_panel_width, frame_height)); // Définir la taille préférée
 

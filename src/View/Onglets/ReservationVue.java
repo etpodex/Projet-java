@@ -28,7 +28,7 @@ public class ReservationVue extends JPanel {
     // Constructeur
     public ReservationVue(int panneau_contenu_width, int frame_height) {
 
-        setBackground(Color.WHITE); // Définir la couleur de fond du panneau
+        setBackground(new Color(238, 238, 238)); // Définir la couleur de fond du panneau
         setLayout(new GridBagLayout()); // Utiliser un GridBagLayout pour organiser les composants
 
         // Création de la JLabel pour indiquer de choisir la séance

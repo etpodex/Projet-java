@@ -18,7 +18,7 @@ public class AffichageBillet extends JPanel {
 
         this.barre_navigation_panel_width = barre_navigation_panel_width; // Initialisation de la largeur de la barre de navigation
         this.hauteur = frame_height / 3 - 30; // Calcul de la hauteur des panneaux de billets
-        setBackground(new Color(0, 255, 127)); // Définition de la couleur de fond
+        setBackground(new Color(238, 238, 238)); // Définition de la couleur de fond
         setBorder(new EmptyBorder(10, 10, 10, 10)); // Définition des marges autour des panneaux de billets
     }
 

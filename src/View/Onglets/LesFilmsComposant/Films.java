@@ -17,7 +17,7 @@ public class Films extends JPanel {
     public Films(int barre_navigation_panel_width, int hauteur, Film film) {
         this.film = film; // Initialisation du film actuel
 
-        setBackground(new Color(0, 255, 127)); // Couleur de fond
+        setBackground(new Color(238, 238, 238)); // Couleur de fond
         setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur)); // Taille préférée
         setBorder(new EmptyBorder(5, 5, 5, 5)); // Bordure
 

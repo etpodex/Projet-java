@@ -32,7 +32,7 @@ public class GererSeanceVue extends JPanel {
 
     // Constructeur
     public GererSeanceVue(int barreNavigationPanelWidth, int frameHeight) {
-        setBackground(new Color(100, 50, 50)); // Définir la couleur de fond
+        setBackground(new Color(238, 238, 238)); // Définir la couleur de fond
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight)); // Définir la taille préférée
 
         // Initialisation des composants

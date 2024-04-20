@@ -23,7 +23,7 @@ public class GererFilmVue extends JPanel {
 
     // Constructeur
     public GererFilmVue(int barre_navigation_panel_width, int frame_height) {
-        setBackground(new Color(50, 100, 50));  // Définir la couleur de fond
+        setBackground(new Color(238, 238, 238));  // Définir la couleur de fond
         setLayout(new BorderLayout());  // Utilisation d'un BorderLayout pour organiser les composants
         panel_grille = new JPanel(new BorderLayout());  // Initialisation du panneau pour la grille
         JPanel panel_bouton = new JPanel();  // Initialisation du panneau pour le bouton

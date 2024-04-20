@@ -12,7 +12,7 @@ public class MesBilletsVue extends JScrollPane {
 
     // Constructeur
     public MesBilletsVue(int panneau_contenu_width, int frame_height) {
-        setBackground(new Color(40, 25, 125)); // Définir la couleur de fond du JScrollPane
+        setBackground(new Color(238, 238, 238)); // Définir la couleur de fond du JScrollPane
         setBorder(new EmptyBorder(20, 20, 0, 20)); // Définir les marges intérieures
 
         // Ajustement de la largeur du panneau de contenu

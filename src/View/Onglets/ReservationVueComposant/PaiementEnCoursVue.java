@@ -17,7 +17,7 @@ public class PaiementEnCoursVue extends JPanel {
     private Timer timer; // Timer pour l'animation de chargement
 
     public PaiementEnCoursVue() {
-        setBackground(Color.WHITE);
+        setBackground(new Color(238,238,238));
         setLayout(new BorderLayout());
         initUI(); // Initialise l'interface utilisateur
     }
