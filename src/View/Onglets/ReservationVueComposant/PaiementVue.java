@@ -10,10 +10,11 @@ import java.awt.event.*;
 
 public class PaiementVue extends JPanel {
 
-    private JTextField nom_sur_carte_field;
-    private JTextField numero_carte_field;
-    private JTextField date_expiration_field;
-    private JTextField cvv_field;
+    private JTextField nom_sur_carte_field; // Champ de saisie du nom sur la carte
+    private JTextField numero_carte_field; // Champ de saisie du numéro de carte
+    private JTextField date_expiration_field; // Champ de saisie de la date d'expiration
+    private JTextField cvv_field; // Champ de saisie du CVV
+    private JTextField code_promo_field; // Champ de saisie du code promo
 
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
@@ -43,8 +44,9 @@ public class PaiementVue extends JPanel {
         JLabel cvv_label = new JLabel("CVV:");
         cvv_field = new JTextField(3);
         JLabel code_promo_label = new JLabel("Code promo:");
-        JTextField code_promo_field = new JTextField(5);
+        code_promo_field = new JTextField(5);
 
+        // Configuration des contraintes de disposition
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -136,7 +138,6 @@ public class PaiementVue extends JPanel {
             }
         });
 
-
         // Ajout du faux CVV en gris clair
         cvv_field.setForeground(Color.LIGHT_GRAY);
         cvv_field.setText("000");
@@ -206,6 +207,8 @@ public class PaiementVue extends JPanel {
         bouton_paiement.addActionListener(e -> {
             if (areAllFieldsFilled()) {
                 FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());
+                // Réinitialiser les champs après un paiement réussi
+                reinitialiserChamps();
             } else {
                 JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
@@ -225,14 +228,34 @@ public class PaiementVue extends JPanel {
         boutonsPanel.add(bouton_paiement);
         add(boutonsPanel, BorderLayout.SOUTH);
 
-        revalidate();
-        repaint();
+        revalidate(); // Revalider le panneau pour mettre à jour l'affichage
+        repaint(); // Redessiner le panneau
     }
 
+    // Vérifie si tous les champs sont remplis
     private boolean areAllFieldsFilled() {
         return !nom_sur_carte_field.getText().isEmpty() &&
                 !numero_carte_field.getText().isEmpty() &&
                 !date_expiration_field.getText().isEmpty() &&
-                !cvv_field.getText().isEmpty();
+                !cvv_field.getText().isEmpty() &&
+                !code_promo_field.getText().isEmpty(); // Vérifie également si le champ du code promo est rempli
+    }
+
+    // Réinitialise tous les champs à leur état initial
+    public void reinitialiserChamps() {
+        nom_sur_carte_field.setText("");
+        numero_carte_field.setText("");
+        date_expiration_field.setText("");
+        cvv_field.setText("");
+        code_promo_field.setText(""); // Réinitialise également le champ du code promo
+
+        // Remettre les couleurs par défaut et les textes de faux numéro de carte, CVV et code promo
+        numero_carte_field.setForeground(Color.LIGHT_GRAY);
+        numero_carte_field.setText("0000 0000 0000 0000");
+        date_expiration_field.setForeground(Color.LIGHT_GRAY);
+        date_expiration_field.setText("MM/AA");
+        cvv_field.setForeground(Color.LIGHT_GRAY);
+        cvv_field.setText("000");
+        code_promo_field.setForeground(Color.BLACK); // Assurez-vous que le texte du champ du code promo est noir
     }
 }
