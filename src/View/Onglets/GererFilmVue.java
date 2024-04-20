@@ -27,8 +27,8 @@ public class GererFilmVue extends JPanel {
         setLayout(new BorderLayout());  // Utilisation d'un BorderLayout pour organiser les composants
         panel_grille = new JPanel(new BorderLayout());  // Initialisation du panneau pour la grille
         JPanel panel_bouton = new JPanel();  // Initialisation du panneau pour le bouton
-        panel_grille.setBackground(Color.RED);  // Définir la couleur de fond du panneau grille
-        panel_bouton.setBackground(Color.BLUE);  // Définir la couleur de fond du panneau bouton
+        panel_grille.setBackground(new Color(238,238,238));  // Définir la couleur de fond du panneau grille
+        panel_bouton.setBackground(new Color(238,238,238));  // Définir la couleur de fond du panneau bouton
 
         // Définition des dimensions pour les panneaux grille et bouton
         Dimension dimension85 = new Dimension(barre_navigation_panel_width, (int) (frame_height * 0.86));
