@@ -209,8 +209,6 @@ public class PaiementVue extends JPanel {
                 FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());
                 // Réinitialiser les champs après un paiement réussi
                 reinitialiserChamps();
-            } else {
-                JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -232,13 +230,70 @@ public class PaiementVue extends JPanel {
         repaint(); // Redessiner le panneau
     }
 
-    // Vérifie si tous les champs sont remplis
+    // Vérifie si tous les champs sont remplis et valides
+    // Vérifie si tous les champs sont remplis et valides
     private boolean areAllFieldsFilled() {
-        return !nom_sur_carte_field.getText().isEmpty() &&
-                !numero_carte_field.getText().isEmpty() &&
-                !date_expiration_field.getText().isEmpty() &&
-                !cvv_field.getText().isEmpty() &&
-                !code_promo_field.getText().isEmpty(); // Vérifie également si le champ du code promo est rempli
+        StringBuilder errors = new StringBuilder();
+        boolean isValid = true;
+
+        // Vérification des champs non vides
+        if (nom_sur_carte_field.getText().isEmpty() ||
+                numero_carte_field.getText().isEmpty() ||
+                date_expiration_field.getText().isEmpty() ||
+                cvv_field.getText().isEmpty() ||
+                code_promo_field.getText().isEmpty()) {
+            errors.append("Tous les champs doivent être remplis.\n");
+            isValid = false;
+        }
+
+        // Vérification du numéro de carte
+        String numeroCarte = numero_carte_field.getText().replaceAll("\\s+", ""); // Supprime les espaces
+        if (numeroCarte.length() != 16 || !numeroCarte.matches("\\d{16}")) {
+            errors.append("Numéro de carte invalide.\n");
+            isValid = false;
+        }
+
+        // Vérification de la date d'expiration
+        String dateExpiration = date_expiration_field.getText();
+        if (!dateExpiration.matches("\\d{2}/\\d{2}")) {
+            errors.append("Date d'expiration invalide.\n");
+            isValid = false;
+        } else {
+            // Extraire le mois et l'année
+            String[] parts = dateExpiration.split("/");
+            int month = Integer.parseInt(parts[0]);
+            int year = Integer.parseInt(parts[1]);
+
+            // Vérifier si le mois est entre 1 et 12 et l'année est dans le futur
+            if (month < 1 || month > 12 || year < 22 || (year == 22 && month < 4)) {
+                errors.append("Date d'expiration invalide.\n");
+                isValid = false;
+            }
+        }
+
+        // Vérification du CVV
+        String cvv = cvv_field.getText();
+        if (cvv.length() != 3 || !cvv.matches("\\d{3}")) {
+            errors.append("CVV invalide.\n");
+            isValid = false;
+        }
+
+        // Si des erreurs sont détectées, affichez toutes les erreurs accumulées
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this, errors.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return isValid;
+    }
+
+    // Vérifie si la date d'expiration est valide
+    private boolean isValidExpirationDate(String date) {
+        String[] parts = date.split("/");
+        int month = Integer.parseInt(parts[0]);
+        int year = Integer.parseInt(parts[1]);
+
+        // Renvoie true si la date est dans le futur
+        return year > 22 || (year == 22 && month >= 4);
     }
 
     // Réinitialise tous les champs à leur état initial
