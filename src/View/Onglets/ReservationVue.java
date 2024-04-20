@@ -106,6 +106,8 @@ public class ReservationVue extends JPanel {
         payerButton.addActionListener(e -> {
             // Publier un événement de paiement en utilisant le gestionnaire d'événements FileEvenements
             FileEvenements.getInstance().publier(new AffPaiementEvenement());
+            // Réinitialiser les champs après un paiement réussi
+            reinitialiserChamps();
         });
 
         // Ajout du bouton "Payer"
@@ -136,6 +138,19 @@ public class ReservationVue extends JPanel {
 
         // Affichage du prix total
         prixTotalLabel.setText(String.format("Prix total : %.2f €", prixTotal));
+    }
+
+    // Méthode pour réinitialiser tous les champs de la vue de réservation
+    private void reinitialiserChamps() {
+        // Réinitialiser la sélection de la séance
+        sceanceComboBox.setSelectedIndex(0);
+        // Réinitialiser les valeurs des spinners à zéro
+        billetEnfantSpinner.setValue(0);
+        billetSeniorSpinner.setValue(0);
+        billetAdulteSpinner.setValue(0);
+        billetMembreSpinner.setValue(0);
+        // Réinitialiser le prix total à zéro
+        prixTotalLabel.setText("Prix total : 0.00 €");
     }
 
     // Déclaration des séances
