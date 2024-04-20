@@ -20,6 +20,7 @@ public class ReservationVue extends JPanel {
     private JSpinner billetMembreSpinner;
     private JTextField codePromoField; // Champ de saisie du code promo
     private JLabel prixTotalLabel;
+    private JLabel placesRestantesLabel; // Champ pour afficher le nombre de places restantes
 
     // Prix des billets
     private static final double PRIX_BILLET = 10.0;
@@ -86,6 +87,25 @@ public class ReservationVue extends JPanel {
         gbcPrixTotalLabel.insets = new Insets(5, 5, 5, 5);
         add(prixTotalLabel, gbcPrixTotalLabel);
 
+        // Création de la JLabel pour afficher le nombre de places restantes
+        placesRestantesLabel = new JLabel("Places restantes : ");
+        GridBagConstraints gbcPlacesRestantesLabel = new GridBagConstraints();
+        gbcPlacesRestantesLabel.gridx = 0;
+        gbcPlacesRestantesLabel.gridy = -3; // Juste en dessous de "Choisissez votre séance"
+        gbcPlacesRestantesLabel.gridwidth = 3;
+        gbcPlacesRestantesLabel.fill = GridBagConstraints.HORIZONTAL;
+        gbcPlacesRestantesLabel.insets = new Insets(5, 5, 5, 5);
+        add(placesRestantesLabel, gbcPlacesRestantesLabel);
+
+        // Ajout d'un écouteur d'événements à la JComboBox pour détecter les changements de sélection de séance
+        sceanceComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
+                updatePlacesRestantes();
+            }
+        });
+
         // Ajout d'un écouteur d'événements pour chaque spinner afin de mettre à jour le prix total
         billetEnfantSpinner.addChangeListener(e -> calculerPrixTotal());
         billetSeniorSpinner.addChangeListener(e -> calculerPrixTotal());
@@ -109,7 +129,7 @@ public class ReservationVue extends JPanel {
         // Ajout des spinners
         GridBagConstraints gbcSpinner = new GridBagConstraints();
         gbcSpinner.gridx = 0;
-        gbcSpinner.gridy = 1;
+        gbcSpinner.gridy = 1; // Juste en dessous de "Choisissez votre séance"
         gbcSpinner.gridwidth = 3;
         gbcSpinner.fill = GridBagConstraints.HORIZONTAL;
         gbcSpinner.insets = new Insets(5, 5, 5, 5);
@@ -153,7 +173,6 @@ public class ReservationVue extends JPanel {
     }
 
     // Méthode pour valider et appliquer le code promo
-    // Méthode pour valider et appliquer le code promo
     private void validerCodePromo() {
         String codePromo = codePromoField.getText();
         boolean codePromoValide = false;
@@ -177,8 +196,6 @@ public class ReservationVue extends JPanel {
             JOptionPane.showMessageDialog(this, "Code promo invalide", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
 
     // Méthode pour calculer le prix total en fonction du nombre de billets de chaque type
     private void calculerPrixTotal() {
@@ -206,6 +223,21 @@ public class ReservationVue extends JPanel {
         prixTotalLabel.setText(String.format("Prix total : %.2f €", prixTotal));
     }
 
+    // Méthode pour mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
+    private void updatePlacesRestantes() {
+        // Récupérer l'index de la séance sélectionnée dans la JComboBox
+        int selectedIndex = sceanceComboBox.getSelectedIndex();
+        // Vérifier si l'index est valide
+        if (selectedIndex >= 0 && selectedIndex < seances.length) {
+            // Récupérer la séance sélectionnée
+            Sceance selectedSceance = seances[selectedIndex];
+            // Récupérer le nombre de places restantes pour la séance sélectionnée
+            int placesRestantes = selectedSceance.getNbPlaceRestante();
+            // Mettre à jour le texte du champ "place restante"
+            placesRestantesLabel.setText("Places restantes : " + placesRestantes);
+        }
+    }
+
     // Méthode pour réinitialiser tous les champs de la vue de réservation
     private void reinitialiserChamps() {
         // Réinitialiser la sélection de la séance
@@ -219,6 +251,8 @@ public class ReservationVue extends JPanel {
         codePromoField.setText("");
         // Réinitialiser le prix total à zéro
         prixTotalLabel.setText("Prix total : 0.00 €");
+        // Réinitialiser le champ "place restante"
+        placesRestantesLabel.setText("Places restantes : ");
     }
 
     // Déclaration des séances
