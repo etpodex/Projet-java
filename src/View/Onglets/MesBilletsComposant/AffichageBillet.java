@@ -15,53 +15,52 @@ public class AffichageBillet extends JPanel {
     private int hauteur; // Hauteur des panneaux de billets
 
     public AffichageBillet(int barre_navigation_panel_width, int frame_height) {
-
-        this.barre_navigation_panel_width = barre_navigation_panel_width; // Initialisation de la largeur de la barre de navigation
-        this.hauteur = frame_height / 3 - 30; // Calcul de la hauteur des panneaux de billets
-        setBackground(new Color(238, 238, 238)); // Définition de la couleur de fond
-        setBorder(new EmptyBorder(10, 10, 10, 10)); // Définition des marges autour des panneaux de billets
+        this.barre_navigation_panel_width = barre_navigation_panel_width;
+        this.hauteur = frame_height / 3 - 30;
+        setBackground(new Color(238, 238, 238));
+        setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
+    // Méthode pour nettoyer les billets existants
+    private void clearBillets() {
+        removeAll(); // Supprimer tous les composants du panel
+        revalidate();
+        repaint();
+    }
 
     // Méthode pour mettre à jour les billets
     public void updateBillets(Billet[] billets) {
-        // Boucle pour créer et ajouter les panneaux de billets
-        for (int i = 0; i < billets.length; i++) {
-            JPanel billetPanel = new JPanel(new GridBagLayout()); // Création d'un panneau de billet avec un GridBagLayout pour organiser les composants
-
+        clearBillets(); // Effacer les billets précédents avant d'ajouter les nouveaux
+        for (Billet billet : billets) {
+            JPanel billetPanel = new JPanel(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.fill = GridBagConstraints.BOTH;
             gbc.weighty = 1.0;
 
-            // Ajout du QRCode
-            QRCode qrcode = new QRCode(); // Création d'un composant QRCode
-            qrcode.setQRCode(billets[i].getUrlImageFilm()); // Mise à jour du contenu du QRCode avec l'URL de l'image du film
+            QRCode qrcode = new QRCode();
+            qrcode.setQRCode(billet.getUrlImageFilm());
             gbc.anchor = GridBagConstraints.LINE_START;
-            gbc.weightx = 0.1; // Le QRCode occupe 20% de la largeur disponible
-            gbc.gridheight = GridBagConstraints.REMAINDER; // Le QRCode prend toute la hauteur du panneau
-            billetPanel.add(qrcode, gbc); // Ajout du QRCode à gauche
+            gbc.weightx = 0.1;
+            gbc.gridheight = GridBagConstraints.REMAINDER;
+            billetPanel.add(qrcode, gbc);
 
-            // Ajout du texte
-            Texte texte = new Texte(); // Création d'un composant Texte
-            // Mise à jour des informations du texte avec les données du billet actuel
-            texte.setTitreFilm(billets[i].getTitreFilm());
-            texte.setDataFilm(billets[i].getDateSeance());
-            texte.setDataHoraire(billets[i].getHeureSeance());
-            texte.setDataSalle(billets[i].getSalleBillet());
-            texte.setDataSiege(billets[i].getSiegeBillet());
-            texte.setNbreBilletAcheter(billets[i].getNombreBilletAdulte() + billets[i].getNombreBilletEnfant() + billets[i].getNombreBilletSenior()); // Calcul du total des billets
-            texte.setNbreBilletAdulte(billets[i].getNombreBilletAdulte());
-            texte.setNbreBilletEnfant(billets[i].getNombreBilletEnfant());
-            texte.setNbreBilletSenior(billets[i].getNombreBilletSenior());
+            Texte texte = new Texte();
+            texte.setTitreFilm(billet.getTitreFilm());
+            texte.setDataFilm(billet.getDateSeance());
+            texte.setDataHoraire(billet.getHeureSeance());
+            texte.setDataSalle(billet.getSalleBillet());
+            //texte.setDataSiege(billet.getSiegeBillet());
+            texte.setNbreBilletAcheter(billet.getNombreBilletAdulte() + billet.getNombreBilletEnfant() + billet.getNombreBilletSenior());
+            texte.setNbreBilletAdulte(billet.getNombreBilletAdulte());
+            texte.setNbreBilletEnfant(billet.getNombreBilletEnfant());
+            texte.setNbreBilletSenior(billet.getNombreBilletSenior());
             gbc.anchor = GridBagConstraints.LINE_END;
-            gbc.weightx = 0.9; // Le texte occupe 80% de la largeur disponible
-            billetPanel.add(texte, gbc); // Ajout du texte à droite
+            gbc.weightx = 0.9;
+            billetPanel.add(texte, gbc);
 
-            add(billetPanel); // Ajout du panneau de billet à la grille
+            add(billetPanel);
         }
-
-        setLayout(new GridLayout(billets.length, 1, 0, 10)); // Utilisation d'un GridLayout avec 1 colonne et un espacement vertical de 10 pixels entre les panneaux
-        setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur * billets.length)); // Définition de la taille préférée du panneau de billet
-
+        setLayout(new GridLayout(billets.length, 1, 0, 10)); // 1 colonne, espacement vertical de 10 pixels
+        setPreferredSize(new Dimension(barre_navigation_panel_width, hauteur * billets.length));
     }
 }
