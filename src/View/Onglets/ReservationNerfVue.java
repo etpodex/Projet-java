@@ -43,9 +43,12 @@ public class ReservationNerfVue extends JPanel {
         gbcComboBox.insets = new Insets(5, 5, 5, 5);
         add(sceanceComboBox, gbcComboBox);
 
-        // Ajouter les dates et heures des séances disponibles à la JComboBox
+        // Ajouter les dates et heures des séances disponibles à la JComboBox pour un film spécifique (ID = 1 par exemple)
+        int filmId = 1; // ID du film spécifique
         for (Sceance sceance : seances) {
-            sceanceComboBox.addItem(sceance.getDate() + " " + sceance.getHoraire());
+            if (sceance.getIdFilm() == filmId) {
+                sceanceComboBox.addItem(sceance.getDate() + " " + sceance.getHoraire());
+            }
         }
 
         // Création des spinners pour le nombre de billets adultes
