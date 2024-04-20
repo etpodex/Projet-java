@@ -35,6 +35,7 @@ public class PrincipaleVue extends JPanel {
     private GererOffreVue gerer_offre;
     private GererFilmVue gerer_film;
     private GererSeanceVue gerer_seance;
+    private ReservationNerfVue reservation_nerf;
 
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height) {
@@ -55,6 +56,7 @@ public class PrincipaleVue extends JPanel {
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
+        this.reservation_nerf = new ReservationNerfVue(panneau_contenu_width, frame_height);
 
         this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
         this.paiement_en_cours_vue = new PaiementEnCoursVue();
