@@ -17,6 +17,13 @@ public class ReservationVue extends JPanel {
     private JSpinner billetSeniorSpinner;
     private JSpinner billetAdulteSpinner;
     private JSpinner billetMembreSpinner;
+    private JLabel prixTotalLabel;
+
+    // Prix des billets
+    private static final double PRIX_BILLET = 10.0;
+    private static final double REDUCTION_ENFANT = 0.20;
+    private static final double REDUCTION_SENIOR = 0.15;
+    private static final double REDUCTION_MEMBRE = 0.30;
 
     // Constructeur
     public ReservationVue(int panneau_contenu_width, int frame_height) {
@@ -56,13 +63,21 @@ public class ReservationVue extends JPanel {
         billetAdulteSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
         billetMembreSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
-        // Création du bouton "Payer"
-        JButton payerButton = new JButton("Payer");
-        // Ajout d'un écouteur d'événements pour le bouton "Payer"
-        payerButton.addActionListener(e -> {
-            // Publier un événement de paiement en utilisant le gestionnaire d'événements FileEvenements
-            FileEvenements.getInstance().publier(new AffPaiementEvenement());
-        });
+        // Création de la JLabel pour afficher le prix total
+        prixTotalLabel = new JLabel("Prix total : 0.00 €");
+        GridBagConstraints gbcPrixTotalLabel = new GridBagConstraints();
+        gbcPrixTotalLabel.gridx = 0;
+        gbcPrixTotalLabel.gridy = 4;
+        gbcPrixTotalLabel.gridwidth = 3;
+        gbcPrixTotalLabel.fill = GridBagConstraints.HORIZONTAL;
+        gbcPrixTotalLabel.insets = new Insets(5, 5, 5, 5);
+        add(prixTotalLabel, gbcPrixTotalLabel);
+
+        // Ajout d'un écouteur d'événements pour chaque spinner afin de mettre à jour le prix total
+        billetEnfantSpinner.addChangeListener(e -> calculerPrixTotal());
+        billetSeniorSpinner.addChangeListener(e -> calculerPrixTotal());
+        billetAdulteSpinner.addChangeListener(e -> calculerPrixTotal());
+        billetMembreSpinner.addChangeListener(e -> calculerPrixTotal());
 
         // Création d'un panneau pour les spinners
         JPanel spinnerPanel = new JPanel();
@@ -76,7 +91,7 @@ public class ReservationVue extends JPanel {
         spinnerPanel.add(new JLabel("Billet Membre:"));
         spinnerPanel.add(billetMembreSpinner);
 
-        // Ajout des spinners et du bouton "Payer"
+        // Ajout des spinners
         GridBagConstraints gbcSpinner = new GridBagConstraints();
         gbcSpinner.gridx = 0;
         gbcSpinner.gridy = 1;
@@ -85,10 +100,18 @@ public class ReservationVue extends JPanel {
         gbcSpinner.insets = new Insets(5, 5, 5, 5);
         add(spinnerPanel, gbcSpinner);
 
+        // Création du bouton "Payer"
+        JButton payerButton = new JButton("Payer");
+        // Ajout d'un écouteur d'événements pour le bouton "Payer"
+        payerButton.addActionListener(e -> {
+            // Publier un événement de paiement en utilisant le gestionnaire d'événements FileEvenements
+            FileEvenements.getInstance().publier(new AffPaiementEvenement());
+        });
+
         // Ajout du bouton "Payer"
         GridBagConstraints gbcPayerButton = new GridBagConstraints();
         gbcPayerButton.gridx = 0;
-        gbcPayerButton.gridy = 2;
+        gbcPayerButton.gridy = 3;
         gbcPayerButton.gridwidth = 3;
         gbcPayerButton.fill = GridBagConstraints.HORIZONTAL;
         gbcPayerButton.insets = new Insets(5, 5, 5, 5);
@@ -96,6 +119,23 @@ public class ReservationVue extends JPanel {
 
         revalidate(); // Valider la disposition des composants
         repaint(); // Redessiner le panneau
+    }
+
+    // Méthode pour calculer le prix total en fonction du nombre de billets de chaque type
+    private void calculerPrixTotal() {
+        int nbBilletsEnfant = (int) billetEnfantSpinner.getValue();
+        int nbBilletsSenior = (int) billetSeniorSpinner.getValue();
+        int nbBilletsAdulte = (int) billetAdulteSpinner.getValue();
+        int nbBilletsMembre = (int) billetMembreSpinner.getValue();
+
+        // Calcul du prix total avec les réductions appropriées
+        double prixTotal = (nbBilletsEnfant * PRIX_BILLET * (1 - REDUCTION_ENFANT)) +
+                (nbBilletsSenior * PRIX_BILLET * (1 - REDUCTION_SENIOR)) +
+                (nbBilletsAdulte * PRIX_BILLET) +
+                (nbBilletsMembre * PRIX_BILLET * (1 - REDUCTION_MEMBRE));
+
+        // Affichage du prix total
+        prixTotalLabel.setText(String.format("Prix total : %.2f €", prixTotal));
     }
 
     // Déclaration des séances
