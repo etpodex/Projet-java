@@ -100,6 +100,17 @@ public class AppControleur {
     public int inscription(Utilisateur nouv_utilisateur) {
 
         if (nouv_utilisateur != null) {
+
+            // Définition du niveau d'avantage basé sur l'âge
+            int age = nouv_utilisateur.getAge();
+            if (age <= 18) {
+                nouv_utilisateur.setNvAvantage(1);
+            } else if (age <= 70 && age > 18) {
+                nouv_utilisateur.setNvAvantage(3);
+            } else {
+                nouv_utilisateur.setNvAvantage(4);
+            }
+
             int response = utilisateur_dao.ajouter(nouv_utilisateur);
             if (response == 0) {
                 System.out.println("Inscription réussie.");
