@@ -58,7 +58,10 @@ public class AppControleur {
             }
         } else if (objet instanceof InscriptionEvenement) {
             if (inscription(((InscriptionEvenement) objet).getUtilisateur()) == 0) {
-                master_vue.afficherPrincipaleVue();
+                if (connexion(((InscriptionEvenement) objet).getUtilisateur().getEmail(), ((InscriptionEvenement) objet).getUtilisateur().getPassword()) == 0) {
+                    master_vue.afficherPrincipaleVue();
+                    master_vue.modif_statut_utilisateur(utilisateur_connecte.getNvAvantage());
+                }
             }
         } else if (objet instanceof DeconnexionEvenement) {
             master_vue.afficherConnexion();
@@ -80,6 +83,7 @@ public class AppControleur {
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffMesBilletsEvenement) {
             ((AffMesBilletsEvenement) objet).setBillets(billet_dao.rechercher(utilisateur_connecte.getUuid()));
+            master_vue.afficherOnglet(objet);
         }
 
         // The rest of the events (just to be displayed for now)
