@@ -71,6 +71,8 @@ public class PrincipaleVue extends JPanel {
         add(panneau_contenu, BorderLayout.CENTER);
         panneau_contenu.setLayout(new BorderLayout());
 
+        afficherAccueil();
+
         // Revalide la mise en page + Redessine le panneau
         refresh();
     }
