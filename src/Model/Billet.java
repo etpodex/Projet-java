@@ -1,6 +1,8 @@
 package Model;
 
 public class Billet {
+    
+    // Attributs
     private String titreFilm;
     private String dateSeance;
     private String heureSeance;
