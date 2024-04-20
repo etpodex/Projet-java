@@ -293,7 +293,7 @@ public class PaiementVue extends JPanel {
         int year = Integer.parseInt(parts[1]);
 
         // Renvoie true si la date est dans le futur
-        return year > 22 || (year == 22 && month >= 4);
+        return year > 24 || (year == 24 && month >= 4);
     }
 
     // Réinitialise tous les champs à leur état initial
