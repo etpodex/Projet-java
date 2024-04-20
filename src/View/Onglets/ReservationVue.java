@@ -115,6 +115,20 @@ public class ReservationVue extends JPanel {
         gbcSpinner.insets = new Insets(5, 5, 5, 5);
         add(spinnerPanel, gbcSpinner);
 
+        // Création du bouton "Valider"
+        JButton validerButton = new JButton("Valider");
+        // Ajout d'un écouteur d'événements pour le bouton "Valider"
+        validerButton.addActionListener(e -> validerCodePromo());
+
+        // Ajout du bouton "Valider"
+        GridBagConstraints gbcValiderButton = new GridBagConstraints();
+        gbcValiderButton.gridx = 0;
+        gbcValiderButton.gridy = 2;
+        gbcValiderButton.gridwidth = 3;
+        gbcValiderButton.fill = GridBagConstraints.HORIZONTAL;
+        gbcValiderButton.insets = new Insets(5, 5, 5, 5);
+        add(validerButton, gbcValiderButton);
+
         // Création du bouton "Payer"
         JButton payerButton = new JButton("Payer");
         // Ajout d'un écouteur d'événements pour le bouton "Payer"
@@ -137,6 +151,34 @@ public class ReservationVue extends JPanel {
         revalidate(); // Valider la disposition des composants
         repaint(); // Redessiner le panneau
     }
+
+    // Méthode pour valider et appliquer le code promo
+    // Méthode pour valider et appliquer le code promo
+    private void validerCodePromo() {
+        String codePromo = codePromoField.getText();
+        boolean codePromoValide = false;
+        double tauxReduction = 0.0;
+
+        // Vérifier si le code promo est valide et obtenir le taux de réduction correspondant
+        for (Offre offre : offres) {
+            if (offre.getCode_promo().equals(codePromo)) {
+                codePromoValide = true;
+                tauxReduction = offre.getReduction();
+                break;
+            }
+        }
+
+        // Si le code promo est valide, recalculer le prix total en appliquant la réduction
+        if (codePromoValide) {
+            calculerPrixTotal();
+            JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Sinon, afficher un message d'erreur
+            JOptionPane.showMessageDialog(this, "Code promo invalide", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 
     // Méthode pour calculer le prix total en fonction du nombre de billets de chaque type
     private void calculerPrixTotal() {
