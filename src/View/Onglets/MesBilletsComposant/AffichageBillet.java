@@ -49,7 +49,7 @@ public class AffichageBillet extends JPanel {
             texte.setDataFilm(billet.getDateSeance());
             texte.setDataHoraire(billet.getHeureSeance());
             texte.setDataSalle(billet.getSalleBillet());
-            texte.setDataSiege(billet.getSiegeBillet());
+            //texte.setDataSiege(billet.getSiegeBillet());
             texte.setNbreBilletAcheter(billet.getNombreBilletAdulte() + billet.getNombreBilletEnfant() + billet.getNombreBilletSenior());
             texte.setNbreBilletAdulte(billet.getNombreBilletAdulte());
             texte.setNbreBilletEnfant(billet.getNombreBilletEnfant());

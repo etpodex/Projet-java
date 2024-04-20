@@ -27,7 +27,7 @@ public class Texte extends JPanel {
         date_billet = new JLabel();
         horaire_billet = new JLabel();
         salle_billet = new JLabel();
-        siege_billet = new JLabel();
+        //siege_billet = new JLabel();
         acheter_billet = new JLabel();
         adulte_billet = new JLabel();
         enfant_billet = new JLabel();
@@ -54,7 +54,7 @@ public class Texte extends JPanel {
     private JPanel createSalleSiegePanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(salle_billet);
-        panel.add(siege_billet);
+        //panel.add(siege_billet);
         return panel;
     }
 
@@ -86,9 +86,9 @@ public class Texte extends JPanel {
         salle_billet.setText("Salle: " + salle);
     }
 
-    public void setDataSiege(String siege) {
+    /**public void setDataSiege(String siege) {
         siege_billet.setText("Siège: " + siege);
-    }
+    }**/
 
     public void setNbreBilletAcheter(int nbre) {
         acheter_billet.setText("Nbre billet : " + nbre);
