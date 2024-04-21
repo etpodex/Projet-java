@@ -62,6 +62,14 @@ public class Grille extends JPanel {
         }
     }
 
+    public void setSeances(Sceance[] seances) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        for (Sceance seance : seances) {
+            ajouterSeance(seance.getIdFilm(), seance.getIdSalle(), seance.getHoraire(), seance.getDate());
+        }
+    }
+
     // Classe interne pour l'édition des cellules dans la colonne "Supprimer"
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;

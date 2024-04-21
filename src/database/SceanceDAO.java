@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class SceanceDAO implements ISceanceDAO {
-    public int ajouter(String... details){
+    public int ajouter(String... details) {
         String idFilm = details[0];
         String horaire = details[1];
         String idSalle = details[2];
@@ -42,33 +42,44 @@ public class SceanceDAO implements ISceanceDAO {
         }
         return 0;
     }
+
     @Override
     public Sceance[] rechercher(String id_film) {
-        List<Sceance> sceances = new ArrayList<>();
-        String query = "SELECT * FROM sceance WHERE id_film = ?";
+        List<Sceance> seances = new ArrayList<>();
+        // Commencer avec une requête de base
+        String query = "SELECT * FROM sceance";
+        // Ajouter une condition WHERE seulement si id_film n'est pas vide
+        if (id_film != null && !id_film.isEmpty()) {
+            query += " WHERE id_film = ?";
+        }
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement donneerecup = conn.prepareStatement(query)) {
 
-            donneerecup.setString(1, id_film);
+            // On ne définit le paramètre que si id_film n'est pas vide
+            if (id_film != null && !id_film.isEmpty()) {
+                donneerecup.setString(1, id_film);
+            }
+
             ResultSet rs = donneerecup.executeQuery();
 
             while (rs.next()) {
-                Sceance sceance = new Sceance(0, "0", null, 0, null, 0);
-                sceance.setIdSceance(rs.getInt("id_sceance"));
-                sceance.setIdFilm(rs.getString("id_film"));
-                sceance.setHoraire(rs.getString("horaire"));
-                sceance.setIdSalle(rs.getInt("id_salle"));
-                sceance.setDate(rs.getString("date"));
-                sceance.setNbPlaceRestante(rs.getInt("nb_place_restante"));
+                Sceance seance = new Sceance(0, "0", null, 0, null, 0);
+                seance.setIdSceance(rs.getInt("id_sceance"));
+                seance.setIdFilm(rs.getString("id_film"));
+                seance.setHoraire(rs.getString("horaire"));
+                seance.setIdSalle(rs.getInt("id_salle"));
+                seance.setDate(rs.getString("date"));
+                seance.setNbPlaceRestante(rs.getInt("nb_place_restante"));
 
-                sceances.add(sceance);
+                seances.add(seance);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         // Convert the list to an array
-        return sceances.toArray(new Sceance[0]);
+        return seances.toArray(new Sceance[0]);
     }
+
 }

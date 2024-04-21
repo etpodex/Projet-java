@@ -118,6 +118,10 @@ public class AppControleur {
         } else if (objet instanceof AffGererFilmEvenement) {
             ((AffGererFilmEvenement) objet).setFilms(film_dao.rechercher("nom", ""));
             master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffGererSeanceEvenement) {
+            ((AffGererSeanceEvenement) objet).setSceances(seance_dao.rechercher(""));
+            System.out.println(seance_dao.rechercher("").length);
+            master_vue.afficherOnglet(objet);
         }
 
         // The rest of the events (just to be displayed for now)
