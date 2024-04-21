@@ -1,16 +1,19 @@
 package View.Onglets.BarreNavigationComposant;
 
-/**BIBLIOTHEQUE**/
-
 import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
 import Controller.Evenements.FileEvenements;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton MesBillets est utilisé pour afficher les billets de l'utilisateur dans la barre de navigation.
+ */
 public class MesBillets extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe MesBillets.
+     */
     public MesBillets() {
         // Configuration de l'apparence du bouton
         setBackground(new Color(255,255,255)); // Couleur de fond

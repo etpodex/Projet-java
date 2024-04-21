@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton Connexion est utilisé pour afficher l'interface de connexion dans la barre de navigation.
+ */
 public class Connexion extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Connexion.
+     */
     public Connexion() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton LesFilms est utilisé pour afficher la liste des films dans la barre de navigation.
+ */
 public class LesFilms extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe LesFilms.
+     */
     public LesFilms() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

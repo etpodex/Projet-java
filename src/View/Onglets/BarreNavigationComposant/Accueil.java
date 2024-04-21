@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton Accueil est utilisé pour afficher l'onglet Accueil dans la barre de navigation.
+ */
 public class Accueil extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Accueil.
+     */
     public Accueil() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton MonCompte est utilisé pour afficher le compte de l'utilisateur dans la barre de navigation.
+ */
 public class MonCompte extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe MonCompte.
+     */
     public MonCompte() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

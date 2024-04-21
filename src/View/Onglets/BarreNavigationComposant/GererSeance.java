@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton GererSeance est utilisé pour afficher l'interface de gestion des séances dans la barre de navigation.
+ */
 public class GererSeance extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe GererSeance.
+     */
     public GererSeance() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

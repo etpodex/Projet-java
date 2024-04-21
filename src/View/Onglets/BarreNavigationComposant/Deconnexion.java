@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton Deconnexion est utilisé pour déclencher l'événement de déconnexion dans la barre de navigation.
+ */
 public class Deconnexion extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Deconnexion.
+     */
     public Deconnexion() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

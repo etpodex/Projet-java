@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton GererOffre est utilisé pour afficher l'interface de gestion des offres dans la barre de navigation.
+ */
 public class GererOffre extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe GererOffre.
+     */
     public GererOffre() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond

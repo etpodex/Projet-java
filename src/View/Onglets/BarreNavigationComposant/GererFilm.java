@@ -6,9 +6,14 @@ import Controller.Evenements.FileEvenements;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Le bouton GererFilm est utilisé pour afficher l'interface de gestion des films dans la barre de navigation.
+ */
 public class GererFilm extends JButton {
 
-    // Constructeur
+    /**
+     * Constructeur de la classe GererFilm.
+     */
     public GererFilm() {
         // Configuration de l'apparence du bouton
         setBackground(Color.WHITE); // Couleur de fond
