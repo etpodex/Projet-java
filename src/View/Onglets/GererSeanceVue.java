@@ -1,5 +1,7 @@
 package View.Onglets;
 
+import Controller.Evenements.AjoutSeanceBDDEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Sceance;
 import View.Onglets.GererSeanceVueComposant.FormulaireAjoutSeanceVue;
 import View.Onglets.GererSeanceVueComposant.Grille;
@@ -13,16 +15,7 @@ import java.util.List;
 public class GererSeanceVue extends JPanel {
 
     // Attributs
-    private Sceance[] seances = new Sceance[]{
-            new Sceance(1, "1", "09:00", 1, "2024-04-01", 100),
-            new Sceance(2, "1", "12:00", 2, "2024-04-01", 120),
-            new Sceance(3, "1", "15:00", 3, "2024-04-01", 80),
-            new Sceance(4, "1", "10:00", 1, "2024-04-02", 90),
-            new Sceance(5, "1", "13:00", 2, "2024-04-02", 110),
-            new Sceance(6, "1", "16:00", 3, "2024-04-02", 70),
-            new Sceance(7, "1", "11:00", 1, "2024-04-03", 80),
-            new Sceance(8, "1", "14:00", 2, "2024-04-03", 100)
-    };
+    private Sceance[] seances;
 
     private JPanel panelGrille;
     private JButton boutonAfficher;
@@ -89,6 +82,10 @@ public class GererSeanceVue extends JPanel {
             panelGrille.add(grilleSeances); // Ajouter la grille au panneau
             panelGrille.revalidate(); // Rafraîchir l'affichage
             panelGrille.repaint(); // Redessiner le panneau
+
+            AjoutSeanceBDDEvenement evenement = new AjoutSeanceBDDEvenement(); // Créer un événement pour ajouter une séance
+            evenement.setSeance(nouvelleSeance); // Ajouter la nouvelle séance à l'événement
+            FileEvenements.getInstance().publier(evenement); // Publier un événement pour afficher les séances
         } else {
             JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE); // Afficher un message d'erreur si tous les champs ne sont pas remplis
         }

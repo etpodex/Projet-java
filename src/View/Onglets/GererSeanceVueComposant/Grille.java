@@ -4,11 +4,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.io.File;
+
+import Controller.Evenements.AffichageOnglet.AffGererSeanceEvenement;
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.SuppressionSeanceBDDEvenement;
 import Model.Sceance;
 
 public class Grille extends JPanel {
 
     private JTable table;
+
+    private Sceance[] seances;
 
     // Constructeur
     public Grille(Sceance[] seances) {
@@ -36,10 +43,6 @@ public class Grille extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table); // Création d'un JScrollPane contenant la table
         add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
 
-        // Ajout des séances à la table
-        for (Sceance seance : seances) {
-            ajouterSeance(seance.getIdFilm(), seance.getIdSalle(), seance.getHoraire(), seance.getDate());
-        }
     }
 
     // Méthode pour ajouter une séance à la table
@@ -64,6 +67,7 @@ public class Grille extends JPanel {
 
     public void setSeances(Sceance[] seances) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        this.seances = seances;
         model.setRowCount(0);
         for (Sceance seance : seances) {
             ajouterSeance(seance.getIdFilm(), seance.getIdSalle(), seance.getHoraire(), seance.getDate());
@@ -100,8 +104,14 @@ public class Grille extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Code à exécuter lorsque le bouton est cliqué (supprimer la séance)
-                ((DefaultTableModel) table.getModel()).removeRow(table.getEditingRow());
+                // Recuperer l'uuid de la séance
+                String uuid = seances[table.getSelectedRow()].getIdSceance();
+                SuppressionSeanceBDDEvenement evenement = new SuppressionSeanceBDDEvenement();
+                evenement.setUuid(uuid);
+
+                FileEvenements.getInstance().publier(evenement);
+                FileEvenements.getInstance().publier(new AffGererSeanceEvenement());
+
             }
             isPushed = false;
             return label;

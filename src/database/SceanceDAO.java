@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class SceanceDAO implements ISceanceDAO {
-    public int ajouter(String... details) {
-        String idFilm = details[0];
-        String horaire = details[1];
-        String idSalle = details[2];
-        String date = details[3];
-        int nbPlaceRestante = Integer.parseInt(details[4]);
+    public int ajouter(Sceance sceance) {
+        String idFilm = sceance.getIdFilm();
+        String horaire = sceance.getHoraire();
+        String idSalle = String.valueOf(sceance.getIdSalle());
+        String date = sceance.getDate();
+        int nbPlaceRestante = sceance.getNbPlaceRestante();
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
 
@@ -64,8 +64,8 @@ public class SceanceDAO implements ISceanceDAO {
             ResultSet rs = donneerecup.executeQuery();
 
             while (rs.next()) {
-                Sceance seance = new Sceance(0, "0", null, 0, null, 0);
-                seance.setIdSceance(rs.getInt("id_sceance"));
+                Sceance seance = new Sceance("", "0", null, 0, null, 0);
+                seance.setIdSceance(rs.getString("id_sceance"));
                 seance.setIdFilm(rs.getString("id_film"));
                 seance.setHoraire(rs.getString("horaire"));
                 seance.setIdSalle(rs.getInt("id_salle"));
@@ -80,6 +80,24 @@ public class SceanceDAO implements ISceanceDAO {
 
         // Convert the list to an array
         return seances.toArray(new Sceance[0]);
+    }
+
+    @Override
+    public int supprimer(String id_sceance) {
+        String query = "DELETE FROM sceance WHERE id_sceance = ?";
+
+        try (Connection conn = Databaseconnection.getConnection();
+             PreparedStatement donneerecup = conn.prepareStatement(query)) {
+            donneerecup.setString(1, id_sceance);
+
+            int affectedRows = donneerecup.executeUpdate();
+            if (affectedRows > 0) {
+                return 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }
