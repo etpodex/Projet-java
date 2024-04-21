@@ -49,6 +49,10 @@ public class OffreDAO implements IOffreDAO{
             query += " WHERE code_promo LIKE ?";
         }
 
+        // Si id_promo n'est pas vide, on ajoute une condition WHERE
+        if (id_promo != null && !id_promo.isEmpty()) {
+            query += " WHERE code_promo LIKE ?";
+        }
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -80,6 +84,7 @@ public class OffreDAO implements IOffreDAO{
         Offre[] offresArrays = new Offre[offreList.size()];
         return offreList.toArray(offresArrays);
     }
+
 
     @Override
     public int retirer(String id_promo) {

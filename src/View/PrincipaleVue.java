@@ -104,8 +104,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherGererFilm() {
+    public void afficherGererFilm(Film[] films) {
         panneau_contenu.removeAll();
+        gerer_film.setFilms(films);
         panneau_contenu.add(gerer_film);
         refresh();
     }

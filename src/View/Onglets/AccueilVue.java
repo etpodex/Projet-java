@@ -22,7 +22,7 @@ public class AccueilVue extends JPanel {
 
         // Crée les composants Offre et Calendrier
         OffreVue offreVue = new OffreVue(barre_navigation_panel_width, frame_height);  // Créer le composant Offre
-        Calendrier calendrier = new Calendrier(barre_navigation_panel_width, frame_height);  // Créer le composant Calendrier
+        this.calendrier = new Calendrier(barre_navigation_panel_width, frame_height);  // Créer le composant Calendrier
 
         // Ajoute les composants Offre et Calendrier au panneau principal avec des positions spécifiques
         add(offreVue, BorderLayout.NORTH);  // Ajouter Offre au nord du panneau

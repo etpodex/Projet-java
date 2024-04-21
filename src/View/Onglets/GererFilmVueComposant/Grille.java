@@ -5,14 +5,21 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+
+import Controller.Evenements.EffacerFilmEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Film;
 
 public class Grille extends JPanel {
 
     private JTable table;
 
+    private Film[] films;
+
     // Constructeur
     public Grille(Film[] films) {
+
+        this.films = films;
         setLayout(new BorderLayout());
 
         String[] colonnesNoms = {"Titre", "Acteur", "Temps", "Note", "Synopsis", "Affiche", "Supprimer"};
@@ -35,7 +42,12 @@ public class Grille extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table); // Ajout de la table dans un JScrollPane
         add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
 
-        // Ajout des films à la table
+    }
+
+    public void setFilms(Film[] films) {
+        this.films = films;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Film film : films) {
             ajouterFilm(film.getNom(), film.getActeur(), film.getTemps(), film.getNote(), film.getSynopsis(), new ImageIcon(film.getUrlImage()));
         }
@@ -94,7 +106,11 @@ public class Grille extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Action à effectuer lorsque le bouton est cliqué
+                // Récupérer l'uuid du film à supprimer à partir du numéro de ligne
+                int film_index = table.getSelectedRow();
+                String uuid = films[film_index].getUuid();
+
+                FileEvenements.getInstance().publier(new EffacerFilmEvenement(uuid));
                 ((DefaultTableModel)table.getModel()).removeRow(table.getEditingRow());
             }
             isPushed = false;

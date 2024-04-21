@@ -1,5 +1,8 @@
 package View.Onglets;
 
+import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
+import Controller.Evenements.AjoutFilmBDDEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Film;
 import View.Onglets.GererFilmVueComposant.Grille;
 import View.Onglets.GererFilmVueComposant.FormulaireAjoutFilmVue;
@@ -10,11 +13,7 @@ import java.util.Arrays;
 
 public class GererFilmVue extends JPanel {
     // Déclaration des attributs
-    private Film[] films = new Film[]{
-            new Film("idfilm1", "titre1", "acteur1", "synopsis1", "1h30", 9.0f, "image1.jpg", 10),
-            new Film("idfilm2", "titre2", "acteur2", "synopsis2", "2h10", 8.5f, "image2.jpg", 15),
-            new Film("idfilm3", "titre3", "acteur3", "synopsis3", "2h45", 7.5f, "image3.jpg", 15),
-    };
+    private Film[] films;
     private JPanel panel_grille;
     private JButton boutonAfficher;
     private Grille grilleFilms;
@@ -63,7 +62,10 @@ public class GererFilmVue extends JPanel {
             if (formulaireAjoutFilmVue.areAllFieldsFilled()) {
                 // Créer un nouveau film à partir des champs du formulaire
                 Film newFilm = formulaireAjoutFilmVue.createFilmFromFields();
-                addFilm(newFilm);  // Ajouter le nouveau film à la liste et à la grille
+                AjoutFilmBDDEvenement evenement = new AjoutFilmBDDEvenement();
+                evenement.setFilm(newFilm);
+                FileEvenements.getInstance().publier(evenement);
+                FileEvenements.getInstance().publier(new AffGererFilmEvenement());
             } else {
                 // Afficher un message d'erreur si tous les champs ne sont pas remplis correctement
                 JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -78,10 +80,8 @@ public class GererFilmVue extends JPanel {
     }
 
     // Méthode pour ajouter un film à la liste et à la grille
-    public void addFilm(Film film) {
-        Film[] newFilms = Arrays.copyOf(films, films.length + 1);  // Créer une nouvelle liste avec une taille augmentée
-        newFilms[newFilms.length - 1] = film;  // Ajouter le nouveau film à la fin de la liste
-        films = newFilms;  // Mettre à jour la référence de la liste des films
-        grilleFilms.ajouterFilm(film.getNom(), film.getActeur(), film.getTemps(), film.getNote(), film.getSynopsis(), new ImageIcon(film.getUrlImage()));  // Ajouter le film à la grille
+    public void setFilms(Film[] films) {
+        this.films = films;
+        grilleFilms.setFilms(films);
     }
 }
