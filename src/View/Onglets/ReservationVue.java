@@ -97,7 +97,7 @@ public class ReservationVue extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
-                updatePlacesRestantes();
+                update_info_seance(info_seance);
             }
         });
 
@@ -174,6 +174,25 @@ public class ReservationVue extends JPanel {
         // Ajouter les dates et heures des séances disponibles à la JComboBox pour un film spécifique
         for (Sceance sceance : info_seance) {
             sceanceComboBox.addItem(sceance.getDate() + "" + sceance.getHoraire());
+            int placesRestantes = sceance.getNbPlaceRestante();
+            // Mettre à jour le texte du champ "place restante"
+            placesRestantesLabel.setText("capacite de la salle : " + placesRestantes);
+        }
+    }
+
+    // Méthode pour mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
+    private void updatePlacesRestantes(Sceance[] seance) {
+        this.info_seance = seance;
+        // Récupérer l'index de la séance sélectionnée dans la JComboBox
+        int selectedIndex = sceanceComboBox.getSelectedIndex();
+        // Vérifier si l'index est valide
+        if (selectedIndex >= 0 && selectedIndex < seances.length) {
+            // Récupérer la séance sélectionnée
+            Sceance selectedSceance = seances[selectedIndex];
+            // Récupérer le nombre de places restantes pour la séance sélectionnée
+            int placesRestantes = selectedSceance.getNbPlaceRestante();
+            // Mettre à jour le texte du champ "place restante"
+            placesRestantesLabel.setText("Places restantes : " + placesRestantes);
         }
     }
 
@@ -230,20 +249,7 @@ public class ReservationVue extends JPanel {
     }
 
 
-    // Méthode pour mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
-    private void updatePlacesRestantes() {
-        // Récupérer l'index de la séance sélectionnée dans la JComboBox
-        int selectedIndex = sceanceComboBox.getSelectedIndex();
-        // Vérifier si l'index est valide
-        if (selectedIndex >= 0 && selectedIndex < seances.length) {
-            // Récupérer la séance sélectionnée
-            Sceance selectedSceance = seances[selectedIndex];
-            // Récupérer le nombre de places restantes pour la séance sélectionnée
-            int placesRestantes = selectedSceance.getNbPlaceRestante();
-            // Mettre à jour le texte du champ "place restante"
-            placesRestantesLabel.setText("Places restantes : " + placesRestantes);
-        }
-    }
+
 
     // Méthode pour réinitialiser tous les champs de la vue de réservation
     private void reinitialiserChamps() {
