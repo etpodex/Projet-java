@@ -60,6 +60,11 @@ public class GererSeanceVue extends JPanel {
         });
     }
 
+    public void setGererSeances(Sceance[] seances) {
+        this.seances = seances;
+        grilleSeances.setSeances(seances);
+    }
+
     // Méthode pour afficher le formulaire d'ajout de séance
     private void afficherFormulaire() {
         boutonAfficher.setText("Valider"); // Changer le texte du bouton en "Valider"

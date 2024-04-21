@@ -117,8 +117,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherGererSeance() {
+    public void afficherGererSeance(Sceance[] sceances) {
         panneau_contenu.removeAll();
+        gerer_seance.setGererSeances(sceances);
         panneau_contenu.add(gerer_seance);
         refresh();
     }

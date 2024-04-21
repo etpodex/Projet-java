@@ -6,6 +6,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 
+import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
 import Controller.Evenements.EffacerFilmEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Film;
@@ -108,13 +109,17 @@ public class Grille extends JPanel {
             if (isPushed) {
                 // Récupérer l'uuid du film à supprimer à partir du numéro de ligne
                 int film_index = table.getSelectedRow();
-                String uuid = films[film_index].getUuid();
-
+                String uuid = "";
+                if (film_index == -1) {
+                    return "";
+                } else {
+                    uuid = films[film_index].getUuid();
+                }
                 FileEvenements.getInstance().publier(new EffacerFilmEvenement(uuid));
-                ((DefaultTableModel)table.getModel()).removeRow(table.getEditingRow());
+                ((DefaultTableModel) table.getModel()).removeRow(film_index);
             }
             isPushed = false;
-            return label;
+            return "";
         }
 
         public boolean stopCellEditing() {
