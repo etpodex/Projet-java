@@ -115,6 +115,7 @@ public class FilmDAO implements IfilmDAO {
                 film.setNom(rs.getString("nom"));
                 film.setSynopsis(rs.getString("synopsis"));  // Assurez-vous que la casse du "Synopsis" soit correcte selon votre base de données
                 film.setNote(rs.getFloat("note"));
+                film.setUrlImage(rs.getString("URL_image"));
 
                 filmList.add(film);
             }
