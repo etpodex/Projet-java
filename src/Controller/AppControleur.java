@@ -27,6 +27,8 @@ public class AppControleur {
 
     private Utilisateur utilisateur_connecte = null;
 
+    private ChartController chartController; // estelle pour point bonus projet
+
     public AppControleur() {
         this.master_vue = new MasterVue();
 
@@ -34,6 +36,8 @@ public class AppControleur {
         film_dao = new FilmDAO();
         billet_dao = new BilletDAO();
         offre_dao = new OffreDAO(); // estelle
+
+        chartController = new ChartController(); // estelle pour point bonus projet
 
         FileEvenements.getInstance().abonner(this::evenementControleur);
         this.master_vue.afficherVueLancement();
@@ -54,7 +58,10 @@ public class AppControleur {
             }
         } else if (objet instanceof InscriptionEvenement) {
             if (inscription(((InscriptionEvenement) objet).getUtilisateur()) == 0) {
-                master_vue.afficherPrincipaleVue();
+                if (connexion(((InscriptionEvenement) objet).getUtilisateur().getEmail(), ((InscriptionEvenement) objet).getUtilisateur().getPassword()) == 0) {
+                    master_vue.afficherPrincipaleVue();
+                    master_vue.modif_statut_utilisateur(utilisateur_connecte.getNvAvantage());
+                }
             }
         } else if (objet instanceof DeconnexionEvenement) {
             master_vue.afficherConnexion();
@@ -76,6 +83,7 @@ public class AppControleur {
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffMesBilletsEvenement) {
             ((AffMesBilletsEvenement) objet).setBillets(billet_dao.rechercher(utilisateur_connecte.getUuid()));
+            master_vue.afficherOnglet(objet);
         }
 
         // The rest of the events (just to be displayed for now)
@@ -92,6 +100,17 @@ public class AppControleur {
     public int inscription(Utilisateur nouv_utilisateur) {
 
         if (nouv_utilisateur != null) {
+
+            // Définition du niveau d'avantage basé sur l'âge
+            int age = nouv_utilisateur.getAge();
+            if (age <= 18) {
+                nouv_utilisateur.setNvAvantage(1);
+            } else if (age <= 70 && age > 18) {
+                nouv_utilisateur.setNvAvantage(3);
+            } else {
+                nouv_utilisateur.setNvAvantage(4);
+            }
+
             int response = utilisateur_dao.ajouter(nouv_utilisateur);
             if (response == 0) {
                 System.out.println("Inscription réussie.");

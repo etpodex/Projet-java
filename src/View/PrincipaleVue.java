@@ -1,15 +1,12 @@
 package View;
 
-import Controller.Evenements.AffConnexionEvenement;
-import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
-import Controller.Evenements.FileEvenements;
+
 import Model.Billet;
 import Model.Film;
 import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
-import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +32,7 @@ public class PrincipaleVue extends JPanel {
     private GererOffreVue gerer_offre;
     private GererFilmVue gerer_film;
     private GererSeanceVue gerer_seance;
+    private ReservationNerfVue reservation_nerf;
 
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height) {
@@ -55,6 +53,7 @@ public class PrincipaleVue extends JPanel {
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
+        this.reservation_nerf = new ReservationNerfVue(panneau_contenu_width, frame_height);
 
         this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
         this.paiement_en_cours_vue = new PaiementEnCoursVue();
@@ -70,6 +69,8 @@ public class PrincipaleVue extends JPanel {
         add(barre_navigation, BorderLayout.WEST);
         add(panneau_contenu, BorderLayout.CENTER);
         panneau_contenu.setLayout(new BorderLayout());
+
+        afficherAccueil();
 
         // Revalide la mise en page + Redessine le panneau
         refresh();

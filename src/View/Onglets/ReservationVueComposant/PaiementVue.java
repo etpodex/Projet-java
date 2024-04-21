@@ -1,8 +1,8 @@
 package View.Onglets.ReservationVueComposant;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEnCoursEvenement;
+import Controller.Evenements.AffichageOnglet.AffReservationEvenement;
 import Controller.Evenements.FileEvenements;
-import View.MasterVue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +10,14 @@ import java.awt.event.*;
 
 public class PaiementVue extends JPanel {
 
+    private JTextField nom_sur_carte_field; // Champ de saisie du nom sur la carte
+    private JTextField numero_carte_field; // Champ de saisie du numéro de carte
+    private JTextField date_expiration_field; // Champ de saisie de la date d'expiration
+    private JTextField cvv_field; // Champ de saisie du CVV
+
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
-        setBackground(Color.WHITE);
+        setBackground(new Color(238,238,238));
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(panneau_contenu_width, frame_height));
 
@@ -30,16 +35,15 @@ public class PaiementVue extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel nom_sur_carte_label = new JLabel("Nom sur la carte:");
-        JTextField nom_sur_carte_field = new JTextField(10);
+        nom_sur_carte_field = new JTextField(10);
         JLabel numero_carte_label = new JLabel("Numéro de carte:");
-        JTextField numero_carte_field = new JTextField(15);
+        numero_carte_field = new JTextField(15);
         JLabel date_expiration_label = new JLabel("Date d'expiration:");
-        JTextField date_expiration_field = new JTextField(5);
+        date_expiration_field = new JTextField(5);
         JLabel cvv_label = new JLabel("CVV:");
-        JTextField cvv_field = new JTextField(3);
-        JLabel code_promo_label = new JLabel("Code promo:");
-        JTextField code_promo_field = new JTextField(5);
+        cvv_field = new JTextField(3);
 
+        // Configuration des contraintes de disposition
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -52,8 +56,6 @@ public class PaiementVue extends JPanel {
 
         gbc.gridy = 3;
         detail_carte_panel.add(cvv_label, gbc);
-        gbc.gridy = 4;
-        detail_carte_panel.add(code_promo_label, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -68,8 +70,6 @@ public class PaiementVue extends JPanel {
 
         gbc.gridy = 3;
         detail_carte_panel.add(cvv_field, gbc);
-        gbc.gridy = 4;
-        detail_carte_panel.add(code_promo_field, gbc);
 
         // Ajout du faux numéro de carte en gris clair
         numero_carte_field.setForeground(Color.LIGHT_GRAY);
@@ -131,7 +131,6 @@ public class PaiementVue extends JPanel {
             }
         });
 
-
         // Ajout du faux CVV en gris clair
         cvv_field.setForeground(Color.LIGHT_GRAY);
         cvv_field.setText("000");
@@ -190,19 +189,109 @@ public class PaiementVue extends JPanel {
             }
         });
 
-        // Bouton de paiement
+        // Boutons de paiement et de retour
         JButton bouton_paiement = new JButton("Payer");
         bouton_paiement.setFont(new Font("Arial", Font.BOLD, 16));
 
+        JButton bouton_retour = new JButton("Retour");
+        bouton_retour.setFont(new Font("Arial", Font.BOLD, 16));
+
         // Action lorsque le bouton de paiement est cliqué
-        bouton_paiement.addActionListener(e -> {FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());});
+        bouton_paiement.addActionListener(e -> {
+            if (areAllFieldsFilled()) {
+                FileEvenements.getInstance().publier(new AffPaiementEnCoursEvenement());
+                // Réinitialiser les champs après un paiement réussi
+                reinitialiserChamps();
+            }
+        });
+
+        // Action lorsque le bouton de retour est cliqué
+        bouton_retour.addActionListener(e -> {
+            // Publier un événement pour afficher la vue de réservation
+            FileEvenements.getInstance().publier(new AffReservationEvenement());
+        });
+
 
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
         add(detail_carte_panel, BorderLayout.CENTER);
-        add(bouton_paiement, BorderLayout.SOUTH);
 
-        revalidate();
-        repaint();
+        JPanel boutonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        boutonsPanel.add(bouton_retour);
+        boutonsPanel.add(bouton_paiement);
+        add(boutonsPanel, BorderLayout.SOUTH);
+
+        revalidate(); // Revalider le panneau pour mettre à jour l'affichage
+        repaint(); // Redessiner le panneau
+    }
+
+    // Vérifie si tous les champs sont remplis et valides
+    private boolean areAllFieldsFilled() {
+        StringBuilder errors = new StringBuilder();
+        boolean isValid = true;
+
+        // Vérification des champs non vides
+        if (nom_sur_carte_field.getText().isEmpty() ||
+                numero_carte_field.getText().isEmpty() ||
+                date_expiration_field.getText().isEmpty() ||
+                cvv_field.getText().isEmpty()) {
+            errors.append("Tous les champs doivent être remplis.\n");
+            isValid = false;
+        }
+
+        // Vérification du numéro de carte
+        String numeroCarte = numero_carte_field.getText().replaceAll("\\s+", ""); // Supprime les espaces
+        if (numeroCarte.length() != 16 || !numeroCarte.matches("\\d{16}")) {
+            errors.append("Numéro de carte invalide.\n");
+            isValid = false;
+        }
+
+        // Vérification de la date d'expiration
+        String dateExpiration = date_expiration_field.getText();
+        if (!dateExpiration.matches("\\d{2}/\\d{2}")) {
+            errors.append("Date d'expiration invalide.\n");
+            isValid = false;
+        } else {
+            // Extraire le mois et l'année
+            String[] parts = dateExpiration.split("/");
+            int month = Integer.parseInt(parts[0]);
+            int year = Integer.parseInt(parts[1]);
+
+            // Vérifier si le mois est entre 1 et 12 et l'année est dans le futur
+            if (month < 1 || month > 12 || year < 22 || (year == 22 && month < 4)) {
+                errors.append("Date d'expiration invalide.\n");
+                isValid = false;
+            }
+        }
+
+        // Vérification du CVV
+        String cvv = cvv_field.getText();
+        if (cvv.length() != 3 || !cvv.matches("\\d{3}")) {
+            errors.append("CVV invalide.\n");
+            isValid = false;
+        }
+
+        // Si des erreurs sont détectées, affichez toutes les erreurs accumulées
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this, errors.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return isValid;
+    }
+
+    // Réinitialise tous les champs à leur état initial
+    public void reinitialiserChamps() {
+        nom_sur_carte_field.setText("");
+        numero_carte_field.setText("");
+        date_expiration_field.setText("");
+        cvv_field.setText("");
+
+        // Remettre les couleurs par défaut et les textes de faux numéro de carte, CVV et code promo
+        numero_carte_field.setForeground(Color.LIGHT_GRAY);
+        numero_carte_field.setText("0000 0000 0000 0000");
+        date_expiration_field.setForeground(Color.LIGHT_GRAY);
+        date_expiration_field.setText("MM/AA");
+        cvv_field.setForeground(Color.LIGHT_GRAY);
+        cvv_field.setText("000");
     }
 }
