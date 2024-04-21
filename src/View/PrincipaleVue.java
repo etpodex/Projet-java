@@ -1,10 +1,17 @@
 package View;
 
 
-import Model.*;
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
+import Controller.Evenements.FileEvenements;
+import Model.Billet;
+import Model.Film;
+import Model.Sceance;
+import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +76,7 @@ public class PrincipaleVue extends JPanel {
         add(panneau_contenu, BorderLayout.CENTER);
         panneau_contenu.setLayout(new BorderLayout());
 
-        afficherAccueil();
+        FileEvenements.getInstance().publier(new AffAccueilEvenement());
 
         // Revalide la mise en page + Redessine le panneau
         refresh();
@@ -92,8 +99,10 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherAccueil() {
+    public void afficherAccueil(Object[] datasets) {
         panneau_contenu.removeAll();
+        accueil_vue.setPieChart((DefaultPieDataset) datasets[0]);
+        accueil_vue.setBarChart((DefaultCategoryDataset) datasets[1]);
         panneau_contenu.add(accueil_vue);
         refresh();
     }

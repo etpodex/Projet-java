@@ -66,14 +66,9 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
-    public void afficherAccueilVue() {
-        resetFrame();
-        principale_vue.afficherAccueil();
-    }
-
     public void afficherOnglet(Object objet) {
         switch (objet) {
-            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
+            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets());
             case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
             case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();

@@ -14,12 +14,12 @@ import java.util.Arrays;
 
 public class FilmDAO implements IfilmDAO {
     @Override
-    public int ajouter(String... details) {
-        String nom = details[0];
-        String synopsis = details[1];
-        float note = Float.parseFloat(details[2]);
-        String URL_image = details[3];
-        int PrixFilm = Integer.parseInt(details[4]);
+    public int ajouter(Film film) {
+        String nom = film.getNom();
+        String synopsis = film.getSynopsis();
+        float note = film.getNote();
+        String URL_image = film.getUrlImage();
+        int PrixFilm = film.getPrixFilm();
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
         String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm) VALUES (?,?,?,?,?,?)";
