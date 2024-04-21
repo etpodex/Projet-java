@@ -76,7 +76,7 @@ public class AppControleur {
 
         // Implemented AffPVEvenement events
         else if (objet instanceof AffLesFilmsEvenement) {
-            ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher(""));
+            ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher("nom",""));
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffMonCompteEvenement) {
             ((AffMonCompteEvenement) objet).setUtilisateur(utilisateur_connecte);

@@ -21,8 +21,9 @@ public class FilmDAO implements IfilmDAO {
         String URL_image = details[3];
         int PrixFilm = Integer.parseInt(details[4]);
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
+        String acteur = details[5];
 
-        String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm,acteur) VALUES (?,?,?,?,?,?,?)";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement recupdonne = conn.prepareStatement(query)) {
@@ -33,6 +34,8 @@ public class FilmDAO implements IfilmDAO {
             recupdonne.setFloat(4, note);
             recupdonne.setString(5, URL_image);
             recupdonne.setInt(6, PrixFilm);
+            recupdonne.setString(7, acteur);
+
 
 
             int affectedRows = recupdonne.executeUpdate();
@@ -110,12 +113,12 @@ public class FilmDAO implements IfilmDAO {
 
             while (rs.next()) {
                 Film film = new Film();
-
                 film.setUuid(rs.getString("uuid"));
                 film.setNom(rs.getString("nom"));
                 film.setSynopsis(rs.getString("synopsis"));  // Assurez-vous que la casse du "Synopsis" soit correcte selon votre base de données
                 film.setNote(rs.getFloat("note"));
-
+                film.setUrlImage(rs.getString("URL_image"));
+                film.setActeur(rs.getString("acteur"));
                 filmList.add(film);
             }
         } catch (SQLException e) {

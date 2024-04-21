@@ -81,23 +81,24 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
 
 
-    public void modifier(String email, String champ, String nouvelleValeur) {
-        String query = "UPDATE utilisateur SET " + champ + " = ? WHERE email = ?";
+    public void modifier(Utilisateur utilisateur) {
+        String query = "UPDATE utilisateur SET nom = ?, prenom = ?, age = ?, nvAvantage = ?, password = ? WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            // Set nouvelle valeur
-            recupdonnee.setString(1, nouvelleValeur);
-            // Set email
+            pstmt.setString(1, utilisateur.getNom());
+            pstmt.setString(2, utilisateur.getPrenom());
+            pstmt.setInt(3, utilisateur.getAge());
+            pstmt.setInt(4, utilisateur.getNvAvantage());
+            pstmt.setString(5, utilisateur.getPassword());
+            pstmt.setString(6, utilisateur.getEmail());
 
-            recupdonnee.setString(2, email);
-
-            int affectedRows = recupdonnee.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("L'information du client a été modifiée avec succès.");
+                System.out.println("L'information de l'utilisateur a été modifiée avec succès.");
             } else {
-                System.out.println("Aucun client trouvé avec cet email.");
+                System.out.println("Aucun utilisateur trouvé avec cet email.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
