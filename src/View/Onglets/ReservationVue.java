@@ -186,9 +186,9 @@ public class ReservationVue extends JPanel {
         // Récupérer l'index de la séance sélectionnée dans la JComboBox
         int selectedIndex = sceanceComboBox.getSelectedIndex();
         // Vérifier si l'index est valide
-        if (selectedIndex >= 0 && selectedIndex < seances.length) {
+        if (selectedIndex >= 0 && selectedIndex < info_seance.length) {
             // Récupérer la séance sélectionnée
-            Sceance selectedSceance = seances[selectedIndex];
+            Sceance selectedSceance = info_seance[selectedIndex];
             // Récupérer le nombre de places restantes pour la séance sélectionnée
             int placesRestantes = selectedSceance.getNbPlaceRestante();
             // Mettre à jour le texte du champ "place restante"
