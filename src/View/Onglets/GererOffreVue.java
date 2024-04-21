@@ -1,5 +1,3 @@
-package View.Onglets;
-
 import Controller.Evenements.AjouterOffreEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Offre;
@@ -8,21 +6,39 @@ import View.Onglets.GererOffreVueComposant.Grille;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.Arrays;
 
+/**
+ * Vue pour gérer les offres, affichant une grille d'offres et un formulaire pour ajouter de nouvelles offres.
+ */
 public class GererOffreVue extends JPanel {
 
     // Déclaration des attributs
+
+    /** Liste des offres actuellement gérées. */
     private Offre[] offres;
 
+    /** Panneau pour afficher la grille des offres. */
     private JPanel panelGrille;
+
+    /** Bouton pour afficher le formulaire ou ajouter une offre. */
     private JButton boutonAfficher;
+
+    /** Grille d'affichage des offres. */
     private Grille grilleOffres;
+
+    /** Formulaire pour ajouter une nouvelle offre. */
     private FormulaireAjoutOffreVue formulaireAjoutOffreVue;
+
+    /** Indique si le formulaire est actuellement affiché. */
     private boolean formulaireAffiche = false;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue pour gérer les offres.
+     *
+     * @param barreNavigationPanelWidth Largeur de la barre de navigation.
+     * @param frameHeight              Hauteur de la fenêtre principale.
+     */
     public GererOffreVue(int barreNavigationPanelWidth, int frameHeight) {
         setBackground(new Color(238, 238, 238)); // Définition de la couleur de fond
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight)); // Définition de la taille préférée
@@ -52,7 +68,9 @@ public class GererOffreVue extends JPanel {
         });
     }
 
-    // Méthode pour afficher le formulaire
+    /**
+     * Affiche le formulaire d'ajout d'offre.
+     */
     private void afficherFormulaire() {
         boutonAfficher.setText("Valider");
         formulaireAffiche = true;
@@ -62,7 +80,9 @@ public class GererOffreVue extends JPanel {
         panelGrille.repaint();
     }
 
-    // Méthode pour ajouter une offre
+    /**
+     * Ajoute une nouvelle offre à la liste des offres.
+     */
     private void ajouterOffre() {
         Offre nouvelleOffre = formulaireAjoutOffreVue.createOffreFromFields(); // Création d'une nouvelle offre à partir des champs du formulaire
         if (nouvelleOffre != null) { // Vérification si les champs sont remplis correctement
@@ -91,6 +111,11 @@ public class GererOffreVue extends JPanel {
         }
     }
 
+    /**
+     * Définit les offres à afficher dans la grille.
+     *
+     * @param offres Tableau d'objets Offre à afficher.
+     */
     public void setGererOffres(Offre[] offres) {
         this.offres = offres;
         grilleOffres.setOffres(offres);
