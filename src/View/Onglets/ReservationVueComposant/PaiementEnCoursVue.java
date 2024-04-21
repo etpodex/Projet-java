@@ -3,24 +3,33 @@ package View.Onglets.ReservationVueComposant;
 import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.FileEvenements;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panneau affichant l'état en cours du paiement avec une animation de chargement.
+ * Une fois le paiement terminé, affiche un message de confirmation avec un bouton pour retourner à l'accueil.
+ */
 public class PaiementEnCoursVue extends JPanel {
     private JButton accueilButton; // Bouton pour retourner à l'accueil
     private ImageIcon chargement_icon; // Icône de chargement
     private JLabel chargement_label; // Label pour afficher l'icône de chargement
     private Timer timer; // Timer pour l'animation de chargement
 
+    /**
+     * Constructeur de la classe PaiementEnCoursVue.
+     */
     public PaiementEnCoursVue() {
-        setBackground(new Color(238,238,238));
+        setBackground(new Color(238, 238, 238));
         setLayout(new BorderLayout());
         initUI(); // Initialise l'interface utilisateur
     }
 
+    /**
+     * Initialise les composants de l'interface utilisateur.
+     */
     private void initUI() {
         // Initialise ou réinitialise les éléments de l'interface utilisateur
         removeEverything(); // Supprime tous les composants existants
@@ -36,6 +45,9 @@ public class PaiementEnCoursVue extends JPanel {
         add(chargement_label, BorderLayout.CENTER); // Ajoute l'icône de chargement au centre
     }
 
+    /**
+     * Supprime tous les composants du panneau.
+     */
     private void removeEverything() {
         removeAll(); // Supprime tous les composants
         if (timer != null) {
@@ -43,6 +55,9 @@ public class PaiementEnCoursVue extends JPanel {
         }
     }
 
+    /**
+     * Démarre l'animation de chargement du paiement.
+     */
     public void startPaiementTimer() {
         removeEverything(); // Supprime tous les composants existants
         initUI(); // Réinitialise les composants de l'interface utilisateur
@@ -68,6 +83,9 @@ public class PaiementEnCoursVue extends JPanel {
         timer.start(); // Démarre le timer
     }
 
+    /**
+     * Affiche un message de confirmation une fois le paiement terminé.
+     */
     private void clearAndDisplayMessage() {
         removeAll(); // Efface le panneau avant d'ajouter le message de confirmation
 
@@ -86,7 +104,9 @@ public class PaiementEnCoursVue extends JPanel {
         repaint(); // Redessine le panneau
     }
 
-    // Classe interne pour l'icône rotative
+    /**
+     * Classe interne pour l'icône rotative.
+     */
     private static class RotatedIcon implements Icon {
         private final Icon icon;
         private final double angle;

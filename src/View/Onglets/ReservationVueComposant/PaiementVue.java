@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Panneau de vue pour le processus de paiement par carte de crédit.
+ */
 public class PaiementVue extends JPanel {
 
     private JTextField nom_sur_carte_field; // Champ de saisie du nom sur la carte
@@ -15,9 +18,14 @@ public class PaiementVue extends JPanel {
     private JTextField date_expiration_field; // Champ de saisie de la date d'expiration
     private JTextField cvv_field; // Champ de saisie du CVV
 
+    /**
+     * Constructeur de la classe PaiementVue.
+     * @param panneau_contenu_width Largeur du panneau de contenu.
+     * @param frame_height Hauteur du cadre.
+     */
     public PaiementVue(int panneau_contenu_width, int frame_height) {
 
-        setBackground(new Color(238,238,238));
+        setBackground(new Color(238, 238, 238));
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(panneau_contenu_width, frame_height));
 
@@ -211,7 +219,6 @@ public class PaiementVue extends JPanel {
             FileEvenements.getInstance().publier(new AffReservationEvenement());
         });
 
-
         // Ajout des composants à la page de paiement
         add(titreLabel, BorderLayout.NORTH);
         add(detail_carte_panel, BorderLayout.CENTER);
@@ -225,7 +232,10 @@ public class PaiementVue extends JPanel {
         repaint(); // Redessiner le panneau
     }
 
-    // Vérifie si tous les champs sont remplis et valides
+    /**
+     * Vérifie si tous les champs sont remplis et valides.
+     * @return true si tous les champs sont valides, sinon false.
+     */
     private boolean areAllFieldsFilled() {
         StringBuilder errors = new StringBuilder();
         boolean isValid = true;
@@ -279,7 +289,9 @@ public class PaiementVue extends JPanel {
         return isValid;
     }
 
-    // Réinitialise tous les champs à leur état initial
+    /**
+     * Réinitialise tous les champs à leur état initial.
+     */
     public void reinitialiserChamps() {
         nom_sur_carte_field.setText("");
         numero_carte_field.setText("");
