@@ -9,10 +9,13 @@ import View.Onglets.GererFilmVueComposant.FormulaireAjoutFilmVue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
+/**
+ * La classe GererFilmVue représente la vue de la gestion des films dans l'interface utilisateur.
+ */
 public class GererFilmVue extends JPanel {
-    // Déclaration des attributs
+
+    // Attributs
     private Film[] films;
     private JPanel panel_grille;
     private JButton boutonAfficher;
@@ -20,14 +23,19 @@ public class GererFilmVue extends JPanel {
     private FormulaireAjoutFilmVue formulaireAjoutFilmVue;
     private boolean formulaireAffiche = false;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue de gestion des films.
+     *
+     * @param barre_navigation_panel_width La largeur de la barre de navigation.
+     * @param frame_height                La hauteur du frame.
+     */
     public GererFilmVue(int barre_navigation_panel_width, int frame_height) {
-        setBackground(new Color(238, 238, 238));  // Définir la couleur de fond
+        setBackground(new Color(238, 238, 238));  // Définit la couleur de fond
         setLayout(new BorderLayout());  // Utilisation d'un BorderLayout pour organiser les composants
         panel_grille = new JPanel(new BorderLayout());  // Initialisation du panneau pour la grille
         JPanel panel_bouton = new JPanel();  // Initialisation du panneau pour le bouton
-        panel_grille.setBackground(new Color(238,238,238));  // Définir la couleur de fond du panneau grille
-        panel_bouton.setBackground(new Color(238,238,238));  // Définir la couleur de fond du panneau bouton
+        panel_grille.setBackground(new Color(238,238,238));  // Définit la couleur de fond du panneau grille
+        panel_bouton.setBackground(new Color(238,238,238));  // Définit la couleur de fond du panneau bouton
 
         // Définition des dimensions pour les panneaux grille et bouton
         Dimension dimension85 = new Dimension(barre_navigation_panel_width, (int) (frame_height * 0.86));
@@ -79,7 +87,11 @@ public class GererFilmVue extends JPanel {
         panel_grille.repaint();
     }
 
-    // Méthode pour ajouter un film à la liste et à la grille
+    /**
+     * Méthode pour définir la liste des films.
+     *
+     * @param films La liste des films.
+     */
     public void setFilms(Film[] films) {
         this.films = films;
         grilleFilms.setFilms(films);
