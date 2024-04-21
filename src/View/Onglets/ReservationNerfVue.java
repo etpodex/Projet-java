@@ -123,8 +123,8 @@ public class ReservationNerfVue extends JPanel {
 
     private void updatePlacesRestantes() {
         int selectedIndex = sceanceComboBox.getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < seances.length) {
-            Sceance selectedSceance = seances[selectedIndex];
+        if (selectedIndex >= 0 && selectedIndex < info_seance.length) {
+            Sceance selectedSceance = info_seance[selectedIndex];
             int placesRestantes = selectedSceance.getNbPlaceRestante();
             placesRestantesLabel.setText("Places restantes : " + placesRestantes);
         }
@@ -136,16 +136,4 @@ public class ReservationNerfVue extends JPanel {
         prixTotalLabel.setText("Prix total : 0.00 €");
         placesRestantesLabel.setText("Places restantes : ");
     }
-
-    // Déclaration des séances
-    private Sceance[] seances = new Sceance[]{
-            new Sceance(1, "1", "09:00", 1, "2024-04-01", 100),
-            new Sceance(2, "1", "12:00", 2, "2024-04-01", 120),
-            new Sceance(3, "1", "15:00", 3, "2024-04-01", 80),
-            new Sceance(4, "1", "10:00", 1, "2024-04-02", 90),
-            new Sceance(5, "1", "13:00", 2, "2024-04-02", 110),
-            new Sceance(6, "1", "16:00", 3, "2024-04-02", 70),
-            new Sceance(7, "1", "11:00", 1, "2024-04-03", 80),
-            new Sceance(8, "1", "14:00", 2, "2024-04-03", 100)
-    };
 }

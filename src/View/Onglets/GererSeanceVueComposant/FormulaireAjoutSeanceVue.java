@@ -53,7 +53,7 @@ public class FormulaireAjoutSeanceVue extends JPanel {
             int idSalle = Integer.parseInt(idSalleField.getText()); // Conversion du texte en entier pour l'ID de la salle
             String horaire = horaireField.getText(); // Récupération de l'horaire
             String date = dateField.getText(); // Récupération de la date
-            return new Sceance(0, idFilm, horaire, idSalle, date, 0); // Création et retour de l'objet Sceance avec l'ID initialisé à 0
+            return new Sceance("", idFilm, horaire, idSalle, date, 0); // Création et retour de l'objet Sceance avec l'ID initialisé à 0
         } catch (NumberFormatException e) { // Gestion de l'erreur si la conversion échoue
             e.printStackTrace(); // Affichage de la trace de l'erreur
             return null; // Retourne null en cas d'erreur

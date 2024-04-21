@@ -186,9 +186,9 @@ public class ReservationVue extends JPanel {
         // Récupérer l'index de la séance sélectionnée dans la JComboBox
         int selectedIndex = sceanceComboBox.getSelectedIndex();
         // Vérifier si l'index est valide
-        if (selectedIndex >= 0 && selectedIndex < seances.length) {
+        if (selectedIndex >= 0 && selectedIndex < info_seance.length) {
             // Récupérer la séance sélectionnée
-            Sceance selectedSceance = seances[selectedIndex];
+            Sceance selectedSceance = info_seance[selectedIndex];
             // Récupérer le nombre de places restantes pour la séance sélectionnée
             int placesRestantes = selectedSceance.getNbPlaceRestante();
             // Mettre à jour le texte du champ "place restante"
@@ -249,7 +249,20 @@ public class ReservationVue extends JPanel {
     }
 
 
-
+    // Méthode pour mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
+    private void updatePlacesRestantes() {
+        // Récupérer l'index de la séance sélectionnée dans la JComboBox
+        int selectedIndex = sceanceComboBox.getSelectedIndex();
+        // Vérifier si l'index est valide
+        if (selectedIndex >= 0 && selectedIndex < info_seance.length) {
+            // Récupérer la séance sélectionnée
+            Sceance selectedSceance = info_seance[selectedIndex];
+            // Récupérer le nombre de places restantes pour la séance sélectionnée
+            int placesRestantes = selectedSceance.getNbPlaceRestante();
+            // Mettre à jour le texte du champ "place restante"
+            placesRestantesLabel.setText("Places restantes : " + placesRestantes);
+        }
+    }
 
     // Méthode pour réinitialiser tous les champs de la vue de réservation
     private void reinitialiserChamps() {
@@ -267,16 +280,4 @@ public class ReservationVue extends JPanel {
         // Réinitialiser le champ "place restante"
         placesRestantesLabel.setText("Places restantes : ");
     }
-
-    // Déclaration des séances
-    private Sceance[] seances = new Sceance[]{
-            new Sceance(1, "1", "09:00", 1, "2024-04-01", 100),
-            new Sceance(2, "1", "12:00", 2, "2024-04-01", 120),
-            new Sceance(3, "1", "15:00", 3, "2024-04-01", 80),
-            new Sceance(4, "1", "10:00", 1, "2024-04-02", 90),
-            new Sceance(5, "1", "13:00", 2, "2024-04-02", 110),
-            new Sceance(6, "1", "16:00", 3, "2024-04-02", 70),
-            new Sceance(7, "1", "11:00", 1, "2024-04-03", 80),
-            new Sceance(8, "1", "14:00", 2, "2024-04-03", 100)
-    };
 }

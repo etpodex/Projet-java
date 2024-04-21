@@ -3,7 +3,7 @@ package Model;
 import java.util.Date;
 
 public class Sceance {
-    private int idSceance;
+    private String idSceance;
     private String idFilm;
     private String horaire;
     private int idSalle;
@@ -11,7 +11,7 @@ public class Sceance {
     private int nbPlaceRestante;
 
     // Constructeur
-    public Sceance(int idSceance, String idFilm, String horaire, int idSalle, String date, int nbPlaceRestante) {
+    public Sceance(String idSceance, String idFilm, String horaire, int idSalle, String date, int nbPlaceRestante) {
         this.idSceance = idSceance;
         this.idFilm = idFilm;
         this.horaire = horaire;
@@ -21,11 +21,11 @@ public class Sceance {
     }
 
     // Getters et Setters
-    public int getIdSceance() {
+    public String getIdSceance() {
         return idSceance;
     }
 
-    public void setIdSceance(int idSceance) {
+    public void setIdSceance(String idSceance) {
         this.idSceance = idSceance;
     }
 

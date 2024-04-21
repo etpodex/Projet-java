@@ -78,6 +78,10 @@ public class AppControleur {
             film_dao.retirer(((EffacerFilmEvenement) objet).getIdFilm());
         } else if (objet instanceof AjoutFilmBDDEvenement) {
             film_dao.ajouter(((AjoutFilmBDDEvenement) objet).getFilm());
+        } else if (objet instanceof AjoutSeanceBDDEvenement) {
+            seance_dao.ajouter(((AjoutSeanceBDDEvenement) objet).getSeance());
+        } else if (objet instanceof SuppressionSeanceBDDEvenement) {
+            seance_dao.supprimer(((SuppressionSeanceBDDEvenement) objet).getUuid());
         }
 
         // Implemented AffPVEvenement events
