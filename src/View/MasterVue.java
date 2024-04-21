@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Evenements.AffichageOnglet.*;
+import Controller.Evenements.FileEvenements;
 import Model.Sceance;
 
 import javax.swing.*;
@@ -87,6 +88,7 @@ public class MasterVue {
         resetFrame();
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
+        FileEvenements.getInstance().publier(new AffAccueilEvenement());
     }
 
     /**
@@ -95,7 +97,7 @@ public class MasterVue {
      */
     public void afficherOnglet(Object objet) {
         switch (objet) {
-            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets());
+            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets(), affAccueilEvenement.getOffres());
             case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm(affGererFilmEvenement.getFilms());
             case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre(affGererOffreEvenement.getOffres());
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance(affGererSeanceEvenement.getSceances());

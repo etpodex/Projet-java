@@ -74,8 +74,6 @@ public class PrincipaleVue extends JPanel {
         add(panneau_contenu, BorderLayout.CENTER);
         panneau_contenu.setLayout(new BorderLayout());
 
-        FileEvenements.getInstance().publier(new AffAccueilEvenement());
-
         // Revalide la mise en page + Redessine le panneau
         refresh();
     }
@@ -106,9 +104,10 @@ public class PrincipaleVue extends JPanel {
      * Affiche la vue d'accueil avec les données des datasets fournis.
      * @param datasets Les datasets contenant les données pour les graphiques.
      */
-    public void afficherAccueil(Object[] datasets) {
+    public void afficherAccueil(Object[] datasets, Offre[] offres) {
         panneau_contenu.removeAll();
         accueil_vue.setCharts((DefaultPieDataset) datasets[0], (DefaultCategoryDataset) datasets[1]);
+        accueil_vue.setOffres(offres);
         panneau_contenu.add(accueil_vue);
         refresh();
     }
