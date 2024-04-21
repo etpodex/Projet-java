@@ -1,7 +1,10 @@
 package View.Onglets;
 
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.ModifierUtilisateurEvenement;
 import Model.Utilisateur;
 import View.Onglets.MonCompteComposant.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,8 +16,8 @@ public class MonCompteVue extends JPanel {
     private Footer footer_panel;
 
     public MonCompteVue() {
-        setBackground(new Color(194, 156, 255));
-        setLayout(new BorderLayout());
+        setBackground(new Color(194, 156, 255)); // Définir la couleur de fond du panneau
+        setLayout(new BorderLayout()); // Utiliser un BorderLayout pour organiser les composants
 
         // Création du panel d'informations utilisateurs
         this.information_utilisateurs_scroll_panel = new InformationUtilisateurs(utilisateur);
@@ -30,20 +33,21 @@ public class MonCompteVue extends JPanel {
 
         // Ajout des listeners du footer pour changer la vue
         footer_panel.addModifierListener(e -> {
-            information_utilisateurs_scroll_panel.switchVue();
+            information_utilisateurs_scroll_panel.switchVue(); // Activer le mode édition
         });
         footer_panel.addValiderListener(e -> {
-            information_utilisateurs_scroll_panel.switchVue();
+            information_utilisateurs_scroll_panel.switchVue(); // Désactiver le mode édition
         });
     }
 
+    // Méthode pour mettre à jour les informations utilisateur
     public void updateMonCompte(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
-        System.out.println("MonCompteVue: " + utilisateur);
         information_utilisateurs_scroll_panel.updateValues(utilisateur);
     }
 }
 
+// Classe interne pour le panneau d'informations sur l'utilisateur
 class InformationUtilisateurs extends JScrollPane {
 
     private JPanel panel;
@@ -55,13 +59,12 @@ class InformationUtilisateurs extends JScrollPane {
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    private boolean isEditable = false;
+    private boolean isEditable = false; // Indicateur pour le mode édition
 
+    // Constructeur
     public InformationUtilisateurs(Utilisateur utilisateur) {
 
-        panel = new JPanel();
-
-        System.out.println("InformationUtilisateurs: " + utilisateur);
+        panel = new JPanel(); // Création d'un JPanel pour contenir les composants
 
         panel.setBackground(new Color(255, 204, 204)); // Définition de la couleur de fond
         panel.setLayout(new GridBagLayout()); // Utilisation d'un gestionnaire de disposition GridBagLayout
@@ -87,21 +90,7 @@ class InformationUtilisateurs extends JScrollPane {
         passwordField = new JPasswordField(10);
 
         // Affichage des informations de l'utilisateur dans les champs de texte correspondants
-        if (utilisateur != null) {
-            prenomField.setText(utilisateur.getPrenom());
-            nomField.setText(utilisateur.getNom());
-            ageField.setText(String.valueOf(utilisateur.getAge()));
-            nvAvantageField.setText(String.valueOf(utilisateur.getNvAvantage()));
-            emailField.setText(utilisateur.getEmail());
-            passwordField.setText(utilisateur.getPassword());
-        } else {
-            prenomField.setText("Inconnu");
-            nomField.setText("Inconnu");
-            ageField.setText("Inconnu");
-            nvAvantageField.setText("Inconnu");
-            emailField.setText("Vous n'êtes pas connecté");
-            passwordField.setText("Inconnu");
-        }
+        updateValues(utilisateur);
 
         // Positionnement des composants sur la grille
         gbc.gridx = 0;
@@ -150,10 +139,11 @@ class InformationUtilisateurs extends JScrollPane {
         gbc.gridwidth = 4;
         panel.add(passwordField, gbc);
 
-
         setViewportView(panel);
+        emailField.setEditable(false);
     }
 
+    // Méthode pour mettre à jour les valeurs des champs de texte avec les informations utilisateur
     public void updateValues(Utilisateur utilisateur) {
         if (utilisateur != null) {
             prenomField.setText(utilisateur.getPrenom());
@@ -172,24 +162,31 @@ class InformationUtilisateurs extends JScrollPane {
         }
     }
 
+    // Méthode pour activer/désactiver le mode édition
     public void switchVue() {
         if (isEditable) {
+            // Désactiver le mode édition
             prenomField.setEditable(false);
             nomField.setEditable(false);
             ageField.setEditable(false);
             nvAvantageField.setEditable(false);
-            emailField.setEditable(false);
             passwordField.setEditable(false);
-            passwordField.setEchoChar('*');
+            passwordField.setEchoChar('*'); // Masquer le mot de passe
+
+            Utilisateur utilisateur = new Utilisateur(null, emailField.getText(), nomField.getText(), prenomField.getText(),
+                    Integer.parseInt(ageField.getText()), Integer.parseInt(nvAvantageField.getText()), new String(passwordField.getPassword()));
+
+            FileEvenements.getInstance().publier(new ModifierUtilisateurEvenement(utilisateur));
+
         } else {
+            // Activer le mode édition
             prenomField.setEditable(true);
             nomField.setEditable(true);
             ageField.setEditable(true);
             nvAvantageField.setEditable(true);
-            emailField.setEditable(true);
             passwordField.setEditable(true);
-            passwordField.setEchoChar('\0');
+            passwordField.setEchoChar('\0'); // Afficher le mot de passe
         }
-        isEditable = !isEditable;
+        isEditable = !isEditable; // Inverser le mode édition
     }
 }

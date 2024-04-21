@@ -1,7 +1,6 @@
 package database;
-import Model.Utilisateur;
-import jdk.jshell.execution.Util;
 
+import Model.Utilisateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,11 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.Arrays;
 
-
+/**
+ * This class provides methods to interact with the database for managing users (utilisateurs).
+ */
 public class UtilisateurDAO implements IUtilisateurDAO {
-    // Implémentation des méthodes de GestionUtilisateur pour les clients
+
+    /**
+     * Connects a user using email and password.
+     *
+     * @param email    The email of the user.
+     * @param password The password of the user.
+     * @return The user object if login successful, otherwise null.
+     */
     @Override
     public Utilisateur connecter(String email, String password) {
         Utilisateur utilisateur = new Utilisateur();
@@ -25,7 +32,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
 
-            // Si l'utilisateur existe, ajouter ses informations à la liste
+            // If user exists, add their information to the user object
             if (rs.next()) {
                 utilisateur.setUuid(rs.getString("uuid"));
                 utilisateur.setEmail(rs.getString("email"));
@@ -39,9 +46,16 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Retourner null si l'utilisateur n'existe pas
+        // Return null if user does not exist
         return null;
     }
+
+    /**
+     * Adds a new user to the database.
+     *
+     * @param nouv_utilisateur The user object to add.
+     * @return 0 if addition successful, 1 if email already exists, 2 if addition failed for other reasons.
+     */
     @Override
     public int ajouter(Utilisateur nouv_utilisateur) {
         String email = nouv_utilisateur.getEmail();
@@ -50,7 +64,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         String prenom = nouv_utilisateur.getPrenom();
         int age = nouv_utilisateur.getAge();
         int nvAvantage = nouv_utilisateur.getNvAvantage();
-        UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
+        UUID uuid = UUID.randomUUID(); // Generate a new UUID
 
         if (outildatabase.emailExists(email)) {
             return 1;
@@ -58,9 +72,9 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
         String query = "INSERT INTO utilisateur (uuid, email, password, nom, prenom, age, nvAvantage) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement recupdonnee = conn.prepareStatement(query)) { // Enlever Statement.RETURN_GENERATED_KEYS
+             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
 
-            recupdonnee.setString(1, uuid.toString()); // UUID converti en String
+            recupdonnee.setString(1, uuid.toString()); // Convert UUID to String
             recupdonnee.setString(2, email);
             recupdonnee.setString(3, password);
             recupdonnee.setString(4, nom);
@@ -79,30 +93,40 @@ public class UtilisateurDAO implements IUtilisateurDAO {
         return 2;
     }
 
-
-
-    public void modifier(String email, String champ, String nouvelleValeur) {
-        String query = "UPDATE utilisateur SET " + champ + " = ? WHERE email = ?";
+    /**
+     * Modifies user information in the database.
+     *
+     * @param utilisateur The user object with updated information.
+     */
+    public void modifier(Utilisateur utilisateur) {
+        String query = "UPDATE utilisateur SET nom = ?, prenom = ?, age = ?, nvAvantage = ?, password = ? WHERE email = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
-             PreparedStatement recupdonnee = conn.prepareStatement(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            // Set nouvelle valeur
-            recupdonnee.setString(1, nouvelleValeur);
-            // Set email
+            pstmt.setString(1, utilisateur.getNom());
+            pstmt.setString(2, utilisateur.getPrenom());
+            pstmt.setInt(3, utilisateur.getAge());
+            pstmt.setInt(4, utilisateur.getNvAvantage());
+            pstmt.setString(5, utilisateur.getPassword());
+            pstmt.setString(6, utilisateur.getEmail());
 
-            recupdonnee.setString(2, email);
-
-            int affectedRows = recupdonnee.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("L'information du client a été modifiée avec succès.");
+                System.out.println("User information updated successfully.");
             } else {
-                System.out.println("Aucun client trouvé avec cet email.");
+                System.out.println("No user found with this email.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Deletes a user from the database based on their email.
+     *
+     * @param usermail The email of the user to delete.
+     */
     public void retirer(String usermail) {
         String query = "DELETE FROM utilisateur WHERE email = ?";
 
@@ -113,15 +137,21 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 
             int affectedRows = recupdonnee.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("Le client avec l'email " + usermail + " a été supprimé avec succès.");
+                System.out.println("User with email " + usermail + " deleted successfully.");
             } else {
-                System.out.println("Aucun client trouvé avec l'email " + usermail + ".");
+                System.out.println("No user found with email " + usermail + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Searches for users based on the given criteria.
+     *
+     * @param details The search criteria.
+     * @return A list of users matching the search criteria.
+     */
     @Override
     public List<Utilisateur> rechercher(String... details) {
         String critere = details[0];
@@ -145,16 +175,16 @@ public class UtilisateurDAO implements IUtilisateurDAO {
                 utilisateur.setPrenom(rs.getString("prenom"));
                 utilisateur.setAge(rs.getInt("age"));
                 utilisateur.setNvAvantage(rs.getInt("nvAvantage"));
-                // Ajoutez le mot de passe si nécessaire ou approprié
+                // Add password if necessary or appropriate
                 utilisateurs.add(utilisateur);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer l'erreur comme souhaité
+            // Handle the error as desired
         }
 
         if (utilisateurs.isEmpty()) {
-            // Peut-être retourner null ou une liste vide en fonction de la logique de votre application
+            // Maybe return null or an empty list depending on your application logic
         }
         return utilisateurs;
     }

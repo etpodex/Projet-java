@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Evenements.AffConnexionEvenement;
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.AffInscriptionEvenement;
 import Controller.Evenements.SkipEvenement;
@@ -8,14 +9,26 @@ import Controller.Evenements.SkipEvenement;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue pour le lancement de l'application CINAMAX.
+ */
 public class LancementVue {
 
     private static Skip skip_panel;
     private static ConnexionInscription connexion_inscription_panel;
 
+    /**
+     * Constructeur de la classe LancementVue.
+     */
     public LancementVue(){
     }
 
+    /**
+     * Méthode pour remplir le panneau principal avec les composants.
+     * @param frame La fenêtre principale de l'application.
+     * @param frame_width La largeur de la fenêtre principale.
+     * @param frame_height La hauteur de la fenêtre principale.
+     */
     public void remplirPanel(JFrame frame, int frame_width, int frame_height) {
         JPanel grand_panneau = new JPanel();
 
@@ -39,6 +52,9 @@ public class LancementVue {
     }
 }
 
+/**
+ * Classe pour le panneau "Skip".
+ */
 class Skip extends JPanel {
 
     /**ATTRIBUTS**/
@@ -53,7 +69,10 @@ class Skip extends JPanel {
 
         //Bouton skip
         bouton_skip = new JButton ("Skip");
-        bouton_skip.addActionListener(e -> {FileEvenements.getInstance().publier(new SkipEvenement());} );
+        bouton_skip.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new SkipEvenement());
+            FileEvenements.getInstance().publier(new AffAccueilEvenement());
+        } );
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
@@ -69,6 +88,9 @@ class Skip extends JPanel {
 
 }
 
+/**
+ * Classe pour le panneau du logo.
+ */
 class Logo extends JPanel {
     /**CONSTRUCTEUR**/
     public Logo(int frame_width, int frame_height) {
@@ -85,6 +107,9 @@ class Logo extends JPanel {
     }
 }
 
+/**
+ * Classe pour le panneau de connexion et d'inscription.
+ */
 class ConnexionInscription extends JPanel {
     /**ATTRIBUT**/
     private JButton bouton_connexion;

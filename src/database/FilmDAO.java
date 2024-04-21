@@ -14,12 +14,12 @@ import java.util.Arrays;
 
 public class FilmDAO implements IfilmDAO {
     @Override
-    public int ajouter(String... details) {
-        String nom = details[0];
-        String synopsis = details[1];
-        float note = Float.parseFloat(details[2]);
-        String URL_image = details[3];
-        int PrixFilm = Integer.parseInt(details[4]);
+    public int ajouter(Film film) {
+        String nom = film.getNom();
+        String synopsis = film.getSynopsis();
+        float note = film.getNote();
+        String URL_image = film.getUrlImage();
+        int PrixFilm = film.getPrixFilm();
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
         String query = "INSERT INTO Films (uuid,nom,Synopsis,note,URL_image,PrixFilm) VALUES (?,?,?,?,?,?)";
@@ -97,9 +97,10 @@ public class FilmDAO implements IfilmDAO {
 
 
     @Override
-    public Film[] rechercher(String critere) {
+    public Film[] rechercher(String champ, String critere) {
         List<Film> filmList = new ArrayList<>();
-        String query = "SELECT * FROM Films WHERE nom LIKE ? ORDER BY nom ASC";
+        // Utilisation de "champ" pour dynamiser la requête SQL
+        String query = String.format("SELECT * FROM Films WHERE %s LIKE ? ORDER BY %s ASC", champ, champ);
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -112,8 +113,9 @@ public class FilmDAO implements IfilmDAO {
 
                 film.setUuid(rs.getString("uuid"));
                 film.setNom(rs.getString("nom"));
-                film.setSynopsis(rs.getString("Synopsis"));
+                film.setSynopsis(rs.getString("synopsis"));  // Assurez-vous que la casse du "Synopsis" soit correcte selon votre base de données
                 film.setNote(rs.getFloat("note"));
+                film.setUrlImage(rs.getString("URL_image"));
 
                 filmList.add(film);
             }

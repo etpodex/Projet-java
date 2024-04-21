@@ -3,20 +3,35 @@ package View.Onglets.GererOffreVueComposant;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableCellEditor;
 import java.awt.*;
-import java.awt.event.*;
 
+import Controller.Evenements.AffichageOnglet.AffGererOffreEvenement;
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.SupprimerOffreEvenement;
 import Model.Offre;
 
+/**
+ * La classe Grille représente un composant Swing qui affiche une grille de données
+ * pour visualiser et gérer les offres.
+ */
 public class Grille extends JPanel {
 
-    private JTable table;
+    private JTable table; // La table affichant les offres
 
+    private Offre[] offres; // Les offres à afficher dans la grille
+
+    /**
+     * Constructeur de la classe Grille.
+     *
+     * @param offres Un tableau d'objets Offre représentant les offres à afficher dans la grille.
+     */
     public Grille(Offre[] offres) {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout()); // Configuration du layout en BorderLayout
+        this.offres = offres; // Initialisation des offres
 
+        // Définition des noms de colonnes
         String[] colonnesNoms = {"Nom Promo", "% Promo", "Code Promo", "Supprimer"};
+        // Création du modèle de table avec les colonnes définies
         DefaultTableModel tableModel = new DefaultTableModel(null, colonnesNoms) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -24,28 +39,46 @@ public class Grille extends JPanel {
             }
         };
 
-        table = new JTable(tableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowHeight(30);
-        table.getTableHeader().setReorderingAllowed(false);
+        table = new JTable(tableModel); // Création de la table avec le modèle défini
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Sélection unique
+        table.setRowHeight(30); // Hauteur des lignes
+        table.getTableHeader().setReorderingAllowed(false); // Interdiction de réorganiser les colonnes
 
-        // Définir les rendus et éditeurs pour la colonne "Supprimer"
+        // Définition des rendus et éditeurs pour la colonne "Supprimer"
         table.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
         table.getColumn("Supprimer").setCellEditor(new ButtonEditor(new JCheckBox()));
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(table); // Création d'un JScrollPane contenant la table
+        add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
 
+    }
+
+    public void setOffres(Offre[] offres) {
+        this.offres = offres;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Offre offre : offres) {
-            ajouterOffre(offre.getNom_promo(), offre.getReduction(), offre.getCode_promo());
+            model.addRow(new Object[]{offre.getNom_promo(), offre.getReduction(), offre.getCode_promo(), "Supprimer"});
         }
     }
 
+    /**
+     * Méthode pour ajouter une offre à la grille.
+     *
+     * @param nomPromo  Le nom de la promotion.
+     * @param reduction Le pourcentage de réduction de la promotion.
+     * @param codePromo Le code de la promotion.
+     */
     public void ajouterOffre(String nomPromo, int reduction, String codePromo) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        DefaultTableModel model = (DefaultTableModel) table.getModel(); // Récupération du modèle de la table
+        // Ajout d'une nouvelle ligne avec les données de l'offre
         model.addRow(new Object[]{nomPromo, reduction, codePromo, "Supprimer"});
     }
 
+    /**
+     * Cette classe interne ButtonRenderer définit un rendu personnalisé pour les cellules
+     * contenant des boutons dans la colonne "Supprimer" de la grille.
+     */
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -53,11 +86,15 @@ public class Grille extends JPanel {
 
         public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int row, int column) {
-            setText((value == null) ? "" : value.toString());
+            setText((value == null) ? "" : value.toString()); // Définition du texte du bouton
             return this;
         }
     }
 
+    /**
+     * Cette classe interne ButtonEditor définit un éditeur personnalisé pour les cellules
+     * contenant des boutons dans la colonne "Supprimer" de la grille.
+     */
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;
         private String label;
@@ -65,13 +102,9 @@ public class Grille extends JPanel {
 
         public ButtonEditor(JCheckBox checkBox) {
             super(checkBox);
-            button = new JButton();
-            button.setOpaque(true);
-            button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    fireEditingStopped();
-                }
-            });
+            button = new JButton(); // Création du bouton
+            button.setOpaque(true); // Définition de l'opacité
+            button.addActionListener(e -> fireEditingStopped()); // Ajout d'un écouteur d'événement
         }
 
         public Component getTableCellEditorComponent(JTable table, Object value,
@@ -92,7 +125,12 @@ public class Grille extends JPanel {
         public Object getCellEditorValue() {
             if (isPushed) {
                 // Code à exécuter lorsque le bouton est cliqué (supprimer l'offre)
-                ((DefaultTableModel) table.getModel()).removeRow(table.getEditingRow());
+                // Offre UUID
+                String code = offres[table.getSelectedRow()].getCode_promo();
+                SupprimerOffreEvenement evenement = new SupprimerOffreEvenement();
+                evenement.setCode(code);
+                FileEvenements.getInstance().publier(evenement);
+                FileEvenements.getInstance().publier(new AffGererOffreEvenement());
             }
             isPushed = false;
             return label;

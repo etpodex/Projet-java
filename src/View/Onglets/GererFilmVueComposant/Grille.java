@@ -3,48 +3,83 @@ package View.Onglets.GererFilmVueComposant;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableCellEditor;
 import java.awt.*;
 import java.awt.event.*;
+import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
+import Controller.Evenements.EffacerFilmEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Film;
 
+/**
+ * Panel contenant une grille pour afficher et gérer les films.
+ */
 public class Grille extends JPanel {
 
     private JTable table;
+    private Film[] films;
 
+    /**
+     * Constructeur de la grille.
+     *
+     * @param films Les films à afficher dans la grille.
+     */
     public Grille(Film[] films) {
+        this.films = films;
         setLayout(new BorderLayout());
 
         String[] colonnesNoms = {"Titre", "Acteur", "Temps", "Note", "Synopsis", "Affiche", "Supprimer"};
         DefaultTableModel tableModel = new DefaultTableModel(null, colonnesNoms) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 6; // Only the "Supprimer" column is editable
+                return column == 6; // Seule la colonne "Supprimer" est modifiable
             }
         };
 
-        table = new JTable(tableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowHeight(30);
-        table.getTableHeader().setReorderingAllowed(false);
+        table = new JTable(tableModel); // Création de la table avec le modèle
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Sélection unique
+        table.setRowHeight(30); // Hauteur des lignes
+        table.getTableHeader().setReorderingAllowed(false); // Interdiction de réorganiser les colonnes
 
-        // Set the renderers and editors for the "Supprimer" column
+        // Définition des rendus et des éditeurs pour la colonne "Supprimer"
         table.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
         table.getColumn("Supprimer").setCellEditor(new ButtonEditor(new JCheckBox()));
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(table); // Ajout de la table dans un JScrollPane
+        add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
+    }
 
+    /**
+     * Méthode pour définir les films à afficher dans la grille.
+     *
+     * @param films Les films à afficher.
+     */
+    public void setFilms(Film[] films) {
+        this.films = films;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Film film : films) {
             ajouterFilm(film.getNom(), film.getActeur(), film.getTemps(), film.getNote(), film.getSynopsis(), new ImageIcon(film.getUrlImage()));
         }
     }
 
+    /**
+     * Méthode pour ajouter un film à la grille.
+     *
+     * @param titre    Le titre du film.
+     * @param acteur   L'acteur principal du film.
+     * @param temps    La durée du film.
+     * @param note     La note du film.
+     * @param synopsis Le synopsis du film.
+     * @param affiche  L'affiche du film.
+     */
     public void ajouterFilm(String titre, String acteur, String temps, double note, String synopsis, Icon affiche) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{titre, acteur, temps, note, synopsis, affiche, "Supprimer"});
     }
 
+    /**
+     * Classe interne pour le rendu des boutons dans la colonne "Supprimer".
+     */
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -57,6 +92,9 @@ public class Grille extends JPanel {
         }
     }
 
+    /**
+     * Classe interne pour l'édition des cellules dans la colonne "Supprimer".
+     */
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;
         private String label;
@@ -90,11 +128,17 @@ public class Grille extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Code to perform action when the button is clicked
-                ((DefaultTableModel)table.getModel()).removeRow(table.getEditingRow());
+                // Récupérer l'UUID du film à supprimer à partir du numéro de ligne
+                int film_index = table.getSelectedRow();
+                String uuid = "";
+                if (film_index != -1) {
+                    uuid = films[film_index].getUuid();
+                    FileEvenements.getInstance().publier(new EffacerFilmEvenement(uuid));
+                    ((DefaultTableModel) table.getModel()).removeRow(film_index);
+                }
             }
             isPushed = false;
-            return label;
+            return "";
         }
 
         public boolean stopCellEditing() {

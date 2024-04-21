@@ -10,19 +10,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class BilletDAO implements IBilletDAO{
     @Override
-    public int ajouter(String... details) {
-        String id_utilisateur = details[0];
-        String id_sceance = details[1];
-        String id_film = details[2];
-        float prix_commande =Float.parseFloat(details[3]);
-        int nombreBilletSenior = Integer.parseInt(details[4]);
-        int nombreBilletEnfant = Integer.parseInt(details[5]);
-        int nombreBilletAdulte = Integer.parseInt(details[6]);
-        String siegeBillet = details[7];
+    public int ajouter(Billet billet) {
+        Random rand = new Random();
+
+        String id_utilisateur = billet.getMailClient();
+        String id_sceance = billet.getIdSeance();
+        String id_film = billet.getTitreFilm();
+        float prix_commande = 0;
+        int nombreBilletSenior = billet.getNombreBilletSenior();
+        int nombreBilletEnfant = billet.getNombreBilletEnfant();
+        int nombreBilletAdulte = billet.getNombreBilletAdulte();
+        String siegeBillet = billet.getSiegeBillet();
         UUID uuid = UUID.randomUUID(); // Générer un nouvel UUID
 
         String query = "INSERT INTO billet (id_billet,id_sceance,id_film,id_utilisateur,prixcommande,nombreBilletSenior,nombreBilletEnfant,nombreBilletAdulte,siegeBillet) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -78,7 +81,7 @@ public class BilletDAO implements IBilletDAO{
                 String siegeBillet = rsCommande.getString("siegeBillet");
 
                 String queryFilm = "SELECT nom, URL_image FROM films WHERE uuid = ?";
-                String querySceance = "SELECT horaire, date FROM sceance WHERE id_sceance = ?";
+                String querySceance = "SELECT horaire, date, id_salle FROM sceance WHERE id_sceance = ?";
 
                 Billet billet = new Billet();
 
@@ -98,6 +101,7 @@ public class BilletDAO implements IBilletDAO{
                     if (rsSceance.next()) {
                         billet.setHeureSeance(rsSceance.getString("horaire"));
                         billet.setDateSeance(rsSceance.getString("date"));
+                        billet.setSalleBillet(rsSceance.getString("id_salle"));
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -106,7 +110,7 @@ public class BilletDAO implements IBilletDAO{
                 billet.setNombreBilletSenior(nombreBilletSenior);
                 billet.setNombreBilletAdulte(nombreBilletAdulte);
                 billet.setNombreBilletEnfant(nombreBilletEnfant);
-                billet.setsiegeBillet(siegeBillet);
+                billet.setSiegeBillet(siegeBillet);
 
                 billetsList.add(billet);
             }

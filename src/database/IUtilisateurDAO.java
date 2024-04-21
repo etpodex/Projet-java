@@ -5,6 +5,6 @@ public interface IUtilisateurDAO {
     abstract Utilisateur connecter(String email, String motDePasse);
     int ajouter(Utilisateur utilisateur);
     void retirer(String email);
-    void modifier(String email, String champ, String nouvelleValeur);
+    void modifier(Utilisateur utilisateur);
     List<Utilisateur> rechercher(String... details);
 }

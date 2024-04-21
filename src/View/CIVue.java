@@ -1,36 +1,46 @@
 package View;
 
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.ConnexionEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.InscriptionEvenement;
 import Controller.Evenements.RetourCIEvenement;
 import Model.Utilisateur;
-import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
 
+/**
+ * Vue pour l'interface utilisateur de CINAMAX.
+ */
 public class CIVue {
-    /**ATTRIBUT**/
-
-    private Inscription inscription_panel; // Ajout de la référence à Inscription
+    // Attributs
+    private Inscription inscription_panel; // Référence à l'objet Inscription
     private Connexion connexion_panel;
     private String current_view;
 
-
+    /**
+     * Constructeur de la classe CIVue.
+     */
     public CIVue() {}
 
-
+    /**
+     * Méthode pour créer le panneau de l'interface utilisateur de CINAMAX.
+     * @param frame La fenêtre principale de l'application.
+     * @param frame_width La largeur de la fenêtre principale.
+     * @param frame_height La hauteur de la fenêtre principale.
+     * @param choix Le choix pour afficher la connexion ou l'inscription.
+     */
     public void creationCIPanel(JFrame frame, int frame_width, int frame_height, int choix){
         JPanel CIPanel = new JPanel();
 
-        //structure
+        // Structure
         int header_panel_height = (int) (frame_height * 0.1);
         int mid_panel_height = (int) (frame_height * 0.8);
 
-        //création des panels
+        // Création des panels
         Header header_panel = new Header(frame_width, header_panel_height);
         Connexion connexion_panel = new Connexion();
         Inscription inscription_panel = new Inscription(frame_width, mid_panel_height);
@@ -61,7 +71,10 @@ public class CIVue {
         }
     }
 
-    /// Méthode pour récupérer les données d'inscription à partir de Inscription
+    /**
+     * Méthode pour récupérer les données d'inscription à partir du panneau Inscription.
+     * @return Les données d'inscription de l'utilisateur.
+     */
     public Utilisateur getInscriptionData() {
         if (inscription_panel != null) {
             return inscription_panel.getInscriptionData();
@@ -70,6 +83,10 @@ public class CIVue {
         }
     }
 
+    /**
+     * Méthode pour récupérer les données de connexion à partir du panneau Connexion.
+     * @return Les données de connexion de l'utilisateur.
+     */
     public String[] getConnexionData() {
         if (inscription_panel != null) {
             return connexion_panel.getConnexionData();
@@ -78,11 +95,18 @@ public class CIVue {
         }
     }
 
+    /**
+     * Méthode pour obtenir la vue actuelle (Connexion ou Inscription).
+     * @return La vue actuelle.
+     */
     public String getCurrentView(){
         return current_view;
     }
 }
 
+/**
+ * Classe pour le panneau d'inscription.
+ */
 class Inscription extends JPanel {
 
     private static final int FIELD_WIDTH = 20;
@@ -95,6 +119,11 @@ class Inscription extends JPanel {
 
     private JComboBox<Integer> ageComboBox;
 
+    /**
+     * Constructeur de la classe Inscription.
+     * @param panelWidth La largeur du panneau.
+     * @param panelHeight La hauteur du panneau.
+     */
     public Inscription(int panelWidth, int panelHeight) {
         setPreferredSize(new Dimension(panelWidth, panelHeight));
         setBackground(Color.WHITE); // Couleur de fond du panneau
@@ -162,9 +191,17 @@ class Inscription extends JPanel {
     }
 }
 
+/**
+ * Classe pour le panneau de l'en-tête.
+ */
 class Header extends JPanel{
+    /**
+     * Constructeur de la classe Header.
+     * @param frame_width La largeur de la fenêtre.
+     * @param frame_height La hauteur de la fenêtre.
+     */
     public Header(int frame_width, int frame_height){
-        //couleur pour voir
+        // Couleur pour voir
         setBackground(new Color(186, 230, 187));
 
         JLabel label = new JLabel("CINAMAX");
@@ -177,14 +214,19 @@ class Header extends JPanel{
     }
 }
 
+/**
+ * Classe pour le panneau du pied de page.
+ */
 class Footer extends JPanel{
     private JButton bouton_valider;
     private JButton bouton_retour;
 
+    /**
+     * Constructeur de la classe Footer.
+     * @param ci_vue La vue principale de l'application.
+     */
     public Footer(CIVue ci_vue){
-
-
-        //couleur pour voir
+        // Couleur pour voir
         setBackground(new Color(186, 230, 187));
 
         setLayout(new GridBagLayout());
@@ -203,7 +245,7 @@ class Footer extends JPanel{
         bouton_retour = new JButton("Retour");
         bouton_retour.addActionListener(e -> {FileEvenements.getInstance().publier(new RetourCIEvenement());});
 
-        //GridBagLayout :
+        // GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
@@ -217,14 +259,19 @@ class Footer extends JPanel{
         gbc.anchor = GridBagConstraints.WEST;
         add(bouton_retour, gbc);
     }
-
 }
 
+/**
+ * Classe pour le panneau de connexion.
+ */
 class Connexion extends JPanel {
 
     private JTextField emailField;
     private JPasswordField passwordField;
 
+    /**
+     * Constructeur de la classe Connexion.
+     */
     public Connexion() {
         setLayout(new BorderLayout());
 

@@ -1,19 +1,20 @@
 package View;
 
-import Controller.Evenements.AffConnexionEvenement;
-import Controller.Evenements.AffichageOnglet.AffMesBilletsEvenement;
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.FileEvenements;
-import Model.Billet;
-import Model.Film;
-import Model.Utilisateur;
+import Model.*;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
-import jdk.jshell.execution.Util;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue principale de l'application Cinamax.
+ */
 public class PrincipaleVue extends JPanel {
 
     // ATTRIBUTS //
@@ -23,7 +24,7 @@ public class PrincipaleVue extends JPanel {
     private JPanel panneau_contenu; // Le panneau de contenu à droite
 
     // Instances des vues composant le panneau de contenu
-    private MesBilletsVue mes_billets_vue; // La vue du calendrier
+    private MesBilletsVue mes_billets_vue; // La vue des billets
     private LesFilmsVue les_films_vue; // La vue des films
     private AccueilVue accueil_vue; // La vue d'accueil
     private MonCompteVue mon_compte_vue; // La vue de mon compte
@@ -31,10 +32,11 @@ public class PrincipaleVue extends JPanel {
     private ReservationVue reservation_vue; // La vue de réservation
     private PaiementEnCoursVue paiement_en_cours_vue; // La vue de paiement en cours
     private PaiementVue paiement_vue; // La vue de paiement
-
-    private GererOffreVue gerer_offre;
-    private GererFilmVue gerer_film;
-    private GererSeanceVue gerer_seance;
+    private GererOffreVue gerer_offre; // La vue de gestion des offres
+    private GererFilmVue gerer_film; // La vue de gestion des films
+    private GererSeanceVue gerer_seance; // La vue de gestion des séances
+    private ReservationNerfVue reservation_nerf; // La vue de réservation alternative
+    private int statut_utilisateur; // Le statut de l'utilisateur connecté
 
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height) {
@@ -55,6 +57,7 @@ public class PrincipaleVue extends JPanel {
         this.gerer_offre = new GererOffreVue(panneau_contenu_width, frame_height);
         this.gerer_film = new GererFilmVue(panneau_contenu_width, frame_height);
         this.gerer_seance = new GererSeanceVue(panneau_contenu_width, frame_height);
+        this.reservation_nerf = new ReservationNerfVue(panneau_contenu_width, frame_height);
 
         this.reservation_vue = new ReservationVue(panneau_contenu_width, frame_height);
         this.paiement_en_cours_vue = new PaiementEnCoursVue();
@@ -75,6 +78,21 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
+    /**
+     * Méthode pour modifier le statut de l'utilisateur dans la vue principale.
+     * @param statut Le nouveau statut de l'utilisateur.
+     */
+    public void modif_statut_utilisateur(int statut) {
+        this.statut_utilisateur = statut;
+        barre_navigation.set_current_view(statut);
+    }
+
+    // Méthodes pour afficher les différentes vues dans le panneau de contenu
+
+    /**
+     * Affiche la vue des films avec la liste des films fournie.
+     * @param films La liste des films à afficher.
+     */
     public void afficherLesFilms(Film[] films) {
         panneau_contenu.removeAll();
         les_films_vue.updateFilms(films);
@@ -82,29 +100,55 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherAccueil() {
+    /**
+     * Affiche la vue d'accueil avec les données des datasets fournis.
+     * @param datasets Les datasets contenant les données pour les graphiques.
+     */
+    public void afficherAccueil(Object[] datasets, Offre[] offres) {
         panneau_contenu.removeAll();
+        accueil_vue.setCharts((DefaultPieDataset) datasets[0], (DefaultCategoryDataset) datasets[1]);
+        accueil_vue.setOffres(offres);
         panneau_contenu.add(accueil_vue);
         refresh();
     }
 
-    public void afficherGererFilm() {
+    /**
+     * Affiche la vue de gestion des films avec la liste des films fournie.
+     * @param films La liste des films à afficher.
+     */
+    public void afficherGererFilm(Film[] films) {
         panneau_contenu.removeAll();
+        gerer_film.setFilms(films);
         panneau_contenu.add(gerer_film);
         refresh();
     }
 
-    public void afficherGererOffre() {
+    /**
+     * Affiche la vue de gestion des offres avec la liste des offres fournie.
+     * @param offres La liste des offres à afficher.
+     */
+    public void afficherGererOffre(Offre[] offres) {
         panneau_contenu.removeAll();
+        gerer_offre.setGererOffres(offres);
         panneau_contenu.add(gerer_offre);
         refresh();
     }
 
-    public void afficherGererSeance() {
+    /**
+     * Affiche la vue de gestion des séances avec la liste des séances fournie.
+     * @param sceances La liste des séances à afficher.
+     */
+    public void afficherGererSeance(Sceance[] sceances) {
         panneau_contenu.removeAll();
+        gerer_seance.setGererSeances(sceances);
         panneau_contenu.add(gerer_seance);
         refresh();
     }
+
+    /**
+     * Affiche la vue des billets avec la liste des billets fournie.
+     * @param billets La liste des billets à afficher.
+     */
     public void afficherMesBillets(Billet[] billets) {
         panneau_contenu.removeAll();
         mes_billets_vue.updateBillets(billets);
@@ -112,6 +156,10 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
+    /**
+     * Affiche la vue de mon compte avec les données de l'utilisateur fournies.
+     * @param utilisateur Les données de l'utilisateur à afficher.
+     */
     public void afficherMonCompte(Utilisateur utilisateur) {
         panneau_contenu.removeAll();
         mon_compte_vue.updateMonCompte(utilisateur);
@@ -119,12 +167,28 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherReservation() {
+    /**
+     * Affiche la vue de réservation avec les données des séances et des offres fournies.
+     * @param seances La liste des séances disponibles.
+     * @param offres La liste des offres disponibles.
+     */
+    public void afficherReservation(Sceance[] seances, Offre[] offres) {
         panneau_contenu.removeAll();
-        panneau_contenu.add(reservation_vue);
-        refresh();
+        if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
+            reservation_vue.update_info_seance(seances);
+            reservation_vue.update_info_offre(offres, 1);
+            panneau_contenu.add(reservation_vue);
+            refresh();
+        } else {
+            reservation_nerf.update_info_seance(seances);
+            panneau_contenu.add(reservation_nerf);
+            refresh();
+        }
     }
 
+    /**
+     * Affiche la vue de paiement en cours.
+     */
     public void afficherPaiementEnCours() {
         panneau_contenu.removeAll();
         panneau_contenu.add(paiement_en_cours_vue);
@@ -132,21 +196,22 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
+    /**
+     * Affiche la vue de paiement.
+     */
     public void afficherPaiement() {
         panneau_contenu.removeAll();
         panneau_contenu.add(paiement_vue);
         refresh();
     }
 
+    // Méthode privée pour rafraîchir l'affichage de la vue principale
+
+    /**
+     * Rafraîchit l'affichage de la vue principale.
+     */
     private void refresh() {
         revalidate();
         repaint();
     }
-
-    public void modif_statut_utilisateur(int statut) {
-        barre_navigation.set_current_view(statut);
-    }
-
 }
-
-

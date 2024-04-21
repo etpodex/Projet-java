@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ISceanceDAO {
 
-    public int ajouter(String... details);
-    public Sceance[] rechercher(String id_Sceance);
+    public int ajouter(Sceance sceance);
+    public Sceance[] rechercher(String id_film);
+
+    public int supprimer(String id_sceance);
 }
