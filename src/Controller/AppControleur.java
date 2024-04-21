@@ -15,6 +15,11 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.Scanner;
 
+
+
+/**
+ * Le contrôleur principal de l'application qui gère les événements et les interactions entre les vues et les modèles.
+ */
 public class AppControleur {
     private MasterVue master_vue;
 
@@ -29,6 +34,11 @@ public class AppControleur {
 
     private ChartController chartController; // estelle pour point bonus projet
 
+
+    /**
+     * Constructeur par défaut de l'AppControleur.
+     * Initialise les vues et les DAO nécessaires, puis affiche la vue de lancement.
+     */
     public AppControleur() {
         this.master_vue = new MasterVue();
 
@@ -44,6 +54,11 @@ public class AppControleur {
         this.master_vue.afficherVueLancement();
     }
 
+    /**
+     * Méthode de gestion des événements de l'application.
+     *
+     * @param objet L'objet représentant l'événement à traiter.
+     */
     private void evenementControleur(Object objet) {
         System.out.println(objet.getClass());
         if (objet instanceof SkipEvenement) {
@@ -148,11 +163,22 @@ public class AppControleur {
         }
     }
 
-
+    /**
+     * Point d'entrée principal de l'application.
+     *
+     * @param args Les arguments de la ligne de commande (non utilisés dans cette application).
+     */
     public static void main(String[] args) {
         new AppControleur();
     }
 
+
+    /**
+     * Méthode permettant d'inscrire un nouvel utilisateur dans le système.
+     *
+     * @param nouv_utilisateur L'utilisateur à inscrire.
+     * @return 0 en cas de succès, 1 en cas d'échec, 2 si l'utilisateur est nul.
+     */
     public int inscription(Utilisateur nouv_utilisateur) {
 
         if (nouv_utilisateur != null) {
@@ -179,6 +205,13 @@ public class AppControleur {
         return 2;
     }
 
+    /**
+     * Méthode permettant de connecter un utilisateur au système.
+     *
+     * @param email         L'adresse e-mail de l'utilisateur.
+     * @param mot_de_passe  Le mot de passe de l'utilisateur.
+     * @return 0 en cas de succès, 1 en cas d'échec, 2 si l'email ou le mot de passe est nul.
+     */
     public int connexion(String email, String mot_de_passe) {
         if (email != null && mot_de_passe != null) {
             this.utilisateur_connecte = utilisateur_dao.connecter(email, mot_de_passe);
