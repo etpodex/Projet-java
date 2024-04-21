@@ -3,6 +3,7 @@ package View;
 
 import Model.Billet;
 import Model.Film;
+import Model.Sceance;
 import Model.Utilisateur;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
@@ -82,6 +83,11 @@ public class PrincipaleVue extends JPanel {
         barre_navigation.set_current_view(statut);
     }
 
+    public void update_info_seance(Sceance[] seance){
+        reservation_nerf.update_info_seance(seance);
+        reservation_vue.update_info_seance(seance);
+    }
+
     public void afficherLesFilms(Film[] films) {
         panneau_contenu.removeAll();
         les_films_vue.updateFilms(films);
@@ -126,12 +132,14 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherReservation() {
+    public void afficherReservation(Sceance[] seances) {
         panneau_contenu.removeAll();
         if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
+            reservation_vue.update_info_seance(seances);
             panneau_contenu.add(reservation_vue);
             refresh();
         } else {
+            reservation_nerf.update_info_seance(seances);
             panneau_contenu.add(reservation_nerf);
             refresh();
         }
