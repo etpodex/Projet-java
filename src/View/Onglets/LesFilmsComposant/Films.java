@@ -8,12 +8,21 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Panel pour afficher les détails d'un film et permettre la réservation.
+ */
 public class Films extends JPanel {
 
     private Film film; // Référence au film actuel
     private double[] poids_panels = {0.2, 0.8}; // Poids des deux panels
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Films.
+     *
+     * @param barre_navigation_panel_width largeur du panneau de navigation
+     * @param hauteur                      hauteur du panneau
+     * @param film                         film à afficher dans le panneau
+     */
     public Films(int barre_navigation_panel_width, int hauteur, Film film) {
         this.film = film; // Initialisation du film actuel
 
@@ -26,7 +35,11 @@ public class Films extends JPanel {
         creerEtAjouterPanels(barre_navigation_panel_width); // Méthode pour créer et ajouter les panels
     }
 
-    // Méthode pour créer et ajouter les panels
+    /**
+     * Crée et ajoute les panels pour afficher l'image du film et ses détails.
+     *
+     * @param barre_navigation_panel_width largeur du panneau de navigation
+     */
     private void creerEtAjouterPanels(int barre_navigation_panel_width) {
         // Premier panel pour l'image
         JPanel panel_image = new JPanel();
@@ -42,7 +55,6 @@ public class Films extends JPanel {
         JLabel imageLabel = new JLabel(imageIcon);
         panel_image.add(imageLabel);
 
-
         add(panel_image);
 
         // Deuxième panel pour les détails du film et le bouton Réserver
@@ -52,7 +64,6 @@ public class Films extends JPanel {
 
         // Labels pour les détails du film
         JLabel titreLabel = new JLabel("Titre: " + film.getNom());
-        //JLabel acteurLabel = new JLabel("Acteur : " + film.getActeur());
         JLabel noteLabel = new JLabel("Note: " + film.getNote());
         JLabel synopsisLabel = new JLabel("Synopsis:");
 
@@ -80,7 +91,6 @@ public class Films extends JPanel {
 
         // Ajout des composants au deuxième panel
         detailsPanel.add(titreLabel);
-        //detailsPanel.add(acteurLabel);
         detailsPanel.add(synopsisLabel);
         detailsPanel.add(synopsisScrollPane);
         detailsPanel.add(noteLabel);
