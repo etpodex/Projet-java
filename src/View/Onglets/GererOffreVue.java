@@ -1,21 +1,20 @@
 package View.Onglets;
 
+import Controller.Evenements.AjouterOffreEvenement;
+import Controller.Evenements.FileEvenements;
 import Model.Offre;
 import View.Onglets.GererOffreVueComposant.FormulaireAjoutOffreVue;
 import View.Onglets.GererOffreVueComposant.Grille;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Arrays;
 
 public class GererOffreVue extends JPanel {
 
     // Déclaration des attributs
-    private Offre[] offres = new Offre[]{
-            new Offre("Offre1", 10, "CODE1"),
-            new Offre("Offre2", 20, "CODE2"),
-            new Offre("Offre3", 15, "CODE3")
-    };
+    private Offre[] offres;
 
     private JPanel panelGrille;
     private JButton boutonAfficher;
@@ -78,6 +77,10 @@ public class GererOffreVue extends JPanel {
             panelGrille.revalidate();
             panelGrille.repaint();
 
+            AjouterOffreEvenement evenement = new AjouterOffreEvenement();
+            evenement.setOffre(nouvelleOffre);
+            FileEvenements.getInstance().publier(evenement); // Publication de l'événement pour mettre à jour les offres
+
             // Affichage des offres ajoutées (pour le débogage)
             for (int i = 0; i < offres.length; i++) {
                 Offre offre = offres[i];
@@ -86,5 +89,10 @@ public class GererOffreVue extends JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Erreur : Veuillez remplir tous les champs correctement.", "Erreur", JOptionPane.ERROR_MESSAGE); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
         }
+    }
+
+    public void setGererOffres(Offre[] offres) {
+        this.offres = offres;
+        grilleOffres.setOffres(offres);
     }
 }

@@ -133,7 +133,7 @@ public class ReservationVue extends JPanel {
         // Création du bouton "Valider"
         JButton validerButton = new JButton("Valider code promo");
         // Ajout d'un écouteur d'événements pour le bouton "Valider"
-        validerButton.addActionListener(e -> update_info_offre(info_offre));
+        validerButton.addActionListener(e -> update_info_offre(info_offre, 0));
 
         // Ajout du bouton "Valider"
         GridBagConstraints gbcValiderButton = new GridBagConstraints();
@@ -196,7 +196,7 @@ public class ReservationVue extends JPanel {
         }
     }
 
-    public void update_info_offre(Offre[] offres){
+    public void update_info_offre(Offre[] offres, int first_load){
         this.info_offre = offres;
         String codePromo = codePromoField.getText();
         boolean codePromoValide = false;
@@ -214,7 +214,9 @@ public class ReservationVue extends JPanel {
         }
 
         // Si le code promo est valide, recalculer le prix total en appliquant la réduction
-        if (codePromoValide) {
+        if(first_load == 1) {
+            calculerPrixTotal();
+        } else if (codePromoValide) {
             calculerPrixTotal(); // Appel à la méthode pour recalculer le prix total
             JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else {

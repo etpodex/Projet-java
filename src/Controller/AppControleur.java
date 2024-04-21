@@ -82,6 +82,10 @@ public class AppControleur {
             seance_dao.ajouter(((AjoutSeanceBDDEvenement) objet).getSeance());
         } else if (objet instanceof SuppressionSeanceBDDEvenement) {
             seance_dao.supprimer(((SuppressionSeanceBDDEvenement) objet).getUuid());
+        } else if (objet instanceof SupprimerOffreEvenement) {
+            offre_dao.retirer(((SupprimerOffreEvenement) objet).getCode());
+        } else if (objet instanceof AjouterOffreEvenement) {
+            offre_dao.ajouter(((AjouterOffreEvenement) objet).getOffre());
         }
 
         // Implemented AffPVEvenement events
@@ -125,6 +129,9 @@ public class AppControleur {
         } else if (objet instanceof AffGererSeanceEvenement) {
             ((AffGererSeanceEvenement) objet).setSceances(seance_dao.rechercher(""));
             System.out.println(seance_dao.rechercher("").length);
+            master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffGererOffreEvenement) {
+            ((AffGererOffreEvenement) objet).setOffres(offre_dao.rechercher(""));
             master_vue.afficherOnglet(objet);
         }
 

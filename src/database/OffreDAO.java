@@ -13,16 +13,16 @@ import java.util.UUID;
 
 public class OffreDAO implements IOffreDAO{
     @Override
-    public int ajouter(String nom_offre, int reduction, String code_promo) {
+    public int ajouter(Offre offre) {
 
-        String query = "INSERT INTO billet (nom_offre,reduction,code_promoe) VALUES (?,?,?)";
+        String query = "INSERT INTO offre (nom,reduction,code_promo) VALUES (?,?,?)";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement recupdonne = conn.prepareStatement(query)) {
 
-            recupdonne.setString(1, nom_offre); // UUID converti en String
-            recupdonne.setString(2, String.valueOf(reduction));
-            recupdonne.setString(3, code_promo);
+            recupdonne.setString(1, offre.getNom_promo()); // UUID converti en String
+            recupdonne.setString(2, String.valueOf(offre.getReduction()));
+            recupdonne.setString(3, offre.getCode_promo());
 
             int affectedRows = recupdonne.executeUpdate();
             if (affectedRows > 0) {

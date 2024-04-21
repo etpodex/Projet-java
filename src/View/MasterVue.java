@@ -70,7 +70,7 @@ public class MasterVue {
         switch (objet) {
             case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets());
             case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm(affGererFilmEvenement.getFilms());
-            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
+            case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre(affGererOffreEvenement.getOffres());
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance(affGererSeanceEvenement.getSceances());
             case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms(affLesFilmsEvenement.getFilms());
             case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets(affMesBilletsEvenement.getBillets());

@@ -1,8 +1,13 @@
+package View.Onglets.GererOffreVueComposant;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
+import Controller.Evenements.AffichageOnglet.AffGererOffreEvenement;
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.SupprimerOffreEvenement;
 import Model.Offre;
 
 /**
@@ -13,6 +18,8 @@ public class Grille extends JPanel {
 
     private JTable table; // La table affichant les offres
 
+    private Offre[] offres; // Les offres à afficher dans la grille
+
     /**
      * Constructeur de la classe Grille.
      *
@@ -20,6 +27,7 @@ public class Grille extends JPanel {
      */
     public Grille(Offre[] offres) {
         setLayout(new BorderLayout()); // Configuration du layout en BorderLayout
+        this.offres = offres; // Initialisation des offres
 
         // Définition des noms de colonnes
         String[] colonnesNoms = {"Nom Promo", "% Promo", "Code Promo", "Supprimer"};
@@ -43,9 +51,14 @@ public class Grille extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table); // Création d'un JScrollPane contenant la table
         add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
 
-        // Ajout des offres à la table
+    }
+
+    public void setOffres(Offre[] offres) {
+        this.offres = offres;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Offre offre : offres) {
-            ajouterOffre(offre.getNom_promo(), offre.getReduction(), offre.getCode_promo());
+            model.addRow(new Object[]{offre.getNom_promo(), offre.getReduction(), offre.getCode_promo(), "Supprimer"});
         }
     }
 
@@ -112,7 +125,12 @@ public class Grille extends JPanel {
         public Object getCellEditorValue() {
             if (isPushed) {
                 // Code à exécuter lorsque le bouton est cliqué (supprimer l'offre)
-                ((DefaultTableModel) table.getModel()).removeRow(table.getEditingRow());
+                // Offre UUID
+                String code = offres[table.getSelectedRow()].getCode_promo();
+                SupprimerOffreEvenement evenement = new SupprimerOffreEvenement();
+                evenement.setCode(code);
+                FileEvenements.getInstance().publier(evenement);
+                FileEvenements.getInstance().publier(new AffGererOffreEvenement());
             }
             isPushed = false;
             return label;

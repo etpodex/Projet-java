@@ -84,11 +84,6 @@ public class PrincipaleVue extends JPanel {
         barre_navigation.set_current_view(statut);
     }
 
-    public void update_info_seance(Sceance[] seance){
-        reservation_nerf.update_info_seance(seance);
-        reservation_vue.update_info_seance(seance);
-    }
-
     public void afficherLesFilms(Film[] films) {
         panneau_contenu.removeAll();
         les_films_vue.updateFilms(films);
@@ -111,8 +106,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherGererOffre() {
+    public void afficherGererOffre(Offre[] offres) {
         panneau_contenu.removeAll();
+        gerer_offre.setGererOffres(offres);
         panneau_contenu.add(gerer_offre);
         refresh();
     }
@@ -140,10 +136,8 @@ public class PrincipaleVue extends JPanel {
     public void afficherReservation(Sceance[] seances, Offre[] offres) {
         panneau_contenu.removeAll();
         if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
-            System.out.println(seances[0].toString());
             reservation_vue.update_info_seance(seances);
-            System.out.println(offres[0].toString());
-            reservation_vue.update_info_offre(offres);
+            reservation_vue.update_info_offre(offres, 1);
             panneau_contenu.add(reservation_vue);
             refresh();
         } else {

@@ -8,11 +8,11 @@ public class AffGererOffreEvenement extends AffPVEvenement {
 
     }
 
-    public Offre[] getFilms() {
+    public Offre[] getOffres() {
         return offres;
     }
 
-    public void setFilms(Offre[] films) {
-        this.offres = films;
+    public void setOffres(Offre[] offres) {
+        this.offres = offres;
     }
 }
