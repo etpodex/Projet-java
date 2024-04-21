@@ -1,16 +1,26 @@
 package View.Onglets;
 
 import Model.Billet;
-import View.Onglets.MesBilletsComposant.*;
+import View.Onglets.MesBilletsComposant.AffichageBillet;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Vue pour afficher la liste des billets de l'utilisateur.
+ */
 public class MesBilletsVue extends JScrollPane {
 
+    /** Composant d'affichage des billets. */
     private AffichageBillet affichageBillet;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue pour afficher les billets de l'utilisateur.
+     *
+     * @param panneau_contenu_width Largeur du panneau de contenu.
+     * @param frame_height          Hauteur de la fenêtre principale.
+     */
     public MesBilletsVue(int panneau_contenu_width, int frame_height) {
         setBackground(new Color(238, 238, 238)); // Définir la couleur de fond du JScrollPane
         setBorder(new EmptyBorder(20, 20, 0, 20)); // Définir les marges intérieures
@@ -19,7 +29,7 @@ public class MesBilletsVue extends JScrollPane {
         panneau_contenu_width = panneau_contenu_width * 14 / 15;
 
         // Création des composants
-        this.affichageBillet = new AffichageBillet(panneau_contenu_width, frame_height); // Créer un nouvel affichage de affichageBillet
+        this.affichageBillet = new AffichageBillet(panneau_contenu_width, frame_height); // Créer un nouvel affichage de billets
 
         // Création d'un panel interne pour le contenu défilable
         JPanel contentPanel = new JPanel();
@@ -40,7 +50,11 @@ public class MesBilletsVue extends JScrollPane {
         setLayout(new ScrollPaneLayout());
     }
 
-    // Méthode pour mettre à jour les billets
+    /**
+     * Met à jour les billets affichés.
+     *
+     * @param billets Tableau des billets à afficher.
+     */
     public void updateBillets(Billet[] billets) {
         this.affichageBillet.updateBillets(billets); // Mettre à jour les billets dans l'affichage de billets
     }
