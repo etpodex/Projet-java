@@ -1,17 +1,14 @@
 package Controller;
 
-import Model.Offre;
+import Model.*;
 import database.*;
 
 import Controller.Evenements.*;
 import Controller.Evenements.AffichageOnglet.*;
-import Model.Film;
 import View.MasterVue;
 
 import java.util.List;
 
-import Model.Utilisateur;
-import Model.Sceance;
 import jdk.jshell.execution.Util;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -133,6 +130,13 @@ public class AppControleur {
         } else if (objet instanceof AffGererOffreEvenement) {
             ((AffGererOffreEvenement) objet).setOffres(offre_dao.rechercher(""));
             master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffPaiementEvenement) {
+            Billet billet = ((AffPaiementEvenement) objet).getBillet();
+            if (utilisateur_connecte != null) {
+                billet.setMailClient(utilisateur_connecte.getUuid());
+                billet_dao.ajouter(billet);
+                ((AffPaiementEvenement) objet).setBillet(billet);
+            }
         }
 
         // The rest of the events (just to be displayed for now)

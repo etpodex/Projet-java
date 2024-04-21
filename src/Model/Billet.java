@@ -4,6 +4,7 @@ public class Billet {
 
     // Attributs
     private String titreFilm;
+    private String idSeance;
     private String dateSeance;
     private String heureSeance;
     private String salleBillet;
@@ -21,7 +22,7 @@ public class Billet {
     // Constructeur avec tous les paramètres
     public Billet(String titreFilm, String dateSeance, String heureSeance, String salleBillet,String siegeBillet,
                   int nombreBilletAdulte, int nombreBilletEnfant, int nombreBilletSenior,
-                  String mailClient, String urlImageFilm) {
+                  String mailClient, String urlImageFilm, String idSeance) {
         this.titreFilm = titreFilm;
         this.dateSeance = dateSeance;
         this.heureSeance = heureSeance;
@@ -32,6 +33,7 @@ public class Billet {
         this.nombreBilletSenior = nombreBilletSenior;
         this.mailClient = mailClient;
         this.urlImageFilm = urlImageFilm;
+        this.idSeance = idSeance;
     }
 
     // Getters
@@ -74,6 +76,10 @@ public class Billet {
         return urlImageFilm;
     }
 
+    public String getIdSeance() {
+        return idSeance;
+    }
+
     // Setters
     public void setTitreFilm(String titreFilm) {
         this.titreFilm = titreFilm;
@@ -113,6 +119,10 @@ public class Billet {
 
     public void setUrlImageFilm(String urlImageFilm) {
         this.urlImageFilm = urlImageFilm;
+    }
+
+    public void setIdSeance(String idSeance) {
+        this.idSeance = idSeance;
     }
 
     // Méthode toString

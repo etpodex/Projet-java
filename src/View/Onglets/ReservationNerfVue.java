@@ -2,6 +2,7 @@ package View.Onglets;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Billet;
 import Model.Sceance;
 
 import javax.swing.*;
@@ -90,7 +91,11 @@ public class ReservationNerfVue extends JPanel {
         // Ajout du bouton "Payer"
         JButton payerButton = new JButton("Payer");
         payerButton.addActionListener(e -> {
-            FileEvenements.getInstance().publier(new AffPaiementEvenement());
+            Billet billet = new Billet();
+            billet.setTitreFilm(info_seance[sceanceComboBox.getSelectedIndex()].getIdFilm());
+            AffPaiementEvenement affPaiementEvenement = new AffPaiementEvenement();
+            affPaiementEvenement.setBillet(billet);
+            FileEvenements.getInstance().publier(affPaiementEvenement);
             reinitialiserChamps();
         });
 
