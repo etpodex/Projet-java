@@ -72,7 +72,8 @@ public class FormulaireAjoutFilmVue extends JPanel {
 
         // Si la note est valide, créer et retourner l'objet Film
         return new Film(
-                "", // Laisser l'ID vide pour le moment
+                // Create a UUID
+                java.util.UUID.randomUUID().toString(),
                 titreField.getText(), // Titre du film
                 acteurField.getText(), // Acteur principal
                 synopsisField.getText(), // Synopsis

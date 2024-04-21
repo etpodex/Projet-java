@@ -75,7 +75,9 @@ public class AppControleur {
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
         } else if (objet instanceof EffacerFilmEvenement){
-            System.out.println("bouton sup cliqué");
+            film_dao.retirer(((EffacerFilmEvenement) objet).getIdFilm());
+        } else if (objet instanceof AjoutFilmBDDEvenement) {
+            film_dao.ajouter(((AjoutFilmBDDEvenement) objet).getFilm());
         }
 
         // Implemented AffPVEvenement events
@@ -104,12 +106,17 @@ public class AppControleur {
             }
             ((AffAccueilEvenement) objet).setBarDataset(barDataset);
 
+            master_vue.afficherOnglet(objet);
+
         } else if (objet instanceof AffReservationEvenement){
             Film film = ((AffReservationEvenement)objet).getFilm();
             ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
             //System.out.println(offre_dao.rechercher("")[0].toString());
             ((AffReservationEvenement)objet).setOffre(offre_dao.rechercher("AZERTY"));
             //System.out.println( "quelque chose : " + ((AffReservationEvenement)objet).getOffres()[0].toString());
+            master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffGererFilmEvenement) {
+            ((AffGererFilmEvenement) objet).setFilms(film_dao.rechercher("nom", ""));
             master_vue.afficherOnglet(objet);
         }
 

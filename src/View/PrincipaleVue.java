@@ -3,10 +3,7 @@ package View;
 
 import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.FileEvenements;
-import Model.Billet;
-import Model.Film;
-import Model.Sceance;
-import Model.Utilisateur;
+import Model.*;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
@@ -107,8 +104,9 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherGererFilm() {
+    public void afficherGererFilm(Film[] films) {
         panneau_contenu.removeAll();
+        gerer_film.setFilms(films);
         panneau_contenu.add(gerer_film);
         refresh();
     }
