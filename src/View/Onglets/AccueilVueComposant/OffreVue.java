@@ -1,10 +1,14 @@
 package View.Onglets.AccueilVueComposant;
+
 import Model.Offre;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * La classe OffreVue représente un panneau pour afficher des offres avec des codes promo et des réductions.
+ */
 public class OffreVue extends JPanel {
 
     private Offre[] offres = new Offre[]{
@@ -15,7 +19,12 @@ public class OffreVue extends JPanel {
     private int nombre_de_panel_offre = offres.length; // Nombre de panneaux correspondant au nombre d'offres
     private double[] poids_panels; // Poids des panneaux pour le layout
 
-    // Constructeur
+    /**
+     * Constructeur de la classe OffreVue.
+     *
+     * @param barre_navigation_panel_width La largeur de la barre de navigation.
+     * @param frame_height                 La hauteur du frame.
+     */
     public OffreVue(int barre_navigation_panel_width, int frame_height) {
         // Initialiser les poids des panneaux en fonction du nombre d'offres
         poids_panels = new double[nombre_de_panel_offre];
@@ -40,7 +49,12 @@ public class OffreVue extends JPanel {
         creerEtAjouterPanels(gbc, hauteur);
     }
 
-    // Méthode pour créer et ajouter les panneaux
+    /**
+     * Méthode privée pour créer et ajouter les panneaux d'offres.
+     *
+     * @param gbc      Les contraintes de la grille.
+     * @param hauteur  La hauteur des panneaux.
+     */
     private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur) {
         for (int i = 0; i < nombre_de_panel_offre; i++) {
             JPanel panel_offre = new JPanel(); // Création d'un nouveau JPanel

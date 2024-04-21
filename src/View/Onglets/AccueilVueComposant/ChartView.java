@@ -9,10 +9,16 @@ import org.jfree.data.general.PieDataset;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe ChartView représente la vue des graphiques en camembert et en barres.
+ */
 public class ChartView extends JPanel {
     private ChartPanel pieChartPanel;  // Panneau pour le graphique en camembert
     private ChartPanel barChartPanel;  // Panneau pour le graphique en barres
 
+    /**
+     * Constructeur de la classe ChartView.
+     */
     public ChartView() {
         setLayout(new GridLayout(1, 2));  // Définit la disposition pour les graphiques
         setMinimumSize(new Dimension(400, 300)); // Assure qu'il ne devienne pas trop petit
@@ -26,17 +32,26 @@ public class ChartView extends JPanel {
         add(barChartPanel);  // Ajouter le graphique en barres au panneau
     }
 
+    /**
+     * Définit un graphique en camembert dans le panneau.
+     *
+     * @param dataset Le jeu de données du graphique en camembert.
+     */
     public void setPieChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart("Tendance Film", dataset, true, true, false);
         pieChartPanel = new ChartPanel(chart);
         pieChartPanel.setChart(chart);
-        System.out.println(dataset.toString());
         pieChartPanel.revalidate();
         pieChartPanel.repaint();
         revalidate();  // Revalider pour refléter les changements de mise en page
         repaint();  // Redessiner le composant
     }
 
+    /**
+     * Définit un graphique en barres dans le panneau.
+     *
+     * @param dataset Le jeu de données du graphique en barres.
+     */
     public void setBarChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart("Tendance Film", "Film", "Score", dataset);
         barChartPanel = new ChartPanel(chart);
