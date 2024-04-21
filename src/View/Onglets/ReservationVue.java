@@ -22,6 +22,7 @@ public class ReservationVue extends JPanel {
     private JLabel placesRestantesLabel; // Champ pour afficher le nombre de places restantes
 
     private Sceance[] info_seance;
+    private Offre[] info_offre;
 
     // Prix des billets
     private static final double PRIX_BILLET = 10.0;
@@ -132,7 +133,7 @@ public class ReservationVue extends JPanel {
         // Création du bouton "Valider"
         JButton validerButton = new JButton("Valider code promo");
         // Ajout d'un écouteur d'événements pour le bouton "Valider"
-        validerButton.addActionListener(e -> validerCodePromo());
+        validerButton.addActionListener(e -> update_info_offre(info_offre));
 
         // Ajout du bouton "Valider"
         GridBagConstraints gbcValiderButton = new GridBagConstraints();
@@ -172,7 +173,34 @@ public class ReservationVue extends JPanel {
         sceanceComboBox.removeAllItems();
         // Ajouter les dates et heures des séances disponibles à la JComboBox pour un film spécifique
         for (Sceance sceance : info_seance) {
-            sceanceComboBox.addItem(sceance.getDate() + " " + sceance.getHoraire());
+            sceanceComboBox.addItem(sceance.getDate() + "" + sceance.getHoraire());
+        }
+    }
+
+    public void update_info_offre(Offre[] offres){
+        this.info_offre = offres;
+        String codePromo = codePromoField.getText();
+        boolean codePromoValide = false;
+        double tauxReduction = 0.0;
+
+        System.out.println(info_offre.toString());
+
+        // Vérifier si le code promo est valide et obtenir le taux de réduction correspondant
+        for (Offre offre : info_offre) {
+            if (offre.getCode_promo().equals(codePromo)) {
+                codePromoValide = true;
+                tauxReduction = offre.getReduction();
+                break;
+            }
+        }
+
+        // Si le code promo est valide, recalculer le prix total en appliquant la réduction
+        if (codePromoValide) {
+            calculerPrixTotal();
+            JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Sinon, afficher un message d'erreur
+            JOptionPane.showMessageDialog(this, "Code promo invalide", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -263,13 +291,13 @@ public class ReservationVue extends JPanel {
 
     // Déclaration des séances
     private Sceance[] seances = new Sceance[]{
-            new Sceance(1, 1, "09:00", 1, "2024-04-01", 100),
-            new Sceance(2, 2, "12:00", 2, "2024-04-01", 120),
-            new Sceance(3, 3, "15:00", 3, "2024-04-01", 80),
-            new Sceance(4, 1, "10:00", 1, "2024-04-02", 90),
-            new Sceance(5, 2, "13:00", 2, "2024-04-02", 110),
-            new Sceance(6, 3, "16:00", 3, "2024-04-02", 70),
-            new Sceance(7, 1, "11:00", 1, "2024-04-03", 80),
-            new Sceance(8, 2, "14:00", 2, "2024-04-03", 100)
+            new Sceance(1, "1", "09:00", 1, "2024-04-01", 100),
+            new Sceance(2, "1", "12:00", 2, "2024-04-01", 120),
+            new Sceance(3, "1", "15:00", 3, "2024-04-01", 80),
+            new Sceance(4, "1", "10:00", 1, "2024-04-02", 90),
+            new Sceance(5, "1", "13:00", 2, "2024-04-02", 110),
+            new Sceance(6, "1", "16:00", 3, "2024-04-02", 70),
+            new Sceance(7, "1", "11:00", 1, "2024-04-03", 80),
+            new Sceance(8, "1", "14:00", 2, "2024-04-03", 100)
     };
 }

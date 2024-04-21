@@ -139,13 +139,13 @@ public class ReservationNerfVue extends JPanel {
 
     // Déclaration des séances
     private Sceance[] seances = new Sceance[]{
-            new Sceance(1, 1, "09:00", 1, "2024-04-01", 100),
-            new Sceance(2, 2, "12:00", 2, "2024-04-01", 120),
-            new Sceance(3, 3, "15:00", 3, "2024-04-01", 80),
-            new Sceance(4, 1, "10:00", 1, "2024-04-02", 90),
-            new Sceance(5, 2, "13:00", 2, "2024-04-02", 110),
-            new Sceance(6, 3, "16:00", 3, "2024-04-02", 70),
-            new Sceance(7, 1, "11:00", 1, "2024-04-03", 80),
-            new Sceance(8, 2, "14:00", 2, "2024-04-03", 100)
+            new Sceance(1, "1", "09:00", 1, "2024-04-01", 100),
+            new Sceance(2, "1", "12:00", 2, "2024-04-01", 120),
+            new Sceance(3, "1", "15:00", 3, "2024-04-01", 80),
+            new Sceance(4, "1", "10:00", 1, "2024-04-02", 90),
+            new Sceance(5, "1", "13:00", 2, "2024-04-02", 110),
+            new Sceance(6, "1", "16:00", 3, "2024-04-02", 70),
+            new Sceance(7, "1", "11:00", 1, "2024-04-03", 80),
+            new Sceance(8, "1", "14:00", 2, "2024-04-03", 100)
     };
 }

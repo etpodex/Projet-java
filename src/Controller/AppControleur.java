@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Offre;
 import database.*;
 
 import Controller.Evenements.*;
@@ -12,6 +13,8 @@ import java.util.List;
 import Model.Utilisateur;
 import Model.Sceance;
 import jdk.jshell.execution.Util;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.Scanner;
 
@@ -64,16 +67,17 @@ public class AppControleur {
                     master_vue.modif_statut_utilisateur(utilisateur_connecte.getNvAvantage());
                 }
             }
-
+        } else if (objet instanceof ModifierUtilisateurEvenement) {
+            utilisateur_dao.modifier(((ModifierUtilisateurEvenement) objet).getUtilisateur());
         } else if (objet instanceof DeconnexionEvenement) {
             master_vue.afficherConnexion();
             master_vue.modif_statut_utilisateur(0);
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
-        } /**else if (objet instanceof AffLesFilms) {
-            master_vue.afficherPVLesFilms();
-        }**/ else if (objet instanceof EffacerFilmEvenement){
-            System.out.println("bouton sup cliqué");
+        } else if (objet instanceof EffacerFilmEvenement){
+            film_dao.retirer(((EffacerFilmEvenement) objet).getIdFilm());
+        } else if (objet instanceof AjoutFilmBDDEvenement) {
+            film_dao.ajouter(((AjoutFilmBDDEvenement) objet).getFilm());
         }
 
         // Implemented AffPVEvenement events
@@ -86,10 +90,33 @@ public class AppControleur {
         } else if (objet instanceof AffMesBilletsEvenement) {
             ((AffMesBilletsEvenement) objet).setBillets(billet_dao.rechercher(utilisateur_connecte.getUuid()));
             master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffAccueilEvenement) {
+
+            DefaultPieDataset pieDataset = new DefaultPieDataset();
+            Film[] pie_data = film_dao.rechercher("note","");
+            for (Film film : pie_data) {
+                pieDataset.setValue(film.getNom(), film.getNote());
+            }
+            ((AffAccueilEvenement) objet).setPieDataset(pieDataset);
+
+            DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
+            Film[] bar_data = film_dao.rechercher("note","");
+            for (Film film : bar_data) {
+                barDataset.addValue(film.getNote(), film.getNom(), "Column");
+            }
+            ((AffAccueilEvenement) objet).setBarDataset(barDataset);
+
+            master_vue.afficherOnglet(objet);
+
         } else if (objet instanceof AffReservationEvenement){
             Film film = ((AffReservationEvenement)objet).getFilm();
-            System.out.println(seance_dao.rechercher(film.getUuid())[0].getDate());
             ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
+            //System.out.println(offre_dao.rechercher("")[0].toString());
+            ((AffReservationEvenement)objet).setOffre(offre_dao.rechercher("AZERTY"));
+            //System.out.println( "quelque chose : " + ((AffReservationEvenement)objet).getOffres()[0].toString());
+            master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffGererFilmEvenement) {
+            ((AffGererFilmEvenement) objet).setFilms(film_dao.rechercher("nom", ""));
             master_vue.afficherOnglet(objet);
         }
 

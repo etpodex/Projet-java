@@ -1,13 +1,14 @@
 package View;
 
 
-import Model.Billet;
-import Model.Film;
-import Model.Sceance;
-import Model.Utilisateur;
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
+import Controller.Evenements.FileEvenements;
+import Model.*;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +73,7 @@ public class PrincipaleVue extends JPanel {
         add(panneau_contenu, BorderLayout.CENTER);
         panneau_contenu.setLayout(new BorderLayout());
 
-        afficherAccueil();
+        FileEvenements.getInstance().publier(new AffAccueilEvenement());
 
         // Revalide la mise en page + Redessine le panneau
         refresh();
@@ -95,14 +96,17 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherAccueil() {
+    public void afficherAccueil(Object[] datasets) {
         panneau_contenu.removeAll();
+        accueil_vue.setPieChart((DefaultPieDataset) datasets[0]);
+        accueil_vue.setBarChart((DefaultCategoryDataset) datasets[1]);
         panneau_contenu.add(accueil_vue);
         refresh();
     }
 
-    public void afficherGererFilm() {
+    public void afficherGererFilm(Film[] films) {
         panneau_contenu.removeAll();
+        gerer_film.setFilms(films);
         panneau_contenu.add(gerer_film);
         refresh();
     }
@@ -132,11 +136,13 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherReservation(Sceance[] seances) {
+    public void afficherReservation(Sceance[] seances, Offre[] offres) {
         panneau_contenu.removeAll();
         if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
             System.out.println(seances[0].toString());
             reservation_vue.update_info_seance(seances);
+            System.out.println(offres[0].toString());
+            reservation_vue.update_info_offre(offres);
             panneau_contenu.add(reservation_vue);
             refresh();
         } else {

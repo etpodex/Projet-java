@@ -21,12 +21,18 @@ public class ChartView extends JPanel {
         ChartModel model = new ChartModel();
         setPieChart(model.getPieDataset());  // Afficher le graphique en camembert
         setBarChart(model.getBarDataset());  // Afficher le graphique en barres
+
+        add(pieChartPanel);  // Ajouter le graphique en camembert au panneau
+        add(barChartPanel);  // Ajouter le graphique en barres au panneau
     }
 
     public void setPieChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart("Tendance Film", dataset, true, true, false);
         pieChartPanel = new ChartPanel(chart);
-        add(pieChartPanel);  // Ajouter le graphique en camembert au panneau
+        pieChartPanel.setChart(chart);
+        System.out.println(dataset.toString());
+        pieChartPanel.revalidate();
+        pieChartPanel.repaint();
         revalidate();  // Revalider pour refléter les changements de mise en page
         repaint();  // Redessiner le composant
     }
@@ -34,7 +40,9 @@ public class ChartView extends JPanel {
     public void setBarChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart("Tendance Film", "Film", "Score", dataset);
         barChartPanel = new ChartPanel(chart);
-        add(barChartPanel);  // Ajouter le graphique en barres au panneau
+        barChartPanel.setChart(chart);
+        barChartPanel.revalidate();
+        barChartPanel.repaint();
         revalidate();  // Revalider pour refléter les changements de mise en page
         repaint();  // Redessiner le composant
     }

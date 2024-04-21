@@ -66,21 +66,16 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
-    public void afficherAccueilVue() {
-        resetFrame();
-        principale_vue.afficherAccueil();
-    }
-
     public void afficherOnglet(Object objet) {
         switch (objet) {
-            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil();
-            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm();
+            case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets());
+            case AffGererFilmEvenement affGererFilmEvenement -> principale_vue.afficherGererFilm(affGererFilmEvenement.getFilms());
             case AffGererOffreEvenement affGererOffreEvenement -> principale_vue.afficherGererOffre();
             case AffGererSeanceEvenement affGererSeanceEvenement -> principale_vue.afficherGererSeance();
             case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms(affLesFilmsEvenement.getFilms());
             case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets(affMesBilletsEvenement.getBillets());
             case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte(affMonCompteEvenement.getUtilisateur());
-            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation(affReservationEvenement.getSeances());
+            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation(affReservationEvenement.getSeances(), affReservationEvenement.getOffres());
             case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();
             case AffPaiementEnCoursEvenement affPaiementEnCoursEvenement -> principale_vue.afficherPaiementEnCours();
             default -> {
