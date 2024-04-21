@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Sceance {
     private int idSceance;
-    private int idFilm;
+    private String idFilm;
     private String horaire;
     private int idSalle;
     private String date;
     private int nbPlaceRestante;
 
     // Constructeur
-    public Sceance(int idSceance, int idFilm, String horaire, int idSalle, String date, int nbPlaceRestante) {
+    public Sceance(int idSceance, String idFilm, String horaire, int idSalle, String date, int nbPlaceRestante) {
         this.idSceance = idSceance;
         this.idFilm = idFilm;
         this.horaire = horaire;
@@ -29,11 +29,11 @@ public class Sceance {
         this.idSceance = idSceance;
     }
 
-    public int getIdFilm() {
+    public String getIdFilm() {
         return idFilm;
     }
 
-    public void setIdFilm(int idFilm) {
+    public void setIdFilm(String idFilm) {
         this.idFilm = idFilm;
     }
 
