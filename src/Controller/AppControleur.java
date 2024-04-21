@@ -108,7 +108,7 @@ public class AppControleur {
             Film film = ((AffReservationEvenement)objet).getFilm();
             ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
             //System.out.println(offre_dao.rechercher("")[0].toString());
-            ((AffReservationEvenement)objet).setOffre(offre_dao.rechercher("AZERTY"));
+            ((AffReservationEvenement)objet).setOffre(offre_dao.rechercher(""));
             //System.out.println( "quelque chose : " + ((AffReservationEvenement)objet).getOffres()[0].toString());
             master_vue.afficherOnglet(objet);
         }

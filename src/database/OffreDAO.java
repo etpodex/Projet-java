@@ -41,19 +41,29 @@ public class OffreDAO implements IOffreDAO{
     public Offre[] rechercher(String id_promo) {
         List<Offre> offreList = new ArrayList<>();
 
-        String query = "SELECT nom,reduction,code_promo FROM offre WHERE code_promo like ?";
+        // La requête de base sélectionne tout
+        String query = "SELECT nom, reduction, code_promo FROM offre";
+
+        // Si id_promo n'est pas vide, on ajoute une condition WHERE
+        if (id_promo != null && !id_promo.isEmpty()) {
+            query += " WHERE code_promo LIKE ?";
+        }
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, id_promo);
+            // On ne définit le paramètre que si id_promo n'est pas vide
+            if (id_promo != null && !id_promo.isEmpty()) {
+                pstmt.setString(1, "%" + id_promo + "%");
+            }
+
             ResultSet rsCommande = pstmt.executeQuery();
 
             while (rsCommande.next()) {
                 String nom = rsCommande.getString("nom");
                 int reduction = rsCommande.getInt("reduction");
                 String code_promo = rsCommande.getString("code_promo");
-                System.out.println("azertyu" + code_promo);
+
                 Offre offre = new Offre();
 
                 offre.setCode_promo(code_promo);

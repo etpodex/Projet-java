@@ -196,7 +196,7 @@ public class ReservationVue extends JPanel {
 
         // Si le code promo est valide, recalculer le prix total en appliquant la réduction
         if (codePromoValide) {
-            calculerPrixTotal();
+            calculerPrixTotal(); // Appel à la méthode pour recalculer le prix total
             JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else {
             // Sinon, afficher un message d'erreur
@@ -204,34 +204,6 @@ public class ReservationVue extends JPanel {
         }
     }
 
-
-
-    // Méthode pour valider et appliquer le code promo
-    private void validerCodePromo() {
-        String codePromo = codePromoField.getText();
-        boolean codePromoValide = false;
-        double tauxReduction = 0.0;
-
-        // Vérifier si le code promo est valide et obtenir le taux de réduction correspondant
-        for (Offre offre : offres) {
-            if (offre.getCode_promo().equals(codePromo)) {
-                codePromoValide = true;
-                tauxReduction = offre.getReduction();
-                break;
-            }
-        }
-
-        // Si le code promo est valide, recalculer le prix total en appliquant la réduction
-        if (codePromoValide) {
-            calculerPrixTotal();
-            JOptionPane.showMessageDialog(this, "Code promo appliqué avec succès. Taux de réduction : " + tauxReduction + "%", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            // Sinon, afficher un message d'erreur
-            JOptionPane.showMessageDialog(this, "Code promo invalide", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    // Méthode pour calculer le prix total en fonction du nombre de billets de chaque type
     private void calculerPrixTotal() {
         int nbBilletsEnfant = (int) billetEnfantSpinner.getValue();
         int nbBilletsSenior = (int) billetSeniorSpinner.getValue();
@@ -246,7 +218,7 @@ public class ReservationVue extends JPanel {
 
         // Appliquer la réduction du code promo s'il est valide
         String codePromo = codePromoField.getText();
-        for (Offre offre : offres) {
+        for (Offre offre : info_offre) { // Utilisation de info_offre
             if (offre.getCode_promo().equals(codePromo)) {
                 prixTotal -= (prixTotal * offre.getReduction() / 100);
                 break;
@@ -256,6 +228,7 @@ public class ReservationVue extends JPanel {
         // Affichage du prix total
         prixTotalLabel.setText(String.format("Prix total : %.2f €", prixTotal));
     }
+
 
     // Méthode pour mettre à jour le champ "place restante" avec le nombre de places restantes pour la séance sélectionnée
     private void updatePlacesRestantes() {
