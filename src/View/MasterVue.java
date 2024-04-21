@@ -6,6 +6,9 @@ import Model.Sceance;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue principale de l'application Cinamax.
+ */
 public class MasterVue {
 
     private JFrame frame;
@@ -13,7 +16,9 @@ public class MasterVue {
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
 
-
+    /**
+     * Constructeur de la classe MasterVue.
+     */
     public MasterVue() {
         initialiserFrame();
         this.lancement_vue = new LancementVue();
@@ -21,6 +26,9 @@ public class MasterVue {
         this.principale_vue = new PrincipaleVue(this, frame.getWidth(), frame.getHeight());
     }
 
+    /**
+     * Méthode pour initialiser la JFrame principale de l'application.
+     */
     private void initialiserFrame() {
         // Obtention de la taille de l'écran
         Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -38,34 +46,53 @@ public class MasterVue {
         frame.setVisible(true);
     }
 
+    /**
+     * Méthode pour réinitialiser le contenu de la JFrame.
+     */
     private void resetFrame() {
         frame.getContentPane().removeAll(); // Retire tous les composants du contenu principal de la JFrame
         frame.getContentPane().revalidate(); // Recalculer la disposition des composants
         frame.getContentPane().repaint(); // Redessiner la JFrame
     }
 
+    /**
+     * Méthode pour afficher la vue de lancement de l'application.
+     */
     public void afficherVueLancement() {
         resetFrame();
         lancement_vue.remplirPanel(frame, frame.getWidth(), frame.getHeight());
         frame.setVisible(true);
     }
 
+    /**
+     * Méthode pour afficher la vue de connexion.
+     */
     public void afficherConnexion() {
         resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 1);
     }
 
+    /**
+     * Méthode pour afficher la vue d'inscription.
+     */
     public void afficherInscription() {
         resetFrame();
         ci_vue.creationCIPanel(frame, frame.getWidth(), frame.getHeight(), 2);
     }
 
+    /**
+     * Méthode pour afficher la vue principale de l'application.
+     */
     public void afficherPrincipaleVue(){
         resetFrame();
         frame.getContentPane().add(principale_vue);
         frame.setVisible(true);
     }
 
+    /**
+     * Méthode pour afficher un onglet spécifique en fonction de l'événement reçu.
+     * @param objet L'événement qui contient les données pour afficher un onglet spécifique.
+     */
     public void afficherOnglet(Object objet) {
         switch (objet) {
             case AffAccueilEvenement affAccueilEvenement -> principale_vue.afficherAccueil(affAccueilEvenement.getDatasets());
@@ -84,9 +111,11 @@ public class MasterVue {
         }
     }
 
+    /**
+     * Méthode pour modifier le statut de l'utilisateur dans la vue principale.
+     * @param statut Le nouveau statut de l'utilisateur.
+     */
     public void modif_statut_utilisateur(int statut) {
         principale_vue.modif_statut_utilisateur(statut);
     }
-
-
 }
