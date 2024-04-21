@@ -8,12 +8,21 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Panneau pour afficher les billets de l'utilisateur.
+ */
 public class AffichageBillet extends JPanel {
 
     // Attributs
     private int barre_navigation_panel_width; // Largeur de la barre de navigation
     private int hauteur; // Hauteur des panneaux de billets
 
+    /**
+     * Constructeur de la classe AffichageBillet.
+     *
+     * @param barre_navigation_panel_width la largeur de la barre de navigation
+     * @param frame_height la hauteur de la fenêtre principale
+     */
     public AffichageBillet(int barre_navigation_panel_width, int frame_height) {
         this.barre_navigation_panel_width = barre_navigation_panel_width;
         this.hauteur = frame_height / 3 - 30;
@@ -21,14 +30,21 @@ public class AffichageBillet extends JPanel {
         setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
-    // Méthode pour nettoyer les billets existants
+    /**
+     * Méthode pour nettoyer les billets existants.
+     * Supprime tous les composants du panneau.
+     */
     private void clearBillets() {
         removeAll(); // Supprimer tous les composants du panel
         revalidate();
         repaint();
     }
 
-    // Méthode pour mettre à jour les billets
+    /**
+     * Méthode pour mettre à jour les billets affichés.
+     *
+     * @param billets un tableau de billets à afficher
+     */
     public void updateBillets(Billet[] billets) {
         clearBillets(); // Effacer les billets précédents avant d'ajouter les nouveaux
         for (Billet billet : billets) {
