@@ -1,5 +1,4 @@
 package View.Onglets;
-
 import Controller.Evenements.AjoutSeanceBDDEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Sceance;
@@ -12,18 +11,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Vue pour gérer les séances, affichant une grille de séances et un formulaire pour ajouter de nouvelles séances.
+ */
 public class GererSeanceVue extends JPanel {
 
     // Attributs
+
+    /** Liste des séances actuellement gérées. */
     private Sceance[] seances;
 
+    /** Panneau pour afficher la grille des séances. */
     private JPanel panelGrille;
+
+    /** Bouton pour afficher le formulaire ou ajouter une séance. */
     private JButton boutonAfficher;
+
+    /** Grille d'affichage des séances. */
     private Grille grilleSeances;
+
+    /** Formulaire pour ajouter une nouvelle séance. */
     private FormulaireAjoutSeanceVue formulaireAjoutSeanceVue;
+
+    /** Indique si le formulaire est actuellement affiché. */
     private boolean formulaireAffiche = false;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue pour gérer les séances.
+     *
+     * @param barreNavigationPanelWidth Largeur de la barre de navigation.
+     * @param frameHeight              Hauteur de la fenêtre principale.
+     */
     public GererSeanceVue(int barreNavigationPanelWidth, int frameHeight) {
         setBackground(new Color(238, 238, 238)); // Définir la couleur de fond
         setPreferredSize(new Dimension(barreNavigationPanelWidth, frameHeight)); // Définir la taille préférée
@@ -53,12 +71,19 @@ public class GererSeanceVue extends JPanel {
         });
     }
 
+    /**
+     * Définit les séances à afficher dans la grille.
+     *
+     * @param seances Tableau d'objets Sceance à afficher.
+     */
     public void setGererSeances(Sceance[] seances) {
         this.seances = seances;
         grilleSeances.setSeances(seances);
     }
 
-    // Méthode pour afficher le formulaire d'ajout de séance
+    /**
+     * Affiche le formulaire d'ajout de séance.
+     */
     private void afficherFormulaire() {
         boutonAfficher.setText("Valider"); // Changer le texte du bouton en "Valider"
         formulaireAffiche = true; // Mettre le formulaire en mode affiché
@@ -68,7 +93,9 @@ public class GererSeanceVue extends JPanel {
         panelGrille.repaint(); // Redessiner le panneau
     }
 
-    // Méthode pour ajouter une séance
+    /**
+     * Ajoute une séance à la liste des séances.
+     */
     private void ajouterSeance() {
         Sceance nouvelleSeance = formulaireAjoutSeanceVue.createSeanceFromFields(); // Créer une nouvelle séance à partir des champs du formulaire
         if (nouvelleSeance != null) { // Vérifier si tous les champs sont remplis correctement
