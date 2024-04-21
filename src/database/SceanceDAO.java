@@ -54,9 +54,9 @@ public class SceanceDAO implements ISceanceDAO {
             ResultSet rs = donneerecup.executeQuery();
 
             while (rs.next()) {
-                Sceance sceance = new Sceance(0, 0, null, 0, null, 0);
+                Sceance sceance = new Sceance(0, "0", null, 0, null, 0);
                 sceance.setIdSceance(rs.getInt("id_sceance"));
-                sceance.setIdFilm(rs.getInt("id_film"));
+                sceance.setIdFilm(rs.getString("id_film"));
                 sceance.setHoraire(rs.getString("horaire"));
                 sceance.setIdSalle(rs.getInt("id_salle"));
                 sceance.setDate(rs.getString("date"));
