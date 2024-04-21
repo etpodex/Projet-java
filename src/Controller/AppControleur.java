@@ -136,6 +136,7 @@ public class AppControleur {
                 billet.setMailClient(utilisateur_connecte.getUuid());
                 billet_dao.ajouter(billet);
                 ((AffPaiementEvenement) objet).setBillet(billet);
+                master_vue.afficherOnglet(objet);
             }
         }
 
