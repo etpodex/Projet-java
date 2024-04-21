@@ -10,9 +10,9 @@ import java.util.logging.Logger;
  * This class provides a utility method to establish a connection to the database.
  */
 public class Databaseconnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/cinemajava"; // Replace with your DB URL
+    private static final String URL = "jdbc:mysql://localhost:3306/cinemaprojet"; // Replace with your DB URL
     private static final String USER = "root"; // Replace with your DB username
-    private static final String PASSWORD = "rootroot"; // Replace with your DB password
+    private static final String PASSWORD = "Direct1963!"; // Replace with your DB password
 
     private static final Logger LOGGER = Logger.getLogger(Databaseconnection.class.getName());
 
