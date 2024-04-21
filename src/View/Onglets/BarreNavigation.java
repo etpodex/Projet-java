@@ -5,22 +5,29 @@ import View.Onglets.BarreNavigationComposant.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * La classe BarreNavigation représente la barre de navigation affichée dans l'interface utilisateur.
+ * Elle permet à l'utilisateur de naviguer entre différentes vues de l'application.
+ */
 public class BarreNavigation extends JPanel {
 
     // Déclaration des composants de la barre de navigation
-    LesFilms les_films;
-    MesBillets mes_billets;
-    Accueil accueil;
-    MonCompte mon_compte;
-    Connexion connexion;
-    GererOffre gerer_offre;
-    GererFilm gerer_film;
-    GererSeance gerer_seance;
-    Deconnexion deconnexion;
+    private LesFilms les_films;
+    private MesBillets mes_billets;
+    private Accueil accueil;
+    private MonCompte mon_compte;
+    private Connexion connexion;
+    private GererOffre gerer_offre;
+    private GererFilm gerer_film;
+    private GererSeance gerer_seance;
+    private Deconnexion deconnexion;
 
-    JPanel panel_boutons;
+    private JPanel panel_boutons;
 
-    // Constructeur de la barre de navigation
+    /**
+     * Constructeur de la barre de navigation.
+     * Initialise les différents composants de la barre de navigation et définit la vue par défaut.
+     */
     public BarreNavigation() {
 
         this.panel_boutons = new JPanel();
@@ -48,8 +55,10 @@ public class BarreNavigation extends JPanel {
     }
 
     /**
-     * Change la vue actuelle
-     * @param vue_nb 0 pour invité, 1 pour client enfant, 2 pour employé, 3 pour client adulte, 4 pour client senior
+     * Change la vue actuelle de la barre de navigation en fonction du numéro de vue spécifié.
+     *
+     * @param vue_nb Le numéro de la vue à afficher.
+     *               0 pour invité, 1 pour client enfant, 2 pour employé, 3 pour client adulte, 4 pour client senior.
      */
     public void set_current_view(int vue_nb) {
         panel_boutons.removeAll();  // Suppression de tous les composants du panel
