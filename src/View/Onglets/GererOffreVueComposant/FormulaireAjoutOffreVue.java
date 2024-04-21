@@ -5,10 +5,15 @@ import Model.Offre;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel contenant un formulaire pour l'ajout d'une nouvelle offre.
+ */
 public class FormulaireAjoutOffreVue extends JPanel {
     private JTextField nomPromoField, reductionField, codePromoField;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue du formulaire d'ajout d'offre.
+     */
     public FormulaireAjoutOffreVue() {
         setLayout(new GridBagLayout()); // Configuration du layout en grille
         GridBagConstraints gbc = new GridBagConstraints(); // Création d'un objet GridBagConstraints pour contrôler la disposition des composants
@@ -21,7 +26,13 @@ public class FormulaireAjoutOffreVue extends JPanel {
         codePromoField = addFormField("Code Promo:", gbc);
     }
 
-    // Méthode privée pour ajouter un champ de texte avec son label correspondant
+    /**
+     * Méthode privée pour ajouter un champ de texte avec son label correspondant.
+     *
+     * @param labelText Le texte du label.
+     * @param gbc       Les contraintes de disposition GridBagConstraints.
+     * @return Le champ de texte JTextField créé.
+     */
     private JTextField addFormField(String labelText, GridBagConstraints gbc) {
         JLabel label = new JLabel(labelText); // Création d'un JLabel avec le texte du label
         JTextField textField = new JTextField(20); // Création d'un champ de texte JTextField
@@ -37,14 +48,22 @@ public class FormulaireAjoutOffreVue extends JPanel {
         return textField; // Retourne le champ de texte créé
     }
 
-    // Méthode pour vérifier si tous les champs sont remplis
+    /**
+     * Méthode pour vérifier si tous les champs du formulaire sont remplis.
+     *
+     * @return true si tous les champs sont remplis, sinon false.
+     */
     public boolean areAllFieldsFilled() {
         return !nomPromoField.getText().trim().isEmpty() &&
                 !reductionField.getText().trim().isEmpty() &&
                 !codePromoField.getText().trim().isEmpty();
     }
 
-    // Méthode pour créer un objet Offre à partir des champs de texte
+    /**
+     * Méthode pour créer un objet Offre à partir des données saisies dans les champs du formulaire.
+     *
+     * @return L'objet Offre créé ou null en cas d'erreur.
+     */
     public Offre createOffreFromFields() {
         try {
             int reduction = Integer.parseInt(reductionField.getText()); // Conversion du texte en entier pour la réduction

@@ -1,5 +1,3 @@
-package View.Onglets.GererOffreVueComposant;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -7,11 +5,19 @@ import java.awt.*;
 
 import Model.Offre;
 
+/**
+ * La classe Grille représente un composant Swing qui affiche une grille de données
+ * pour visualiser et gérer les offres.
+ */
 public class Grille extends JPanel {
 
-    private JTable table;
+    private JTable table; // La table affichant les offres
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Grille.
+     *
+     * @param offres Un tableau d'objets Offre représentant les offres à afficher dans la grille.
+     */
     public Grille(Offre[] offres) {
         setLayout(new BorderLayout()); // Configuration du layout en BorderLayout
 
@@ -43,14 +49,23 @@ public class Grille extends JPanel {
         }
     }
 
-    // Méthode pour ajouter une offre à la table
+    /**
+     * Méthode pour ajouter une offre à la grille.
+     *
+     * @param nomPromo  Le nom de la promotion.
+     * @param reduction Le pourcentage de réduction de la promotion.
+     * @param codePromo Le code de la promotion.
+     */
     public void ajouterOffre(String nomPromo, int reduction, String codePromo) {
         DefaultTableModel model = (DefaultTableModel) table.getModel(); // Récupération du modèle de la table
         // Ajout d'une nouvelle ligne avec les données de l'offre
         model.addRow(new Object[]{nomPromo, reduction, codePromo, "Supprimer"});
     }
 
-    // Classe interne pour le rendu des boutons dans la colonne "Supprimer"
+    /**
+     * Cette classe interne ButtonRenderer définit un rendu personnalisé pour les cellules
+     * contenant des boutons dans la colonne "Supprimer" de la grille.
+     */
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -63,7 +78,10 @@ public class Grille extends JPanel {
         }
     }
 
-    // Classe interne pour l'édition des cellules dans la colonne "Supprimer"
+    /**
+     * Cette classe interne ButtonEditor définit un éditeur personnalisé pour les cellules
+     * contenant des boutons dans la colonne "Supprimer" de la grille.
+     */
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;
         private String label;
