@@ -12,6 +12,7 @@ public class MasterVue {
     private CIVue ci_vue;
     private PrincipaleVue principale_vue;
 
+
     public MasterVue() {
         initialiserFrame();
         this.lancement_vue = new LancementVue();
@@ -90,5 +91,6 @@ public class MasterVue {
     public void modif_statut_utilisateur(int statut) {
         principale_vue.modif_statut_utilisateur(statut);
     }
+
 
 }

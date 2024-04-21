@@ -33,6 +33,7 @@ public class PrincipaleVue extends JPanel {
     private GererFilmVue gerer_film;
     private GererSeanceVue gerer_seance;
     private ReservationNerfVue reservation_nerf;
+    private int statut_utilisateur;
 
     // Constructeur
     public PrincipaleVue(MasterVue master_vue, int frame_width, int frame_height) {
@@ -74,6 +75,11 @@ public class PrincipaleVue extends JPanel {
 
         // Revalide la mise en page + Redessine le panneau
         refresh();
+    }
+
+    public void modif_statut_utilisateur(int statut) {
+        this.statut_utilisateur = statut;
+        barre_navigation.set_current_view(statut);
     }
 
     public void afficherLesFilms(Film[] films) {
@@ -122,8 +128,13 @@ public class PrincipaleVue extends JPanel {
 
     public void afficherReservation() {
         panneau_contenu.removeAll();
-        panneau_contenu.add(reservation_vue);
-        refresh();
+        if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
+            panneau_contenu.add(reservation_vue);
+            refresh();
+        } else {
+            panneau_contenu.add(reservation_nerf);
+            refresh();
+        }
     }
 
     public void afficherPaiementEnCours() {
@@ -144,9 +155,7 @@ public class PrincipaleVue extends JPanel {
         repaint();
     }
 
-    public void modif_statut_utilisateur(int statut) {
-        barre_navigation.set_current_view(statut);
-    }
+
 
 }
 

@@ -49,7 +49,7 @@ public class BarreNavigation extends JPanel {
 
     /**
      * Change la vue actuelle
-     * @param vue_nb 0 pour invité, 1 pour client, 2 pour employé
+     * @param vue_nb 0 pour invité, 1 pour client enfant, 2 pour employé, 3 pour client adulte, 4 pour client senior
      */
     public void set_current_view(int vue_nb) {
         panel_boutons.removeAll();  // Suppression de tous les composants du panel
