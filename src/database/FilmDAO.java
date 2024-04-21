@@ -102,7 +102,7 @@ public class FilmDAO implements IfilmDAO {
         // Utilisation de "champ" pour dynamiser la requête SQL
         String query = String.format("SELECT * FROM Films WHERE %s LIKE ? ORDER BY %s ASC", champ, champ);
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, "%" + critere + "%");
