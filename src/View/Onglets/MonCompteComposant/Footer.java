@@ -5,11 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panneau pour afficher les boutons "Modifier" et "Valider".
+ */
 public class Footer extends JPanel {
     // Attributs
     private JButton boutonModifier;
     private JButton boutonValider;
 
+    /**
+     * Constructeur de la classe Footer.
+     */
     public Footer() {
         setLayout(new BorderLayout()); // Utilisation d'un BorderLayout pour organiser les composants
         setBackground(new Color(238,238,238)); // Définition de la couleur de fond du panneau
@@ -48,12 +54,20 @@ public class Footer extends JPanel {
         add(boutonModifier, BorderLayout.EAST);
     }
 
-    // Méthode pour ajouter un écouteur d'événements au bouton "Modifier"
+    /**
+     * Méthode pour ajouter un écouteur d'événements au bouton "Modifier".
+     *
+     * @param listener l'écouteur d'événements à ajouter
+     */
     public void addModifierListener(ActionListener listener) {
         boutonModifier.addActionListener(listener);
     }
 
-    // Méthode pour ajouter un écouteur d'événements au bouton "Valider"
+    /**
+     * Méthode pour ajouter un écouteur d'événements au bouton "Valider".
+     *
+     * @param listener l'écouteur d'événements à ajouter
+     */
     public void addValiderListener(ActionListener listener) {
         boutonValider.addActionListener(listener);
     }

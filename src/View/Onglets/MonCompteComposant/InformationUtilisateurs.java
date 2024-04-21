@@ -2,8 +2,11 @@ package View.Onglets.MonCompteComposant;
 
 import javax.swing.*;
 import java.awt.*;
-import Model.Utilisateur; // Importation de la classe Utilisateur depuis le package Model
+import Model.Utilisateur;
 
+/**
+ * Panneau pour afficher les informations de l'utilisateur.
+ */
 public class InformationUtilisateurs extends JPanel {
 
     // Attributs
@@ -13,10 +16,14 @@ public class InformationUtilisateurs extends JPanel {
     private JTextField nvAvantageField;
     private JTextField emailField;
     private JTextField passwordField;
-    private Utilisateur utilisateur; // Instance de la classe Utilisateur
+    private Utilisateur utilisateur;
 
+    /**
+     * Constructeur de la classe InformationUtilisateurs.
+     * @param utilisateur l'utilisateur pour lequel afficher les informations.
+     */
     public InformationUtilisateurs(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur; // Initialisation de l'utilisateur
+        this.utilisateur = utilisateur;
 
         setBackground(new Color(255, 204, 204)); // Définition de la couleur de fond
         setLayout(new GridBagLayout()); // Utilisation d'un gestionnaire de disposition GridBagLayout

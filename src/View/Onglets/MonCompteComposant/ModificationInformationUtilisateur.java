@@ -2,8 +2,11 @@ package View.Onglets.MonCompteComposant;
 
 import javax.swing.*;
 import java.awt.*;
-import Model.Utilisateur; // Importation de la classe Utilisateur depuis le package Model
+import Model.Utilisateur;
 
+/**
+ * Panneau permettant la modification des informations de l'utilisateur.
+ */
 public class ModificationInformationUtilisateur extends JPanel {
 
     // Attributs
@@ -14,6 +17,10 @@ public class ModificationInformationUtilisateur extends JPanel {
     private JTextField emailField;
     private JTextField passwordField;
 
+    /**
+     * Constructeur de la classe ModificationInformationUtilisateur.
+     * @param utilisateur l'utilisateur pour lequel effectuer les modifications.
+     */
     public ModificationInformationUtilisateur(Utilisateur utilisateur) {
         setBackground(new Color(186, 230, 187)); // Définition de la couleur de fond
         setLayout(new GridBagLayout()); // Utilisation d'un gestionnaire de disposition GridBagLayout
