@@ -72,7 +72,7 @@ public class AppControleur {
             master_vue.afficherPVLesFilms();
         }**/ else if (objet instanceof EffacerFilmEvenement){
             System.out.println("bouton sup cliqué");
-        }//il faut supprimer les infos
+        }
 
         // Implemented AffPVEvenement events
         else if (objet instanceof AffLesFilmsEvenement) {

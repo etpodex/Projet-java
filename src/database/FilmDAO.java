@@ -97,9 +97,10 @@ public class FilmDAO implements IfilmDAO {
 
 
     @Override
-    public Film[] rechercher(String critere) {
+    public Film[] rechercher(String champ, String critere) {
         List<Film> filmList = new ArrayList<>();
-        String query = "SELECT * FROM Films WHERE nom LIKE ? ORDER BY nom ASC";
+        // Utilisation de "champ" pour dynamiser la requête SQL
+        String query = String.format("SELECT * FROM Films WHERE %s LIKE ? ORDER BY %s ASC", champ, champ);
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -112,7 +113,7 @@ public class FilmDAO implements IfilmDAO {
 
                 film.setUuid(rs.getString("uuid"));
                 film.setNom(rs.getString("nom"));
-                film.setSynopsis(rs.getString("Synopsis"));
+                film.setSynopsis(rs.getString("synopsis"));  // Assurez-vous que la casse du "Synopsis" soit correcte selon votre base de données
                 film.setNote(rs.getFloat("note"));
 
                 filmList.add(film);
