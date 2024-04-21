@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Evenements.AffConnexionEvenement;
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.AffInscriptionEvenement;
 import Controller.Evenements.SkipEvenement;
@@ -68,7 +69,10 @@ class Skip extends JPanel {
 
         //Bouton skip
         bouton_skip = new JButton ("Skip");
-        bouton_skip.addActionListener(e -> {FileEvenements.getInstance().publier(new SkipEvenement());} );
+        bouton_skip.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new SkipEvenement());
+            FileEvenements.getInstance().publier(new AffAccueilEvenement());
+        } );
 
         //GridBagLayout :
         GridBagConstraints gbc = new GridBagConstraints();

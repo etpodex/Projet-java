@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Evenements.AffichageOnglet.AffAccueilEvenement;
 import Controller.Evenements.ConnexionEvenement;
 import Controller.Evenements.FileEvenements;
 import Controller.Evenements.InscriptionEvenement;

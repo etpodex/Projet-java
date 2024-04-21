@@ -11,12 +11,7 @@ import java.awt.*;
  */
 public class OffreVue extends JPanel {
 
-    private Offre[] offres = new Offre[]{
-            new Offre("Offre1", 10, "CODE1"),
-            new Offre("Offre2", 20, "CODE2"),
-            new Offre("Offre3", 15, "CODE3")
-    };
-    private int nombre_de_panel_offre = offres.length; // Nombre de panneaux correspondant au nombre d'offres
+    private Offre[] offres; // Tableau d'offres
     private double[] poids_panels; // Poids des panneaux pour le layout
 
     /**
@@ -26,11 +21,6 @@ public class OffreVue extends JPanel {
      * @param frame_height                 La hauteur du frame.
      */
     public OffreVue(int barre_navigation_panel_width, int frame_height) {
-        // Initialiser les poids des panneaux en fonction du nombre d'offres
-        poids_panels = new double[nombre_de_panel_offre];
-        for (int i = 0; i < nombre_de_panel_offre; i++) {
-            poids_panels[i] = 1.0 / nombre_de_panel_offre;
-        }
 
         // Calcul de la hauteur des panneaux
         int hauteur = frame_height * 1 / 3 - 30;
@@ -44,9 +34,6 @@ public class OffreVue extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH; // Remplissage horizontal et vertical
-
-        // Appel de la méthode pour créer et ajouter les panneaux
-        creerEtAjouterPanels(gbc, hauteur);
     }
 
     /**
@@ -55,7 +42,7 @@ public class OffreVue extends JPanel {
      * @param gbc      Les contraintes de la grille.
      * @param hauteur  La hauteur des panneaux.
      */
-    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur) {
+    private void creerEtAjouterPanels(GridBagConstraints gbc, int hauteur, int nombre_de_panel_offre) {
         for (int i = 0; i < nombre_de_panel_offre; i++) {
             JPanel panel_offre = new JPanel(); // Création d'un nouveau JPanel
             panel_offre.setLayout(new BorderLayout()); // Utilisation d'un BorderLayout pour centrer le texte
@@ -77,5 +64,21 @@ public class OffreVue extends JPanel {
             // Ajout du JPanel au conteneur Offre
             add(panel_offre, gbc);
         }
+    }
+
+    public void setPromotions(Offre[] offres) {
+        int nombre_de_panel_offre = offres.length;
+
+        // Initialiser les poids des panneaux en fonction du nombre d'offres
+        poids_panels = new double[nombre_de_panel_offre];
+        for (int i = 0; i < nombre_de_panel_offre; i++) {
+            poids_panels[i] = 1.0 / nombre_de_panel_offre;
+        }
+
+        this.offres = offres;
+        removeAll();
+        creerEtAjouterPanels(new GridBagConstraints(), getHeight(), nombre_de_panel_offre);
+        revalidate();
+        repaint();
     }
 }

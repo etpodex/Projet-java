@@ -1,5 +1,6 @@
 package View.Onglets;
 
+import Model.Offre;
 import View.Onglets.AccueilVueComposant.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -15,6 +16,7 @@ import java.awt.*;
 public class AccueilVue extends JPanel {
 
     private Calendrier calendrier;  // Référence à la vue du calendrier
+    private OffreVue offreVue;  // Référence à la vue des offres
 
     /**
      * Constructeur prenant la largeur de la barre de navigation et la hauteur du frame comme paramètres.
@@ -30,7 +32,7 @@ public class AccueilVue extends JPanel {
         setLayout(new BorderLayout()); // Utilisation d'un BorderLayout pour organiser les composants
 
         // Crée les composants Offre et Calendrier
-        OffreVue offreVue = new OffreVue(barre_navigation_panel_width, frame_height);  // Créer le composant Offre
+        this.offreVue = new OffreVue(barre_navigation_panel_width, frame_height);  // Créer le composant Offre
         this.calendrier = new Calendrier(barre_navigation_panel_width, frame_height);  // Créer le composant Calendrier
 
         // Ajoute les composants Offre et Calendrier au panneau principal avec des positions spécifiques
@@ -46,6 +48,10 @@ public class AccueilVue extends JPanel {
      */
     public void setCharts(DefaultPieDataset pieDataset, DefaultCategoryDataset barDataset) {
         this.calendrier.setCharts(pieDataset, barDataset);  // Appeler la méthode setCharts de Calendrier
+    }
+
+    public void setOffres(Offre[] offres) {
+        this.offreVue.setPromotions(offres);
     }
 
 }

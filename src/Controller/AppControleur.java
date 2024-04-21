@@ -111,6 +111,8 @@ public class AppControleur {
             }
             ((AffAccueilEvenement) objet).setBarDataset(barDataset);
 
+            ((AffAccueilEvenement) objet).setOffres(offre_dao.rechercher(""));
+
             master_vue.afficherOnglet(objet);
 
         } else if (objet instanceof AffReservationEvenement){
