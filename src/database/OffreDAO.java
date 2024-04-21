@@ -41,12 +41,22 @@ public class OffreDAO implements IOffreDAO{
     public Offre[] rechercher(String id_promo) {
         List<Offre> offreList = new ArrayList<>();
 
-        String query = "SELECT nom,reduction,code_promo FROM offre WHERE code_promo = ?";
+        // La requête de base sélectionne tout
+        String query = "SELECT nom, reduction, code_promo FROM offre";
+
+        // Si id_promo n'est pas vide, on ajoute une condition WHERE
+        if (id_promo != null && !id_promo.isEmpty()) {
+            query += " WHERE code_promo LIKE ?";
+        }
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, id_promo);
+            // On ne définit le paramètre que si id_promo n'est pas vide
+            if (id_promo != null && !id_promo.isEmpty()) {
+                pstmt.setString(1, "%" + id_promo + "%");
+            }
+
             ResultSet rsCommande = pstmt.executeQuery();
 
             while (rsCommande.next()) {
@@ -70,6 +80,7 @@ public class OffreDAO implements IOffreDAO{
         Offre[] offresArrays = new Offre[offreList.size()];
         return offreList.toArray(offresArrays);
     }
+
 
     @Override
     public int retirer(String id_promo) {
