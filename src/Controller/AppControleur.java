@@ -1,17 +1,16 @@
 package Controller;
 
-import database.BilletDAO;
+import database.*;
 
 import Controller.Evenements.*;
 import Controller.Evenements.AffichageOnglet.*;
 import Model.Film;
 import View.MasterVue;
-import database.FilmDAO;
-import database.OffreDAO;
-import database.UtilisateurDAO;
+
 import java.util.List;
 
 import Model.Utilisateur;
+import Model.Sceance;
 import jdk.jshell.execution.Util;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -24,6 +23,7 @@ public class AppControleur {
     private UtilisateurDAO utilisateur_dao;
     private FilmDAO film_dao;
     private BilletDAO billet_dao;
+    private SceanceDAO seance_dao;
 
     private OffreDAO offre_dao; // estelle
 
@@ -37,6 +37,7 @@ public class AppControleur {
         utilisateur_dao = new UtilisateurDAO();
         film_dao = new FilmDAO();
         billet_dao = new BilletDAO();
+        seance_dao = new SceanceDAO();
         offre_dao = new OffreDAO(); // estelle
 
         chartController = new ChartController(); // estelle pour point bonus projet
@@ -78,7 +79,7 @@ public class AppControleur {
 
         // Implemented AffPVEvenement events
         else if (objet instanceof AffLesFilmsEvenement) {
-            ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher("nom",""));
+            ((AffLesFilmsEvenement) objet).setFilms(film_dao.rechercher("nom", ""));
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffMonCompteEvenement) {
             ((AffMonCompteEvenement) objet).setUtilisateur(utilisateur_connecte);
@@ -102,6 +103,10 @@ public class AppControleur {
             }
             ((AffAccueilEvenement) objet).setBarDataset(barDataset);
 
+        } else if (objet instanceof AffReservationEvenement){
+            Film film = ((AffReservationEvenement)objet).getFilm();
+            System.out.println(seance_dao.rechercher(film.getUuid())[0].getDate());
+            ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
             master_vue.afficherOnglet(objet);
         }
 

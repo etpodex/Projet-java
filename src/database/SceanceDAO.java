@@ -43,14 +43,14 @@ public class SceanceDAO implements ISceanceDAO {
         return 0;
     }
     @Override
-    public Sceance[] rechercher(String id_Sceance) {
+    public Sceance[] rechercher(String id_film) {
         List<Sceance> sceances = new ArrayList<>();
-        String query = "SELECT * FROM sceance WHERE id_sceance = ?";
+        String query = "SELECT * FROM sceance WHERE id_film = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement donneerecup = conn.prepareStatement(query)) {
 
-            donneerecup.setString(1, id_Sceance);
+            donneerecup.setString(1, id_film);
             ResultSet rs = donneerecup.executeQuery();
 
             while (rs.next()) {

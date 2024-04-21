@@ -21,12 +21,12 @@ public class AccueilVue extends JPanel {
         setLayout(new BorderLayout()); // Utilisation d'un BorderLayout pour organiser les composants
 
         // Crée les composants Offre et Calendrier
-        Offre offre = new Offre(barre_navigation_panel_width, frame_height);  // Créer le composant Offre
-        this.calendrier = new Calendrier(barre_navigation_panel_width, frame_height);  // Créer le composant Calendrier
+        OffreVue offreVue = new OffreVue(barre_navigation_panel_width, frame_height);  // Créer le composant Offre
+        Calendrier calendrier = new Calendrier(barre_navigation_panel_width, frame_height);  // Créer le composant Calendrier
 
         // Ajoute les composants Offre et Calendrier au panneau principal avec des positions spécifiques
-        add(offre, BorderLayout.NORTH);  // Ajouter Offre au nord du panneau
-        add(this.calendrier, BorderLayout.SOUTH);  // Ajouter Calendrier au sud du panneau
+        add(offreVue, BorderLayout.NORTH);  // Ajouter Offre au nord du panneau
+        add(calendrier, BorderLayout.SOUTH);  // Ajouter Calendrier au sud du panneau
     }
 
     public void setPieChart(DefaultPieDataset dataset) {
