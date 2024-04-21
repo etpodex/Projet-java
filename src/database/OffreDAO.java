@@ -48,6 +48,11 @@ public class OffreDAO implements IOffreDAO{
         if (id_promo != null && !id_promo.isEmpty()) {
             query += " WHERE code_promo LIKE ?";
         }
+
+        // Si id_promo n'est pas vide, on ajoute une condition WHERE
+        if (id_promo != null && !id_promo.isEmpty()) {
+            query += " WHERE code_promo LIKE ?";
+        }
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -62,7 +67,7 @@ public class OffreDAO implements IOffreDAO{
                 String nom = rsCommande.getString("nom");
                 int reduction = rsCommande.getInt("reduction");
                 String code_promo = rsCommande.getString("code_promo");
-                System.out.println("azertyu" + code_promo);
+
                 Offre offre = new Offre();
 
                 offre.setCode_promo(code_promo);
