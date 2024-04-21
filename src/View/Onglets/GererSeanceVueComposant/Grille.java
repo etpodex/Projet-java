@@ -43,7 +43,7 @@ public class Grille extends JPanel {
     }
 
     // Méthode pour ajouter une séance à la table
-    public void ajouterSeance(int idFilm, int salle, String horaire, String date) {
+    public void ajouterSeance(String idFilm, int salle, String horaire, String date) {
         DefaultTableModel model = (DefaultTableModel) table.getModel(); // Récupération du modèle de la table
         // Ajout d'une nouvelle ligne avec les données de la séance
         model.addRow(new Object[]{idFilm, salle, horaire, date, "Supprimer"});

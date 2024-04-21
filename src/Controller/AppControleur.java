@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Offre;
 import database.*;
 
 import Controller.Evenements.*;
@@ -88,8 +89,10 @@ public class AppControleur {
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffReservationEvenement){
             Film film = ((AffReservationEvenement)objet).getFilm();
-            System.out.println(seance_dao.rechercher(film.getUuid())[0].getDate());
             ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
+            //System.out.println(offre_dao.rechercher("")[0].toString());
+            ((AffReservationEvenement)objet).setOffre(offre_dao.rechercher("AZERTY"));
+            //System.out.println( "quelque chose : " + ((AffReservationEvenement)objet).getOffres()[0].toString());
             master_vue.afficherOnglet(objet);
         }
 

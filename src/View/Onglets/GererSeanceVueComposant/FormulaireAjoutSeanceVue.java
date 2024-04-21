@@ -49,7 +49,7 @@ public class FormulaireAjoutSeanceVue extends JPanel {
     // Méthode pour créer un objet Sceance à partir des champs de texte
     public Sceance createSeanceFromFields() {
         try {
-            int idFilm = Integer.parseInt(idFilmField.getText()); // Conversion du texte en entier pour l'ID du film
+            String idFilm = idFilmField.getText(); // Conversion du texte en entier pour l'ID du film
             int idSalle = Integer.parseInt(idSalleField.getText()); // Conversion du texte en entier pour l'ID de la salle
             String horaire = horaireField.getText(); // Récupération de l'horaire
             String date = dateField.getText(); // Récupération de la date

@@ -1,10 +1,7 @@
 package View;
 
 
-import Model.Billet;
-import Model.Film;
-import Model.Sceance;
-import Model.Utilisateur;
+import Model.*;
 import View.Onglets.*;
 import View.Onglets.ReservationVueComposant.PaiementEnCoursVue;
 import View.Onglets.ReservationVueComposant.PaiementVue;
@@ -132,11 +129,13 @@ public class PrincipaleVue extends JPanel {
         refresh();
     }
 
-    public void afficherReservation(Sceance[] seances) {
+    public void afficherReservation(Sceance[] seances, Offre[] offres) {
         panneau_contenu.removeAll();
         if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
             System.out.println(seances[0].toString());
             reservation_vue.update_info_seance(seances);
+            System.out.println(offres[0].toString());
+            reservation_vue.update_info_offre(offres);
             panneau_contenu.add(reservation_vue);
             refresh();
         } else {

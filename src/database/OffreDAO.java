@@ -41,7 +41,7 @@ public class OffreDAO implements IOffreDAO{
     public Offre[] rechercher(String id_promo) {
         List<Offre> offreList = new ArrayList<>();
 
-        String query = "SELECT nom,reduction,code_promo FROM offre WHERE code_promo = ?";
+        String query = "SELECT nom,reduction,code_promo FROM offre WHERE code_promo like ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -53,7 +53,7 @@ public class OffreDAO implements IOffreDAO{
                 String nom = rsCommande.getString("nom");
                 int reduction = rsCommande.getInt("reduction");
                 String code_promo = rsCommande.getString("code_promo");
-
+                System.out.println("azertyu" + code_promo);
                 Offre offre = new Offre();
 
                 offre.setCode_promo(code_promo);
