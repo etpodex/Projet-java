@@ -1,5 +1,7 @@
 package View.Onglets;
 
+import Controller.Evenements.FileEvenements;
+import Controller.Evenements.ModifierUtilisateurEvenement;
 import Model.Utilisateur;
 import View.Onglets.MonCompteComposant.*;
 
@@ -138,6 +140,7 @@ class InformationUtilisateurs extends JScrollPane {
         panel.add(passwordField, gbc);
 
         setViewportView(panel);
+        emailField.setEditable(false);
     }
 
     // Méthode pour mettre à jour les valeurs des champs de texte avec les informations utilisateur
@@ -167,16 +170,20 @@ class InformationUtilisateurs extends JScrollPane {
             nomField.setEditable(false);
             ageField.setEditable(false);
             nvAvantageField.setEditable(false);
-            emailField.setEditable(false);
             passwordField.setEditable(false);
             passwordField.setEchoChar('*'); // Masquer le mot de passe
+
+            Utilisateur utilisateur = new Utilisateur(null, emailField.getText(), nomField.getText(), prenomField.getText(),
+                    Integer.parseInt(ageField.getText()), Integer.parseInt(nvAvantageField.getText()), new String(passwordField.getPassword()));
+
+            FileEvenements.getInstance().publier(new ModifierUtilisateurEvenement(utilisateur));
+
         } else {
             // Activer le mode édition
             prenomField.setEditable(true);
             nomField.setEditable(true);
             ageField.setEditable(true);
             nvAvantageField.setEditable(true);
-            emailField.setEditable(true);
             passwordField.setEditable(true);
             passwordField.setEchoChar('\0'); // Afficher le mot de passe
         }

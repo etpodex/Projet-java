@@ -13,6 +13,8 @@ import java.util.List;
 
 import Model.Utilisateur;
 import jdk.jshell.execution.Util;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.Scanner;
 
@@ -63,14 +65,14 @@ public class AppControleur {
                     master_vue.modif_statut_utilisateur(utilisateur_connecte.getNvAvantage());
                 }
             }
+        } else if (objet instanceof ModifierUtilisateurEvenement) {
+            utilisateur_dao.modifier(((ModifierUtilisateurEvenement) objet).getUtilisateur());
         } else if (objet instanceof DeconnexionEvenement) {
             master_vue.afficherConnexion();
             master_vue.modif_statut_utilisateur(0);
         } else if (objet instanceof RetourCIEvenement) {
             master_vue.afficherVueLancement();
-        } /**else if (objet instanceof AffLesFilms) {
-            master_vue.afficherPVLesFilms();
-        }**/ else if (objet instanceof EffacerFilmEvenement){
+        } else if (objet instanceof EffacerFilmEvenement){
             System.out.println("bouton sup cliqué");
         }
 
@@ -83,6 +85,23 @@ public class AppControleur {
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffMesBilletsEvenement) {
             ((AffMesBilletsEvenement) objet).setBillets(billet_dao.rechercher(utilisateur_connecte.getUuid()));
+            master_vue.afficherOnglet(objet);
+        } else if (objet instanceof AffAccueilEvenement) {
+
+            DefaultPieDataset pieDataset = new DefaultPieDataset();
+            Film[] pie_data = film_dao.rechercher("note","");
+            for (Film film : pie_data) {
+                pieDataset.setValue(film.getNom(), film.getNote());
+            }
+            ((AffAccueilEvenement) objet).setPieDataset(pieDataset);
+
+            DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
+            Film[] bar_data = film_dao.rechercher("note","");
+            for (Film film : bar_data) {
+                barDataset.addValue(film.getNote(), film.getNom(), "Column");
+            }
+            ((AffAccueilEvenement) objet).setBarDataset(barDataset);
+
             master_vue.afficherOnglet(objet);
         }
 

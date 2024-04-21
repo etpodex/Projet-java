@@ -1,5 +1,8 @@
 package View.Onglets.AccueilVueComposant;
 
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.PieDataset;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,5 +22,13 @@ public class Calendrier extends JPanel {
         // Assurez-vous que ChartView soit visible et correctement dimensionné
         chartView.setPreferredSize(new Dimension(barre_navigation_panel_width, frame_height * 2 / 3 - 70));
         chartView.setVisible(true);
+    }
+
+    public void setPieChart(PieDataset dataset) {
+        chartView.setPieChart(dataset);  // Appeler la méthode setPieChart de ChartView
+    }
+
+    public void setBarChart(CategoryDataset dataset) {
+        chartView.setBarChart(dataset);  // Appeler la méthode setBarChart de ChartView
     }
 }
