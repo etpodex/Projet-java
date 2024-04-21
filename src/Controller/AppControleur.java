@@ -88,7 +88,8 @@ public class AppControleur {
             master_vue.afficherOnglet(objet);
         } else if (objet instanceof AffReservationEvenement){
             Film film = ((AffReservationEvenement)objet).getFilm();
-            ((AffReservationEvenement)objet).setListe_seance(seance_dao.rechercher(film.getUuid()));
+            System.out.println(seance_dao.rechercher(film.getUuid())[0].getDate());
+            ((AffReservationEvenement)objet).setReservation(seance_dao.rechercher(film.getUuid()));
             master_vue.afficherOnglet(objet);
         }
 
