@@ -135,6 +135,7 @@ public class PrincipaleVue extends JPanel {
     public void afficherReservation(Sceance[] seances) {
         panneau_contenu.removeAll();
         if (statut_utilisateur == 1 || statut_utilisateur == 3 || statut_utilisateur == 4) {
+            System.out.println(seances[0].toString());
             reservation_vue.update_info_seance(seances);
             panneau_contenu.add(reservation_vue);
             refresh();

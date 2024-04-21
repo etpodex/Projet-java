@@ -93,9 +93,5 @@ public class MasterVue {
         principale_vue.modif_statut_utilisateur(statut);
     }
 
-    public void update_info_seance(Sceance[] seance) {
-        principale_vue.update_info_seance(seance);
-    }
-
 
 }

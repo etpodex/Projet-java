@@ -6,9 +6,6 @@ import Model.Sceance;
 public class AffReservationEvenement extends AffPVEvenement {
     private Sceance[] liste_seance;
     private Film film;
-    public void setListe_seance(Sceance[] liste_seance) {
-
-    }
 
     public Film getFilm (){
         return film;
