@@ -58,4 +58,12 @@ public class ChartModel {
     public DefaultCategoryDataset getBarDataset() {
         return barDataset;
     }
+
+    public void setPieDataset(DefaultPieDataset dataset) {
+        this.pieDataset = dataset;
+    }
+
+    public void setBarDataset(DefaultCategoryDataset dataset) {
+        this.barDataset = dataset;
+    }
 }

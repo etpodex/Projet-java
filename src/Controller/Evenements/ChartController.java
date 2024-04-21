@@ -16,7 +16,6 @@ public class ChartController {
     // Méthode privée pour initialiser les graphiques dans la vue
     private void initializeCharts() {
         // Configurer les graphiques dans la vue avec les données du modèle
-        view.setPieChart(model.getPieDataset());  // Configurer le graphique en camembert
-        view.setBarChart(model.getBarDataset());  // Configurer le graphique en barres
+        view.setCharts(model.getPieDataset(), model.getBarDataset());
     }
 }
