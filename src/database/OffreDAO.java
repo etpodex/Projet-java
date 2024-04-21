@@ -1,6 +1,5 @@
 package database;
 
-
 import Model.Offre;
 
 import java.sql.Connection;
@@ -9,54 +8,64 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class OffreDAO implements IOffreDAO{
+/**
+ * This class provides methods to interact with the database for managing offers.
+ */
+public class OffreDAO implements IOffreDAO {
+
+    /**
+     * Adds an offer to the database.
+     *
+     * @param offre The offer to add to the database.
+     * @return 0 if the addition is successful, otherwise 1.
+     */
     @Override
     public int ajouter(Offre offre) {
-
-        String query = "INSERT INTO offre (nom,reduction,code_promo) VALUES (?,?,?)";
+        // SQL query to insert an offer into the database
+        String query = "INSERT INTO offre (nom, reduction, code_promo) VALUES (?, ?, ?)";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement recupdonne = conn.prepareStatement(query)) {
 
-            recupdonne.setString(1, offre.getNom_promo()); // UUID converti en String
+            // Set parameters for the query
+            recupdonne.setString(1, offre.getNom_promo());
             recupdonne.setString(2, String.valueOf(offre.getReduction()));
             recupdonne.setString(3, offre.getCode_promo());
 
+            // Execute the query
             int affectedRows = recupdonne.executeUpdate();
             if (affectedRows > 0) {
-
-                return 0;
+                return 0; // Successful addition
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return 1;
+        return 1; // Failed addition
     }
 
-
+    /**
+     * Searches for offers in the database.
+     *
+     * @param id_promo The promo code to search for. If null or empty, returns all offers.
+     * @return An array of offers corresponding to the search.
+     */
     @Override
     public Offre[] rechercher(String id_promo) {
         List<Offre> offreList = new ArrayList<>();
 
-        // La requête de base sélectionne tout
+        // Base query selects everything
         String query = "SELECT nom, reduction, code_promo FROM offre";
 
-        // Si id_promo n'est pas vide, on ajoute une condition WHERE
+        // If id_promo is not empty, add a WHERE condition
         if (id_promo != null && !id_promo.isEmpty()) {
             query += " WHERE code_promo LIKE ?";
         }
 
-        // Si id_promo n'est pas vide, on ajoute une condition WHERE
-        if (id_promo != null && !id_promo.isEmpty()) {
-            query += " WHERE code_promo LIKE ?";
-        }
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            // On ne définit le paramètre que si id_promo n'est pas vide
+            // Set the parameter only if id_promo is not empty
             if (id_promo != null && !id_promo.isEmpty()) {
                 pstmt.setString(1, "%" + id_promo + "%");
             }
@@ -85,26 +94,35 @@ public class OffreDAO implements IOffreDAO{
         return offreList.toArray(offresArrays);
     }
 
-
+    /**
+     * Removes an offer from the database.
+     *
+     * @param id_promo The promo code of the offer to remove.
+     * @return 0 if the removal is successful, otherwise 1.
+     */
     @Override
     public int retirer(String id_promo) {
+        // SQL query to delete an offer from the database
         String query = "DELETE FROM offre WHERE code_promo = ?";
 
         try (Connection conn = Databaseconnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
+            // Set the parameter for the query
             pstmt.setString(1, id_promo);
+
+            // Execute the query
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("offre supprimé avec succès.");
+                System.out.println("Offer deleted successfully.");
             } else {
-                System.out.println("Aucun offre trouvé avec cet identifiant.");
+                System.out.println("No offer found with this identifier.");
             }
-            return 0;
+            return 0; // Successful removal
         } catch (SQLException e) {
             e.printStackTrace();
-            return 1;
+            return 1; // Failed removal
         }
     }
 }
