@@ -2,6 +2,7 @@ package View.Onglets;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Billet;
 import Model.Sceance;
 
 import javax.swing.*;

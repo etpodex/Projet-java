@@ -2,6 +2,8 @@ package View.Onglets;
 
 import Controller.Evenements.AffichageOnglet.AffPaiementEvenement;
 import Controller.Evenements.FileEvenements;
+import Model.Billet;
+import Model.Film;
 import Model.Offre;
 import Model.Sceance;
 
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class ReservationVue extends JPanel {
 
@@ -23,6 +26,7 @@ public class ReservationVue extends JPanel {
 
     private Sceance[] info_seance;
     private Offre[] info_offre;
+    private Film film;
 
     // Prix des billets
     private static final double PRIX_BILLET = 10.0;
@@ -31,11 +35,7 @@ public class ReservationVue extends JPanel {
     private static final double REDUCTION_MEMBRE = 0.30;
 
     // Liste des offres avec leurs codes promo et réductions
-    private Offre[] offres = new Offre[]{
-            new Offre("Offre1", 10, "CODE1"),
-            new Offre("Offre2", 20, "CODE2"),
-            new Offre("Offre3", 15, "CODE3")
-    };
+    private Offre[] offres;
 
     // Constructeur
     public ReservationVue(int panneau_contenu_width, int frame_height) {
@@ -148,8 +148,30 @@ public class ReservationVue extends JPanel {
         JButton payerButton = new JButton("Payer");
         // Ajout d'un écouteur d'événements pour le bouton "Payer"
         payerButton.addActionListener(e -> {
+            // Récupérer la séance sélectionnée
+            int selectedIndex = sceanceComboBox.getSelectedIndex();
+
+            Random rand = new Random();
+            // Créer une liste de billets avec les quantités correspondantes
+            Billet billet = new Billet(
+                    info_seance[selectedIndex].getIdFilm(),
+                    info_seance[selectedIndex].getDate(),
+                    info_seance[selectedIndex].getHoraire(),
+                    String.valueOf(info_seance[selectedIndex].getIdSalle()),
+                    String.valueOf(rand.nextInt(50)),
+                    // Récupérer le nombre de billets de chaque type
+                    (int) billetAdulteSpinner.getValue(),
+                    (int) billetEnfantSpinner.getValue(),
+                    (int) billetSeniorSpinner.getValue(),
+                    null,
+                    null,
+                    info_seance[selectedIndex].getIdSceance()
+            );
+
+            AffPaiementEvenement evenement = new AffPaiementEvenement();
+            evenement.setBillet(billet);
             // Publier un événement de paiement en utilisant le gestionnaire d'événements FileEvenements
-            FileEvenements.getInstance().publier(new AffPaiementEvenement());
+            FileEvenements.getInstance().publier(evenement);
             // Réinitialiser les champs après un paiement réussi
             reinitialiserChamps();
         });

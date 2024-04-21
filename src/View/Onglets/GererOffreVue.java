@@ -1,3 +1,5 @@
+package View.Onglets;
+
 import Controller.Evenements.AjouterOffreEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Offre;
