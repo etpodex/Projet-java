@@ -13,6 +13,7 @@ public class ReservationNerfVue extends JPanel {
     private JSpinner billetAdulteSpinner;
     private JLabel prixTotalLabel;
     private JLabel placesRestantesLabel; // Champ pour afficher le nombre de places restantes
+    private Sceance[] info_seance;
 
     // Prix des billets
     private static final double PRIX_BILLET = 10.0;
@@ -110,6 +111,10 @@ public class ReservationNerfVue extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    public void update_info_seance(Sceance[] seance){
+        this.info_seance = seance;
     }
 
     private void calculerPrixTotal() {

@@ -42,6 +42,7 @@ public class Films extends JPanel {
         JLabel imageLabel = new JLabel(imageIcon);
         panel_image.add(imageLabel);
 
+
         add(panel_image);
 
         // Deuxième panel pour les détails du film et le bouton Réserver
@@ -72,7 +73,9 @@ public class Films extends JPanel {
         // Bouton Réserver
         JButton reserverButton = new JButton("Réserver");
         reserverButton.addActionListener(e -> {
-            FileEvenements.getInstance().publier(new AffReservationEvenement()); // Publier un événement de réservation
+            AffReservationEvenement resa_evenment = new AffReservationEvenement();
+            resa_evenment.setFilm(film);
+            FileEvenements.getInstance().publier(resa_evenment); // Publier un événement de réservation
         });
 
         // Ajout des composants au deuxième panel

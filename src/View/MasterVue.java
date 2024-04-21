@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Evenements.AffichageOnglet.*;
+import Model.Sceance;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,7 +80,7 @@ public class MasterVue {
             case AffLesFilmsEvenement affLesFilmsEvenement -> principale_vue.afficherLesFilms(affLesFilmsEvenement.getFilms());
             case AffMesBilletsEvenement affMesBilletsEvenement -> principale_vue.afficherMesBillets(affMesBilletsEvenement.getBillets());
             case AffMonCompteEvenement affMonCompteEvenement -> principale_vue.afficherMonCompte(affMonCompteEvenement.getUtilisateur());
-            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation();
+            case AffReservationEvenement affReservationEvenement -> principale_vue.afficherReservation(affReservationEvenement.getSeances());
             case AffPaiementEvenement affPaiementEvenement -> principale_vue.afficherPaiement();
             case AffPaiementEnCoursEvenement affPaiementEnCoursEvenement -> principale_vue.afficherPaiementEnCours();
             default -> {
@@ -90,6 +91,10 @@ public class MasterVue {
 
     public void modif_statut_utilisateur(int statut) {
         principale_vue.modif_statut_utilisateur(statut);
+    }
+
+    public void update_info_seance(Sceance[] seance) {
+        principale_vue.update_info_seance(seance);
     }
 
 
