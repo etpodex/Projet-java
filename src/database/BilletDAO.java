@@ -110,7 +110,7 @@ public class BilletDAO implements IBilletDAO{
                 billet.setNombreBilletSenior(nombreBilletSenior);
                 billet.setNombreBilletAdulte(nombreBilletAdulte);
                 billet.setNombreBilletEnfant(nombreBilletEnfant);
-                billet.setsiegeBillet(siegeBillet);
+                billet.setSiegeBillet(siegeBillet);
 
                 billetsList.add(billet);
             }
