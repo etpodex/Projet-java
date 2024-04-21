@@ -1,6 +1,8 @@
 package View.Onglets.AccueilVueComposant;
 
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
@@ -33,20 +35,12 @@ public class Calendrier extends JPanel {
     }
 
     /**
-     * Définit un graphique circulaire (pie chart) dans le panneau.
-     *
-     * @param dataset Le jeu de données du graphique circulaire.
-     */
-    public void setPieChart(PieDataset dataset) {
-        chartView.setPieChart(dataset);  // Appeler la méthode setPieChart de ChartView
-    }
-
-    /**
      * Définit un graphique à barres dans le panneau.
      *
-     * @param dataset Le jeu de données du graphique à barres.
+     * @param pieDataset Le jeu de données du graphique à barres.
+     * @param barDataset Le jeu de données du graphique à barres.
      */
-    public void setBarChart(CategoryDataset dataset) {
-        chartView.setBarChart(dataset);  // Appeler la méthode setBarChart de ChartView
+    public void setCharts(DefaultPieDataset pieDataset, DefaultCategoryDataset barDataset) {
+        chartView.setCharts(pieDataset, barDataset);  // Appeler la méthode setCharts de ChartView
     }
 }

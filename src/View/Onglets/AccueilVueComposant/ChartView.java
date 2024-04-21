@@ -5,6 +5,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +27,7 @@ public class ChartView extends JPanel {
 
         // Initialiser les graphiques avec les ensembles de données du modèle
         ChartModel model = new ChartModel();
-        setPieChart(model.getPieDataset());  // Afficher le graphique en camembert
-        setBarChart(model.getBarDataset());  // Afficher le graphique en barres
+        setCharts(model.getPieDataset(), model.getBarDataset());
 
         add(pieChartPanel);  // Ajouter le graphique en camembert au panneau
         add(barChartPanel);  // Ajouter le graphique en barres au panneau
@@ -35,29 +36,26 @@ public class ChartView extends JPanel {
     /**
      * Définit un graphique en camembert dans le panneau.
      *
-     * @param dataset Le jeu de données du graphique en camembert.
+     * @param pieDataset Le jeu de données du graphique en camembert.
+     * @param barDataset Le jeu de données du graphique en barres.
      */
-    public void setPieChart(PieDataset dataset) {
-        JFreeChart chart = ChartFactory.createPieChart("Tendance Film", dataset, true, true, false);
-        pieChartPanel = new ChartPanel(chart);
-        pieChartPanel.setChart(chart);
+    public void setCharts(DefaultPieDataset pieDataset, DefaultCategoryDataset barDataset) {
+
+        JFreeChart piechart = ChartFactory.createPieChart("Tendance Film", pieDataset, true, true, false);
+        pieChartPanel = new ChartPanel(piechart);
+        pieChartPanel.setChart(piechart);
         pieChartPanel.revalidate();
         pieChartPanel.repaint();
-        revalidate();  // Revalider pour refléter les changements de mise en page
-        repaint();  // Redessiner le composant
-    }
 
-    /**
-     * Définit un graphique en barres dans le panneau.
-     *
-     * @param dataset Le jeu de données du graphique en barres.
-     */
-    public void setBarChart(CategoryDataset dataset) {
-        JFreeChart chart = ChartFactory.createBarChart("Tendance Film", "Film", "Score", dataset);
-        barChartPanel = new ChartPanel(chart);
-        barChartPanel.setChart(chart);
+        JFreeChart barchart = ChartFactory.createBarChart("Tendance Film", "Film", "Score", barDataset);
+        barChartPanel = new ChartPanel(barchart);
+        barChartPanel.setChart(barchart);
         barChartPanel.revalidate();
         barChartPanel.repaint();
+
+        removeAll();
+        add(pieChartPanel);
+        add(barChartPanel);
         revalidate();  // Revalider pour refléter les changements de mise en page
         repaint();  // Redessiner le composant
     }

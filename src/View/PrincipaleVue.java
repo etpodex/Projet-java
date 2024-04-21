@@ -93,8 +93,7 @@ public class PrincipaleVue extends JPanel {
 
     public void afficherAccueil(Object[] datasets) {
         panneau_contenu.removeAll();
-        accueil_vue.setPieChart((DefaultPieDataset) datasets[0]);
-        accueil_vue.setBarChart((DefaultCategoryDataset) datasets[1]);
+        accueil_vue.setCharts((DefaultPieDataset) datasets[0], (DefaultCategoryDataset) datasets[1]);
         panneau_contenu.add(accueil_vue);
         refresh();
     }

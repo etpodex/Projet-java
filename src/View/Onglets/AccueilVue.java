@@ -41,19 +41,11 @@ public class AccueilVue extends JPanel {
     /**
      * Met à jour le graphique circulaire dans la vue du calendrier avec le jeu de données spécifié.
      *
-     * @param dataset Le jeu de données pour le graphique circulaire.
+     * @param pieDataset Le jeu de données pour le graphique circulaire.
+     * @param barDataset Le jeu de données pour le graphique à barres.
      */
-    public void setPieChart(DefaultPieDataset dataset) {
-        this.calendrier.setPieChart(dataset);  // Appeler la méthode setPieChart de Calendrier
-    }
-
-    /**
-     * Met à jour le graphique à barres dans la vue du calendrier avec le jeu de données spécifié.
-     *
-     * @param dataset Le jeu de données pour le graphique à barres.
-     */
-    public void setBarChart(DefaultCategoryDataset dataset) {
-        this.calendrier.setBarChart(dataset);  // Appeler la méthode setBarChart de Calendrier
+    public void setCharts(DefaultPieDataset pieDataset, DefaultCategoryDataset barDataset) {
+        this.calendrier.setCharts(pieDataset, barDataset);  // Appeler la méthode setCharts de Calendrier
     }
 
 }
