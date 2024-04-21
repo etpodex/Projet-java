@@ -5,21 +5,25 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
-
 import Controller.Evenements.AffichageOnglet.AffGererFilmEvenement;
 import Controller.Evenements.EffacerFilmEvenement;
 import Controller.Evenements.FileEvenements;
 import Model.Film;
 
+/**
+ * Panel contenant une grille pour afficher et gérer les films.
+ */
 public class Grille extends JPanel {
 
     private JTable table;
-
     private Film[] films;
 
-    // Constructeur
+    /**
+     * Constructeur de la grille.
+     *
+     * @param films Les films à afficher dans la grille.
+     */
     public Grille(Film[] films) {
-
         this.films = films;
         setLayout(new BorderLayout());
 
@@ -42,9 +46,13 @@ public class Grille extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(table); // Ajout de la table dans un JScrollPane
         add(scrollPane, BorderLayout.CENTER); // Ajout du JScrollPane au centre de ce panneau
-
     }
 
+    /**
+     * Méthode pour définir les films à afficher dans la grille.
+     *
+     * @param films Les films à afficher.
+     */
     public void setFilms(Film[] films) {
         this.films = films;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -54,13 +62,24 @@ public class Grille extends JPanel {
         }
     }
 
-    // Méthode pour ajouter un film à la table
+    /**
+     * Méthode pour ajouter un film à la grille.
+     *
+     * @param titre    Le titre du film.
+     * @param acteur   L'acteur principal du film.
+     * @param temps    La durée du film.
+     * @param note     La note du film.
+     * @param synopsis Le synopsis du film.
+     * @param affiche  L'affiche du film.
+     */
     public void ajouterFilm(String titre, String acteur, String temps, double note, String synopsis, Icon affiche) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{titre, acteur, temps, note, synopsis, affiche, "Supprimer"});
     }
 
-    // Classe interne pour le rendu des boutons dans la colonne "Supprimer"
+    /**
+     * Classe interne pour le rendu des boutons dans la colonne "Supprimer".
+     */
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -73,7 +92,9 @@ public class Grille extends JPanel {
         }
     }
 
-    // Classe interne pour l'édition des cellules dans la colonne "Supprimer"
+    /**
+     * Classe interne pour l'édition des cellules dans la colonne "Supprimer".
+     */
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;
         private String label;
@@ -107,16 +128,14 @@ public class Grille extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Récupérer l'uuid du film à supprimer à partir du numéro de ligne
+                // Récupérer l'UUID du film à supprimer à partir du numéro de ligne
                 int film_index = table.getSelectedRow();
                 String uuid = "";
-                if (film_index == -1) {
-                    return "";
-                } else {
+                if (film_index != -1) {
                     uuid = films[film_index].getUuid();
+                    FileEvenements.getInstance().publier(new EffacerFilmEvenement(uuid));
+                    ((DefaultTableModel) table.getModel()).removeRow(film_index);
                 }
-                FileEvenements.getInstance().publier(new EffacerFilmEvenement(uuid));
-                ((DefaultTableModel) table.getModel()).removeRow(film_index);
             }
             isPushed = false;
             return "";

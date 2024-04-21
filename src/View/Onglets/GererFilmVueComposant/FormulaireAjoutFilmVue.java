@@ -6,11 +6,18 @@ import View.Onglets.GererFilmVue;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel contenant le formulaire pour l'ajout d'un film.
+ */
 public class FormulaireAjoutFilmVue extends JPanel {
     private GererFilmVue parent; // Référence vers la vue parente
     private JTextField titreField, acteurField, tempsField, noteField, synopsisField, afficheField;
 
-    // Constructeur
+    /**
+     * Constructeur pour le formulaire d'ajout de film.
+     *
+     * @param parent La vue parente à laquelle ce formulaire appartient.
+     */
     public FormulaireAjoutFilmVue(GererFilmVue parent) {
         this.parent = parent; // Initialisation de la référence vers la vue parente
         setLayout(new GridBagLayout()); // Configuration du layout en grille
@@ -27,7 +34,13 @@ public class FormulaireAjoutFilmVue extends JPanel {
         afficheField = addFormField("URL de l'affiche:", gbc);
     }
 
-    // Méthode privée pour ajouter un champ de texte avec son label correspondant
+    /**
+     * Méthode privée pour ajouter un champ de texte avec son label correspondant.
+     *
+     * @param labelText Le texte du label.
+     * @param gbc       Les contraintes de disposition GridBagConstraints.
+     * @return Le champ de texte JTextField créé.
+     */
     private JTextField addFormField(String labelText, GridBagConstraints gbc) {
         JLabel label = new JLabel(labelText); // Création d'un JLabel avec le texte du label
         JTextField textField = new JTextField(20); // Création d'un champ de texte JTextField
@@ -43,7 +56,11 @@ public class FormulaireAjoutFilmVue extends JPanel {
         return textField; // Retourne le champ de texte créé
     }
 
-    // Méthode pour vérifier si tous les champs sont remplis
+    /**
+     * Méthode pour vérifier si tous les champs sont remplis.
+     *
+     * @return true si tous les champs sont remplis, false sinon.
+     */
     public boolean areAllFieldsFilled() {
         return !titreField.getText().trim().isEmpty() &&
                 !acteurField.getText().trim().isEmpty() &&
@@ -53,7 +70,11 @@ public class FormulaireAjoutFilmVue extends JPanel {
                 !afficheField.getText().trim().isEmpty();
     }
 
-    // Méthode pour créer un objet Film à partir des champs de texte
+    /**
+     * Méthode pour créer un objet Film à partir des champs de texte.
+     *
+     * @return L'objet Film créé à partir des champs de texte, ou null en cas d'erreur.
+     */
     public Film createFilmFromFields() {
         // Vérifier si la note est valide
         float note;
@@ -72,7 +93,7 @@ public class FormulaireAjoutFilmVue extends JPanel {
 
         // Si la note est valide, créer et retourner l'objet Film
         return new Film(
-                // Create a UUID
+                // Créer un UUID
                 java.util.UUID.randomUUID().toString(),
                 titreField.getText(), // Titre du film
                 acteurField.getText(), // Acteur principal
