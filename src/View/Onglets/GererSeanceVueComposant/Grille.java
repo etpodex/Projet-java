@@ -11,13 +11,20 @@ import Controller.Evenements.FileEvenements;
 import Controller.Evenements.SuppressionSeanceBDDEvenement;
 import Model.Sceance;
 
+/**
+ * Vue de la grille affichant les séances.
+ */
 public class Grille extends JPanel {
 
     private JTable table;
 
     private Sceance[] seances;
 
-    // Constructeur
+    /**
+     * Constructeur de la grille des séances.
+     *
+     * @param seances un tableau de séances à afficher dans la grille
+     */
     public Grille(Sceance[] seances) {
         setLayout(new BorderLayout()); // Configuration du layout en BorderLayout
 
@@ -45,14 +52,37 @@ public class Grille extends JPanel {
 
     }
 
-    // Méthode pour ajouter une séance à la table
+    /**
+     * Ajoute une séance à la table.
+     *
+     * @param idFilm  l'identifiant du film de la séance
+     * @param salle   le numéro de la salle de la séance
+     * @param horaire l'horaire de la séance
+     * @param date    la date de la séance
+     */
     public void ajouterSeance(String idFilm, int salle, String horaire, String date) {
         DefaultTableModel model = (DefaultTableModel) table.getModel(); // Récupération du modèle de la table
         // Ajout d'une nouvelle ligne avec les données de la séance
         model.addRow(new Object[]{idFilm, salle, horaire, date, "Supprimer"});
     }
 
-    // Classe interne pour le rendu des boutons dans la colonne "Supprimer"
+    /**
+     * Définit les séances à afficher dans la grille.
+     *
+     * @param seances un tableau de séances à afficher dans la grille
+     */
+    public void setSeances(Sceance[] seances) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        this.seances = seances;
+        model.setRowCount(0);
+        for (Sceance seance : seances) {
+            ajouterSeance(seance.getIdFilm(), seance.getIdSalle(), seance.getHoraire(), seance.getDate());
+        }
+    }
+
+    /**
+     * Rendu des boutons dans la colonne "Supprimer".
+     */
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -65,16 +95,9 @@ public class Grille extends JPanel {
         }
     }
 
-    public void setSeances(Sceance[] seances) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        this.seances = seances;
-        model.setRowCount(0);
-        for (Sceance seance : seances) {
-            ajouterSeance(seance.getIdFilm(), seance.getIdSalle(), seance.getHoraire(), seance.getDate());
-        }
-    }
-
-    // Classe interne pour l'édition des cellules dans la colonne "Supprimer"
+    /**
+     * Édition des cellules dans la colonne "Supprimer".
+     */
     private class ButtonEditor extends DefaultCellEditor {
         private JButton button;
         private String label;
@@ -104,7 +127,7 @@ public class Grille extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Recuperer l'uuid de la séance
+                // Récupérer l'uuid de la séance
                 String uuid = seances[table.getSelectedRow()].getIdSceance();
                 SuppressionSeanceBDDEvenement evenement = new SuppressionSeanceBDDEvenement();
                 evenement.setUuid(uuid);

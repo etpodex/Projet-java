@@ -5,10 +5,15 @@ import Model.Sceance;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue du formulaire d'ajout d'une séance.
+ */
 public class FormulaireAjoutSeanceVue extends JPanel {
     private JTextField idFilmField, idSalleField, horaireField, dateField;
 
-    // Constructeur
+    /**
+     * Constructeur de la vue du formulaire d'ajout de séance.
+     */
     public FormulaireAjoutSeanceVue() {
         setLayout(new GridBagLayout()); // Configuration du layout en grille
         GridBagConstraints gbc = new GridBagConstraints(); // Création d'un objet GridBagConstraints pour contrôler la disposition des composants
@@ -22,7 +27,13 @@ public class FormulaireAjoutSeanceVue extends JPanel {
         dateField = addFormField("Date:", gbc);
     }
 
-    // Méthode privée pour ajouter un champ de texte avec son label correspondant
+    /**
+     * Ajoute un champ de texte avec son label correspondant.
+     *
+     * @param labelText le texte du label à afficher
+     * @param gbc       l'objet GridBagConstraints pour contrôler la disposition des composants
+     * @return le champ de texte JTextField créé
+     */
     private JTextField addFormField(String labelText, GridBagConstraints gbc) {
         JLabel label = new JLabel(labelText); // Création d'un JLabel avec le texte du label
         JTextField textField = new JTextField(20); // Création d'un champ de texte JTextField
@@ -38,7 +49,11 @@ public class FormulaireAjoutSeanceVue extends JPanel {
         return textField; // Retourne le champ de texte créé
     }
 
-    // Méthode pour vérifier si tous les champs sont remplis
+    /**
+     * Vérifie si tous les champs sont remplis.
+     *
+     * @return true si tous les champs sont remplis, false sinon
+     */
     public boolean areAllFieldsFilled() {
         return !idFilmField.getText().trim().isEmpty() &&
                 !idSalleField.getText().trim().isEmpty() &&
@@ -46,7 +61,11 @@ public class FormulaireAjoutSeanceVue extends JPanel {
                 !dateField.getText().trim().isEmpty();
     }
 
-    // Méthode pour créer un objet Sceance à partir des champs de texte
+    /**
+     * Crée un objet Sceance à partir des champs de texte.
+     *
+     * @return l'objet Sceance créé, ou null en cas d'erreur de conversion
+     */
     public Sceance createSeanceFromFields() {
         try {
             String idFilm = idFilmField.getText(); // Conversion du texte en entier pour l'ID du film
