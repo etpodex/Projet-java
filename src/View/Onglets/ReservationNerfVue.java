@@ -34,8 +34,83 @@ public class ReservationNerfVue extends JPanel {
         setBackground(new Color(238, 238, 238)); // Définir la couleur de fond du panneau
         setLayout(new GridBagLayout()); // Utiliser un GridBagLayout pour organiser les composants
 
-        // Création des composants graphiques et leur ajout au panneau
-        // ...
+        // Création de la JLabel pour indiquer de choisir la séance
+        JLabel labelChoixSceance = new JLabel("Choisissez votre séance:");
+        GridBagConstraints gbcLabel = new GridBagConstraints();
+        gbcLabel.gridx = 0;
+        gbcLabel.gridy = 0;
+        gbcLabel.insets = new Insets(5, 5, 5, 5);
+        add(labelChoixSceance, gbcLabel);
+
+        // Création de la JComboBox pour sélectionner la séance
+        sceanceComboBox = new JComboBox<>();
+        GridBagConstraints gbcComboBox = new GridBagConstraints();
+        gbcComboBox.gridx = 1;
+        gbcComboBox.gridy = 0;
+        gbcComboBox.gridwidth = 2;
+        gbcComboBox.fill = GridBagConstraints.HORIZONTAL;
+        gbcComboBox.insets = new Insets(5, 5, 5, 5);
+        add(sceanceComboBox, gbcComboBox);
+
+
+        // Création des spinners pour le nombre de billets adultes
+        billetAdulteSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
+
+        // Création de la JLabel pour afficher le prix total
+        prixTotalLabel = new JLabel("Prix total : 0.00 €");
+        GridBagConstraints gbcPrixTotalLabel = new GridBagConstraints();
+        gbcPrixTotalLabel.gridx = 0;
+        gbcPrixTotalLabel.gridy = 4;
+        gbcPrixTotalLabel.gridwidth = 3;
+        gbcPrixTotalLabel.fill = GridBagConstraints.HORIZONTAL;
+        gbcPrixTotalLabel.insets = new Insets(5, 5, 5, 5);
+        add(prixTotalLabel, gbcPrixTotalLabel);
+
+        // Création de la JLabel pour afficher le nombre de places restantes
+        placesRestantesLabel = new JLabel("Places restantes : ");
+        GridBagConstraints gbcPlacesRestantesLabel = new GridBagConstraints();
+        gbcPlacesRestantesLabel.gridx = 0;
+        gbcPlacesRestantesLabel.gridy = 2;
+        gbcPlacesRestantesLabel.gridwidth = 3;
+        gbcPlacesRestantesLabel.fill = GridBagConstraints.HORIZONTAL;
+        gbcPlacesRestantesLabel.insets = new Insets(5, 5, 5, 5);
+        add(placesRestantesLabel, gbcPlacesRestantesLabel);
+
+        // Ajout d'un écouteur d'événements à la JComboBox
+        sceanceComboBox.addActionListener(e -> updatePlacesRestantes());
+
+        // Ajout d'un écouteur d'événements pour le spinner afin de mettre à jour le prix total
+        billetAdulteSpinner.addChangeListener(e -> calculerPrixTotal());
+
+        // Ajout du spinner dans un panneau
+        JPanel spinnerPanel = new JPanel();
+        spinnerPanel.setLayout(new GridLayout(1, 2));
+        spinnerPanel.add(new JLabel("Billet Adulte:"));
+        spinnerPanel.add(billetAdulteSpinner);
+
+        // Ajout du panneau de spinners
+        GridBagConstraints gbcSpinner = new GridBagConstraints();
+        gbcSpinner.gridx = 0;
+        gbcSpinner.gridy = 1;
+        gbcSpinner.gridwidth = 3;
+        gbcSpinner.fill = GridBagConstraints.HORIZONTAL;
+        gbcSpinner.insets = new Insets(5, 5, 5, 5);
+        add(spinnerPanel, gbcSpinner);
+
+        // Ajout du bouton "Payer"
+        JButton payerButton = new JButton("Payer");
+        payerButton.addActionListener(e -> {
+            FileEvenements.getInstance().publier(new AffPaiementEvenement());
+            reinitialiserChamps();
+        });
+
+        GridBagConstraints gbcPayerButton = new GridBagConstraints();
+        gbcPayerButton.gridx = 0;
+        gbcPayerButton.gridy = 3;
+        gbcPayerButton.gridwidth = 3;
+        gbcPayerButton.fill = GridBagConstraints.HORIZONTAL;
+        gbcPayerButton.insets = new Insets(5, 5, 5, 5);
+        add(payerButton, gbcPayerButton);
 
         revalidate();
         repaint();
